@@ -27,7 +27,7 @@ def bubbleSort(lst, key=lambda x:x, visualise=False, animate=False):
                     yield lst.copy()
 
         if visualise:
-            yield lst.copy().copy()
+            yield lst.copy()
         
 def bubbleSort_optimised(lst, key=lambda x:x, visualise=False, animate=False):
     '''
