@@ -176,11 +176,19 @@ class test_LinkedList(unittest.TestCase):
         self.assertEqual(LL.filter(lambda x: x%3==0).to_list(), [9, 3])
 
     def test_len_1(self):
-        # Tests if filter works correctly
+        # Tests if length works correctly
         LL = LinkedList([9,7,4,3])
         self.assertEqual(len(LL), 4)
 
     def test_equality_1(self):
-        # Tests if filter works correctly
+        # Tests if equality works correctly
         LL = LinkedList([9,7,4,3])
         self.assertEqual(LL == LL, True)
+
+    def test_randomOps_1(self):
+        # Tests if filter works correctly
+        LL = LinkedList([9,7,4,3])
+        LL.removeAtIndex(1).removeFront().removeBack().addAtIndex(123, 1)
+        self.assertEqual(LL.to_list(), [4, 123])
+        LL.addBack(234)
+        self.assertEqual(LL.get(2), 234)
