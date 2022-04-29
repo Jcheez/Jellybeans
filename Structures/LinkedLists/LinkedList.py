@@ -182,6 +182,17 @@ class LinkedList:
 
         return newLL
 
+    def to_list(self):
+        '''
+        Converts the LinkedList to a list
+        '''
+        currNode = self._head
+        result = []
+        while currNode != None:
+            result.append(currNode.getItem())
+            currNode = currNode.next()
+        return result
+
     def __len__(self):
         '''
         Returns the size of the linkedlist
