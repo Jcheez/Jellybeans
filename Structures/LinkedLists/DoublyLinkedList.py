@@ -1,3 +1,4 @@
+from typing import Any
 from .LinkedList import LinkedList
 from .DoublyNode import DoublyNode
 
@@ -8,7 +9,18 @@ class DoublyLinkedList(LinkedList):
     def __init__(self, items=None):
         self._tail = None
         super().__init__(items)
-        
+
+    def addFront(self, item:Any) -> LinkedList:
+        '''
+        Adds the item to the front of the linkedList
+        '''
+        newNode = DoublyNode(item, self._head)
+        self._head = newNode
+        if self._tail == None:
+            self._tail = newNode
+        self._size += 1
+        return self
+
     def addBack(self, item):
         '''
         Adds the item to the back of the linkedlist
@@ -53,12 +65,9 @@ class DoublyLinkedList(LinkedList):
         '''
         Remove the item at the front of the linked list
         '''
-        if self._size == 0:
-            return self
-        self._head = self._head.next()
-        self._head.setPrev(None)
-        self._size -= 1
-        return self
+        if self._size == 1:
+            self._tail = None
+        return super().removeFront()
 
     def removeBack(self):
         '''
@@ -66,13 +75,17 @@ class DoublyLinkedList(LinkedList):
         '''
         if self._size == 0:
             return self
+        elif self._size == 1:
+            self._head = None
+            self._tail = None
+            self._size -= 1
+            return self
         self._tail = self._tail.prev()
         self._tail.setNext(None)
         self._size -= 1
         return self
 
     def removeAtIndex(self, index):
-
         '''
         Remove an item from a specified index \n
         Args:

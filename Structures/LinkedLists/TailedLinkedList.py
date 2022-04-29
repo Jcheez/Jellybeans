@@ -1,3 +1,4 @@
+from typing import Any
 from .LinkedList import LinkedList
 from .Node import Node
 
@@ -8,6 +9,17 @@ class TailedLinkedList(LinkedList):
     def __init__(self, items=None):
         self._tail = None
         super().__init__(items)
+
+    def addFront(self, item:Any) -> LinkedList:
+        '''
+        Adds the item to the front of the linkedList
+        '''
+        newNode = Node(item, self._head)
+        self._head = newNode
+        if self._tail == None:
+            self._tail = newNode
+        self._size += 1
+        return self
 
     def addBack(self, item):
         '''
@@ -27,6 +39,14 @@ class TailedLinkedList(LinkedList):
         self._size += 1
         return self
 
+    def removeFront(self) -> LinkedList:
+        '''
+        Remove the item at the front of the linked list
+        '''
+        if self._size == 1:
+            self._tail = None
+        return super().removeFront()
+
     def removeBack(self):
         '''
         Remove the item at the back of the linked list
@@ -45,6 +65,16 @@ class TailedLinkedList(LinkedList):
             currNode.setNext(None)
             self._size -= 1
         return self
+
+    def removeAtIndex(self, index) -> LinkedList:
+        '''
+        Remove an item from a specified index \n
+        Args:
+            index: Index of item to remove
+        '''
+        if self._size == 1:
+            self._tail = None
+        return super().removeAtIndex(index)
 
     def map(self, func):
         '''
@@ -71,3 +101,8 @@ class TailedLinkedList(LinkedList):
             currNode = currNode.next()
 
         return newLL
+
+    def get(self, index):
+        if index == self._size - 1:
+            return self._tail.getItem()
+        return super().get(index)
