@@ -1,10 +1,12 @@
+from __future__ import annotations
+from typing import Any, NewType, Union
 from .Node import Node
 
 class LinkedList:
     '''
     Single Linked List
     '''
-    def __init__(self, item=None):
+    def __init__(self, item:Any = None):
         '''
         Create a LinkedList with 0 items, i item of multiple items \n
         Args:
@@ -18,12 +20,10 @@ class LinkedList:
         if (type(item) == list or type(item) == tuple):
             for i in item:
                 self.addBack(i)
-        elif len(item) == 1:
-            self.addBack(item)
         else:
-            raise TypeError(f"Type of sequence not supported")
+            self.addBack(item)
 
-    def addFront(self, item):
+    def addFront(self, item:Any) -> LinkedList:
         '''
         Adds the item to the front of the linkedList
         '''
@@ -32,7 +32,7 @@ class LinkedList:
         self._size += 1
         return self
         
-    def addBack(self, item):
+    def addBack(self, item:Any) -> LinkedList:
         '''
         Adds the item to the back of the linkedlist
         '''
@@ -48,7 +48,7 @@ class LinkedList:
         self._size += 1
         return self
     
-    def addAtIndex(self, item, index):
+    def addAtIndex(self, item:Any, index:int) -> LinkedList:
         '''
         Adds the item at a specified index of the linkedlist
         '''
@@ -69,7 +69,7 @@ class LinkedList:
             self._size += 1
         return self
 
-    def removeFront(self):
+    def removeFront(self) -> LinkedList:
         '''
         Remove the item at the front of the linked list
         '''
@@ -79,7 +79,7 @@ class LinkedList:
         self._size -= 1
         return self
 
-    def removeBack(self):
+    def removeBack(self) -> LinkedList:
         '''
         Remove the item at the back of the linked list
         '''
@@ -96,7 +96,7 @@ class LinkedList:
             self._size -= 1
         return self
 
-    def removeAtIndex(self, index):
+    def removeAtIndex(self, index) -> LinkedList:
         '''
         Remove an item from a specified index \n
         Args:
@@ -118,7 +118,7 @@ class LinkedList:
             self._size -= 1
             return self
 
-    def update(self, index, newItem):
+    def update(self, index: int, newItem:Any) -> LinkedList:
         '''
         Update the value of an item at a specified index
         Args:
@@ -127,7 +127,7 @@ class LinkedList:
         '''
         currNode = self._head
         if currNode == None:
-            return None
+            return self
         elif index < 0:
             raise IndexError("Linkedlist does not support negative indexing")
         elif index >= self._size:
@@ -139,7 +139,7 @@ class LinkedList:
         currNode.setItem(newItem)
         return self
 
-    def get(self, index):
+    def get(self, index: int) -> Union[None, int]:
         '''
         Returns the item at a specified index
         '''
@@ -156,7 +156,7 @@ class LinkedList:
             index -= 1
         return currNode.getItem()
 
-    def map(self, func):
+    def map(self, func: callable[Any:Any]) -> LinkedList:
         '''
         Maps the current LinkedList to a function. Returns a new LinkedList
         '''
@@ -169,7 +169,7 @@ class LinkedList:
 
         return newLL
 
-    def filter(self, func):
+    def filter(self, func: callable[Any:Any]) -> LinkedList:
         '''
         Filter the Linkedlist based on a function. Returns a new Linkedlist
         '''
@@ -182,7 +182,7 @@ class LinkedList:
 
         return newLL
 
-    def to_list(self):
+    def to_list(self) -> list:
         '''
         Converts the LinkedList to a list
         '''
@@ -193,13 +193,13 @@ class LinkedList:
             currNode = currNode.next()
         return result
 
-    def __len__(self):
+    def __len__(self) -> int:
         '''
         Returns the size of the linkedlist
         '''
         return self._size
 
-    def __str__(self):
+    def __str__(self) -> str:
         '''
         String Representation of the linkedlist
         '''
@@ -214,11 +214,11 @@ class LinkedList:
             currNode = currNode.next()
         return " => ".join(items)
 
-    def __eq__(self, other):
+    def __eq__(self, other:int) -> bool:
         '''
         Tells whether two LinkedLists are equal
         '''
-        if isinstance(other, LinkedList):
+        if not isinstance(other, LinkedList):
             return False
         elif self._size != len(other):
             return False
