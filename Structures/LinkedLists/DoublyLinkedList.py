@@ -68,6 +68,9 @@ class DoublyLinkedList(LinkedList):
         '''
         if self._size == 1:
             self._tail = None
+        
+        if self._size > 1:
+            self._head.next().setPrev(None)
         return super().removeFront()
 
     def removeBack(self) -> DoublyLinkedList:
@@ -108,6 +111,17 @@ class DoublyLinkedList(LinkedList):
             currNode.next().setPrev(currNode)
             self._size -= 1
             return self
+
+    def invert(self):
+        '''
+        Reverses the LL. Returns a new LinkedList
+        '''
+        newLL = DoublyLinkedList()
+        currNode = self._tail
+        while currNode != None:
+            newLL.addBack(currNode.getItem())
+            currNode = currNode.prev()
+        return newLL
 
     def map(self, func:Callable[[Any], Any]) -> DoublyLinkedList:
         '''

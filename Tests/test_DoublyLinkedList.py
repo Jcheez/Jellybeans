@@ -178,6 +178,16 @@ class test_DoublyLinkedList(unittest.TestCase):
         self.assertEqual(LL.get(2), 4)
         self.assertEqual(LL.get(3), 3)
 
+    def test_invert_1(self):
+        LL = DoublyLinkedList(12)
+        LL = LL.invert()
+        self.assertEqual(LL.to_list(), [12])
+
+    def test_invert_2(self):
+        LL = DoublyLinkedList([12,9,6,3,1])
+        LL = LL.invert()
+        self.assertEqual(LL.to_list(), [1, 3, 6, 9, 12])
+
     def test_map_1(self):
         # Tests if map works correctly
         LL = DoublyLinkedList([9,7,4,3])
@@ -207,3 +217,4 @@ class test_DoublyLinkedList(unittest.TestCase):
         LL.addBack(234)
         self.assertEqual(LL.get(2), 234)
         self.assertEqual(LL._tail.getItem(), 234)
+        self.assertEqual(LL.invert().to_list(), [234, 123, 4])
