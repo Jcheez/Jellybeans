@@ -1,4 +1,5 @@
-from typing import Any
+from __future__ import annotations
+from typing import Any, Callable
 from .LinkedList import LinkedList
 from .Node import Node
 
@@ -10,9 +11,9 @@ class TailedLinkedList(LinkedList):
         self._tail = None
         super().__init__(items)
 
-    def addFront(self, item:Any) -> LinkedList:
+    def addFront(self, item:Any) -> TailedLinkedList:
         '''
-        Adds the item to the front of the linkedList
+        Adds the item to the front of the TailedLinkedList
         '''
         newNode = Node(item, self._head)
         self._head = newNode
@@ -21,9 +22,9 @@ class TailedLinkedList(LinkedList):
         self._size += 1
         return self
 
-    def addBack(self, item):
+    def addBack(self, item:Any) -> TailedLinkedList:
         '''
-        Adds the item to the back of the linkedlist
+        Adds the item to the back of the TailedLinkedList
         '''
         newNode = Node(item)
 
@@ -39,17 +40,17 @@ class TailedLinkedList(LinkedList):
         self._size += 1
         return self
 
-    def removeFront(self) -> LinkedList:
+    def removeFront(self) -> TailedLinkedList:
         '''
-        Remove the item at the front of the linked list
+        Remove the item at the front of the TailedLinkedList
         '''
         if self._size == 1:
             self._tail = None
         return super().removeFront()
 
-    def removeBack(self):
+    def removeBack(self) -> TailedLinkedList:
         '''
-        Remove the item at the back of the linked list
+        Remove the item at the back of the TailedLinkedList
         '''
         if self._size == 0:
             return self
@@ -66,7 +67,7 @@ class TailedLinkedList(LinkedList):
             self._size -= 1
         return self
 
-    def removeAtIndex(self, index) -> LinkedList:
+    def removeAtIndex(self, index) -> TailedLinkedList:
         '''
         Remove an item from a specified index \n
         Args:
@@ -76,7 +77,7 @@ class TailedLinkedList(LinkedList):
             self._tail = None
         return super().removeAtIndex(index)
 
-    def map(self, func):
+    def map(self, func:Callable[[Any], Any]) -> TailedLinkedList:
         '''
         Maps the current LinkedList to a function. Returns a new TailedLinkedList
         '''
@@ -89,7 +90,7 @@ class TailedLinkedList(LinkedList):
 
         return newLL
 
-    def filter(self, func):
+    def filter(self, func:Callable[[Any], Any]) -> TailedLinkedList:
         '''
         Filter the Linkedlist based on a function. Returns a new TailedLinkedlist
         '''
@@ -102,7 +103,7 @@ class TailedLinkedList(LinkedList):
 
         return newLL
 
-    def get(self, index):
+    def get(self, index:int) -> int:
         if index == self._size - 1:
             return self._tail.getItem()
         return super().get(index)

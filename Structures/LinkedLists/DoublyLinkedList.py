@@ -1,4 +1,5 @@
-from typing import Any
+from __future__ import annotations
+from typing import Any, Callable
 from .LinkedList import LinkedList
 from .DoublyNode import DoublyNode
 
@@ -6,7 +7,7 @@ class DoublyLinkedList(LinkedList):
     '''
     Doubly Linked List
     '''
-    def __init__(self, items=None):
+    def __init__(self, items:Any=None):
         self._tail = None
         super().__init__(items)
 
@@ -21,7 +22,7 @@ class DoublyLinkedList(LinkedList):
         self._size += 1
         return self
 
-    def addBack(self, item):
+    def addBack(self, item:Any) -> DoublyLinkedList:
         '''
         Adds the item to the back of the linkedlist
         '''
@@ -40,7 +41,7 @@ class DoublyLinkedList(LinkedList):
         self._size += 1
         return self
     
-    def addAtIndex(self, item, index):
+    def addAtIndex(self, item:Any, index:int) -> DoublyLinkedList:
         '''
         Adds the item at a specified index of the linkedlist
         '''
@@ -61,7 +62,7 @@ class DoublyLinkedList(LinkedList):
             self._size += 1
         return self
 
-    def removeFront(self):
+    def removeFront(self) -> DoublyLinkedList:
         '''
         Remove the item at the front of the linked list
         '''
@@ -69,7 +70,7 @@ class DoublyLinkedList(LinkedList):
             self._tail = None
         return super().removeFront()
 
-    def removeBack(self):
+    def removeBack(self) -> DoublyLinkedList:
         '''
         Remove the item at the back of the linked list
         '''
@@ -85,7 +86,7 @@ class DoublyLinkedList(LinkedList):
         self._size -= 1
         return self
 
-    def removeAtIndex(self, index):
+    def removeAtIndex(self, index:int) -> DoublyLinkedList:
         '''
         Remove an item from a specified index \n
         Args:
@@ -108,7 +109,7 @@ class DoublyLinkedList(LinkedList):
             self._size -= 1
             return self
 
-    def map(self, func):
+    def map(self, func:Callable[[Any], Any]) -> DoublyLinkedList:
         '''
         Maps the current LinkedList to a function. Returns a new DoublyLinkedList
         '''
@@ -121,7 +122,7 @@ class DoublyLinkedList(LinkedList):
 
         return newLL
 
-    def filter(self, func):
+    def filter(self, func:Callable[[Any], Any]) -> DoublyLinkedList:
         '''
         Filter the Linkedlist based on a function. Returns a new DoublyLinkedlist
         '''

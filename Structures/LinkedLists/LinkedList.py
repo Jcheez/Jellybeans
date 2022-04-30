@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Any, NewType, Union
+from typing import Any, Callable, NewType, Union
 from .Node import Node
 
 class LinkedList:
@@ -156,7 +156,7 @@ class LinkedList:
             index -= 1
         return currNode.getItem()
 
-    def map(self, func: callable[Any:Any]) -> LinkedList:
+    def map(self, func: Callable[[Any], Any]) -> LinkedList:
         '''
         Maps the current LinkedList to a function. Returns a new LinkedList
         '''
@@ -169,7 +169,7 @@ class LinkedList:
 
         return newLL
 
-    def filter(self, func: callable[Any:Any]) -> LinkedList:
+    def filter(self, func: Callable[[Any], Any]) -> LinkedList:
         '''
         Filter the Linkedlist based on a function. Returns a new Linkedlist
         '''
