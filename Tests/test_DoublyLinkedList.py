@@ -218,3 +218,14 @@ class test_DoublyLinkedList(unittest.TestCase):
         self.assertEqual(LL.get(2), 234)
         self.assertEqual(LL._tail.getItem(), 234)
         self.assertEqual(LL.invert().to_list(), [234, 123, 4])
+
+    def test_randomOps_2(self):
+        # Tests if filter works correctly
+        LL = DoublyLinkedList([9,7,4,3, 15, 6, 18, 36])
+        LL.addFront(79).addBack(78).addAtIndex(27, 5)
+        self.assertEqual(LL.invert().to_list(), [78, 36, 18, 6, 15, 27, 3, 4, 7, 9, 79])
+        LL.removeFront().removeBack().removeAtIndex(7)
+        self.assertEqual(LL.invert().to_list(), [36, 6, 15, 27, 3, 4, 7, 9])
+        self.assertEqual(LL.to_list(), [9, 7, 4, 3, 27, 15, 6, 36])
+        self.assertEqual(LL.get(2), 4)
+        self.assertEqual(LL._tail.getItem(), 36)

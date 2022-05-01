@@ -17,6 +17,8 @@ class DoublyLinkedList(LinkedList):
         '''
         newNode = DoublyNode(item, self._head)
         self._head = newNode
+        if self._head.next() != None:
+            newNode.next().setPrev(newNode)
         if self._tail == None:
             self._tail = newNode
         self._size += 1
@@ -58,6 +60,7 @@ class DoublyLinkedList(LinkedList):
             for i in range(index-1):
                 currNode = currNode.next()
             newNode = DoublyNode(item, currNode.next(), currNode)
+            currNode.next().setPrev(newNode)
             currNode.setNext(newNode)
             self._size += 1
         return self
