@@ -49,6 +49,8 @@ class Stack:
         '''
         Visual Representation of the stack
         '''
+        if self.__size == 0:
+            return "[]"
         result = ""
         for idx in range(len(self.__stack) - 1, -1, -1):
             result += str(self.__stack[idx])
