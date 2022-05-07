@@ -6,7 +6,7 @@ class Queue:
     '''
     Queue is a FIFO Data structure
     '''
-    def __init__(self) -> None:
+    def __init__(self):
         self._size = 0
         self._queue = TailedLinkedList()
 
@@ -35,7 +35,7 @@ class Queue:
         self._queue.removeFront()
         return val
 
-    def enqueue(self, item) -> None:
+    def enqueue(self, item:Any) -> None:
         '''
         Add an item to the back of the queue
         '''
