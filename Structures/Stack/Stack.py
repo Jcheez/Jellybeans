@@ -1,6 +1,5 @@
 from typing import Any
 
-
 class Stack:
     '''
     Stack is a LIFO Data structure

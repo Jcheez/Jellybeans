@@ -46,6 +46,9 @@ class PriorityQueue:
         return result
 
     def sort(self) -> list:
+        '''
+        Returns a sorted list according to the rules of the comparator
+        '''
         result = []
         for i in range(self._size):
             result.append(self.extract())

@@ -1,7 +1,6 @@
 from typing import Any
 from Jellybeans.Structures import TailedLinkedList
 
-
 class Queue:
     '''
     Queue is a FIFO Data structure
