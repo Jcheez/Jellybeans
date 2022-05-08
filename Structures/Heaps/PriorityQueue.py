@@ -8,12 +8,14 @@ class PriorityQueue:
     PriorityQueue is a binary heap
     Default: MaxHeap
     '''
-    def __init__(self, arr:list = [None], comparator:Callable = lambda x, y: x >=y) -> None:
-        if arr[0] != None:
+    def __init__(self, arr:list = None, comparator:Callable = lambda x, y: x >=y) -> None:
+        if type(arr) != list and arr != None:
+            raise Exception("parameter arr must be of type list")
+        elif arr != None and (len(arr) == 0 or arr[0] != None):
             raise NotOneBasedIndexed("Input is not a one based Indexed list")
         
         self._size = 0 if arr is None else len(arr) - 1
-        self._container = arr
+        self._container = [None] if arr is None else arr
         self._comparator = comparator
 
         self.__quickTidy()
@@ -48,6 +50,9 @@ class PriorityQueue:
         for i in range(self._size):
             result.append(self.extract())
         return result
+
+    def isEmpty(self) -> bool:
+        return self._size == 0
 
     def __shiftUp(self, idx:int) -> None:
         '''
@@ -115,4 +120,4 @@ class PriorityQueue:
         '''
         Returns a string representation of the heap
         '''
-        pass
+        return str(self._container)
