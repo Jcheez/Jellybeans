@@ -12,8 +12,8 @@ class LinkedList:
         Args:
             item: either None, 1 item, or a list/tuple of items
         '''
-        self._head = None
-        self._size = 0
+        self.__head = None
+        self.__size = 0
         if item == None:
             return
         
@@ -27,9 +27,9 @@ class LinkedList:
         '''
         Adds the item to the front of the linkedList
         '''
-        newNode = Node(item, self._head)
-        self._head = newNode
-        self._size += 1
+        newNode = Node(item, self.__head)
+        self.__head = newNode
+        self.__size += 1
         return self
         
     def addBack(self, item:Any) -> LinkedList:
@@ -38,14 +38,14 @@ class LinkedList:
         '''
         newNode = Node(item)
 
-        if self._head == None:
-            self._head = newNode
+        if self.__head == None:
+            self.__head = newNode
         else:
-            currNode = self._head
+            currNode = self.__head
             while currNode.next() != None:
                 currNode = currNode.next()
             currNode.setNext(newNode)
-        self._size += 1
+        self.__size += 1
         return self
     
     def addAtIndex(self, item:Any, index:int) -> LinkedList:
@@ -54,46 +54,46 @@ class LinkedList:
         '''
         if index < 0:
             raise IndexError("Linkedlist does not support negative indexing")
-        elif index > self._size:
+        elif index > self.__size:
             raise IndexError("Invalid Index: Proposed index larger than size of linkedList")
         elif index == 0:
             self.addFront(item)
-        elif index == self._size:
+        elif index == self.__size:
             self.addBack(item)
         else:
-            currNode = self._head
+            currNode = self.__head
             for i in range(index-1):
                 currNode = currNode.next()
             newNode = Node(item, currNode.next())
             currNode.setNext(newNode)
-            self._size += 1
+            self.__size += 1
         return self
 
     def removeFront(self) -> LinkedList:
         '''
         Remove the item at the front of the linked list
         '''
-        if self._size == 0:
+        if self.__size == 0:
             return self
-        self._head = self._head.next()
-        self._size -= 1
+        self.__head = self.__head.next()
+        self.__size -= 1
         return self
 
     def removeBack(self) -> LinkedList:
         '''
         Remove the item at the back of the linked list
         '''
-        if self._size == 0:
+        if self.__size == 0:
             return self
-        elif self._size == 1:
-            self._head = None
-            self._size -= 1
+        elif self.__size == 1:
+            self.__head = None
+            self.__size -= 1
         else:
-            currNode = self._head
-            for iter in range(self._size - 2):
+            currNode = self.__head
+            for iter in range(self.__size - 2):
                 currNode = currNode.next()
             currNode.setNext(None)
-            self._size -= 1
+            self.__size -= 1
         return self
 
     def removeAtIndex(self, index) -> LinkedList:
@@ -104,18 +104,18 @@ class LinkedList:
         '''
         if index == 0:
             return self.removeFront()
-        elif index == self._size - 1:
+        elif index == self.__size - 1:
             return self.removeBack()
-        elif index >= self._size:
+        elif index >= self.__size:
             raise IndexError("Invalid Index: Proposed index larger than size of linkedList")
         elif index < 0:
             raise IndexError("Linkedlist does not support negative indexing")
         else:
-            currNode = self._head
+            currNode = self.__head
             for i in range(index - 1):
                 currNode = currNode.next()
             currNode.setNext(currNode.next().next())
-            self._size -= 1
+            self.__size -= 1
             return self
 
     def update(self, index: int, newItem:Any) -> LinkedList:
@@ -125,12 +125,12 @@ class LinkedList:
             index: index to be updated
             newItem: Item to be inserted into the linkedlist
         '''
-        currNode = self._head
+        currNode = self.__head
         if currNode == None:
             return self
         elif index < 0:
             raise IndexError("Linkedlist does not support negative indexing")
-        elif index >= self._size:
+        elif index >= self.__size:
             raise IndexError("Invalid Index: Proposed index larger than size of linkedList")
         
         while index > 0:
@@ -143,12 +143,12 @@ class LinkedList:
         '''
         Returns the item at a specified index
         '''
-        currNode = self._head
+        currNode = self.__head
         if currNode == None:
             return None
         elif index < 0:
             raise IndexError("Linkedlist does not support negative indexing")
-        elif index >= self._size:
+        elif index >= self.__size:
             raise IndexError("Invalid Index: Proposed index larger than size of linkedList")
         
         while index > 0:
@@ -161,7 +161,7 @@ class LinkedList:
         Maps the current LinkedList to a function. Returns a new LinkedList
         '''
         newLL = LinkedList()
-        currNode = self._head
+        currNode = self.__head
 
         while currNode != None:
             newLL.addBack(func(currNode.getItem()))
@@ -174,7 +174,7 @@ class LinkedList:
         Filter the Linkedlist based on a function. Returns a new Linkedlist
         '''
         newLL = LinkedList()
-        currNode = self._head
+        currNode = self.__head
         while currNode != None:
             if func(currNode.getItem()):
                 newLL.addBack(currNode.getItem())
@@ -186,7 +186,7 @@ class LinkedList:
         '''
         Converts the LinkedList to a list
         '''
-        currNode = self._head
+        currNode = self.__head
         result = []
         while currNode != None:
             result.append(currNode.getItem())
@@ -197,13 +197,13 @@ class LinkedList:
         '''
         Returns the size of the linkedlist
         '''
-        return self._size
+        return self.__size
 
     def __str__(self) -> str:
         '''
         String Representation of the linkedlist
         '''
-        currNode = self._head
+        currNode = self.__head
         items = []
 
         if currNode == None:
@@ -220,11 +220,11 @@ class LinkedList:
         '''
         if not isinstance(other, LinkedList):
             return False
-        elif self._size != len(other):
+        elif self.__size != len(other):
             return False
 
-        curr1 = self._head
-        curr2 = other._head
+        curr1 = self.__head
+        curr2 = other.__head
 
         while curr1 != None and curr2 != None:
             if curr1.getItem() != curr2.getItem():

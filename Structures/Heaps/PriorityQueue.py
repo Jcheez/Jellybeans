@@ -14,9 +14,9 @@ class PriorityQueue:
         elif arr != None and (len(arr) == 0 or arr[0] != None):
             raise NotOneBasedIndexed("Input is not a one based Indexed list")
         
-        self._size = 0 if arr is None else len(arr) - 1
-        self._container = [None] if arr is None else arr
-        self._comparator = comparator
+        self.__size = 0 if arr is None else len(arr) - 1
+        self.__container = [None] if arr is None else arr
+        self.__comparator = comparator
 
         self.__quickTidy()
     
@@ -24,24 +24,24 @@ class PriorityQueue:
         '''
         Insert an item into the heap
         '''
-        self._size += 1
-        self._container.append(item)
-        self.__shiftUp(self._size)
+        self.__size += 1
+        self.__container.append(item)
+        self.__shiftUp(self.__size)
 
     def peek(self) -> Any:
         '''
         Returns the root node of the heap
         '''
-        return self._container[1]
+        return self.__container[1]
 
     def extract(self) -> Any:
         '''
         Returns and remove the root node of the heap
         '''
-        result = self._container[1]
-        self._container[1] = self._container[self._size]
-        self._size -= 1
-        self._container.pop()
+        result = self.__container[1]
+        self.__container[1] = self.__container[self.__size]
+        self.__size -= 1
+        self.__container.pop()
         self.__shiftDown(1)
         return result
 
@@ -50,20 +50,20 @@ class PriorityQueue:
         Returns a sorted list according to the rules of the comparator
         '''
         result = []
-        for i in range(self._size):
+        for i in range(self.__size):
             result.append(self.extract())
         return result
 
     def isEmpty(self) -> bool:
-        return self._size == 0
+        return self.__size == 0
 
     def __shiftUp(self, idx:int) -> None:
         '''
         INTERNAL FUNCTION
         Conduct shiftups on a node so that heap property is not violated
         '''
-        while idx > 1 and self._comparator(self._container[idx], self._container[self.__parent(idx)]):
-            swap(self._container, idx, self.__parent(idx))
+        while idx > 1 and self.__comparator(self.__container[idx], self.__container[self.__parent(idx)]):
+            swap(self.__container, idx, self.__parent(idx))
             idx = self.__parent(idx)
 
     def __shiftDown(self, idx:int) -> None:
@@ -71,19 +71,19 @@ class PriorityQueue:
         INTERNAL FUNCTION
         Conduct shiftdowns on a node so that heap property is not violated
         '''
-        while idx <= self._size:
+        while idx <= self.__size:
             currIdx = idx
-            currNode = self._container[idx]
-            if self.__left(idx) <= self._size and self._comparator(self._container[self.__left(idx)], currNode):
+            currNode = self.__container[idx]
+            if self.__left(idx) <= self.__size and self.__comparator(self.__container[self.__left(idx)], currNode):
                 currIdx = self.__left(idx)
-                currNode = self._container[self.__left(idx)]
+                currNode = self.__container[self.__left(idx)]
 
-            if self.__right(idx) <= self._size and self._comparator(self._container[self.__right(idx)], currNode):
+            if self.__right(idx) <= self.__size and self.__comparator(self.__container[self.__right(idx)], currNode):
                 currIdx = self.__right(idx)
-                currNode = self._container[self.__right(idx)]
+                currNode = self.__container[self.__right(idx)]
 
             if (currIdx != idx):
-                swap(self._container, idx, currIdx)
+                swap(self.__container, idx, currIdx)
                 idx = currIdx
             else:
                 break
@@ -109,18 +109,18 @@ class PriorityQueue:
         '''
         return i*2 + 1
 
-    def __quickTidy(self):
-        for idx in range(self.__parent(self._size), 0, -1):
+    def __quickTidy(self) -> None:
+        for idx in range(self.__parent(self.__size), 0, -1):
             self.__shiftDown(idx)
 
-    def __len__(self):
+    def __len__(self) -> int:
         '''
         Returns the size of the heap
         '''
-        return self._size
+        return self.__size
 
-    def __str__(self):
+    def __str__(self) -> str:
         '''
         Returns a string representation of the heap
         '''
-        return str(self._container)
+        return str(self.__container.copy())

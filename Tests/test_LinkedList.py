@@ -7,7 +7,7 @@ class test_LinkedList(unittest.TestCase):
         # Tests if addFront works with a empty LL
         LL = LinkedList()
         LL.addFront(12)
-        self.assertEqual(LL._size, 1)
+        self.assertEqual(len(LL), 1)
         self.assertEqual(LL.to_list(), [12])
         self.assertEqual(LL.get(0), 12)
 
@@ -15,7 +15,7 @@ class test_LinkedList(unittest.TestCase):
         # Tests if addFront works with a non-empty LL
         LL = LinkedList([9,7,4,3])
         LL.addFront(12)
-        self.assertEqual(LL._size, 5)
+        self.assertEqual(len(LL), 5)
         self.assertEqual(LL.to_list(), [12, 9, 7, 4, 3])
         self.assertEqual(LL.get(0), 12)
 
@@ -23,7 +23,7 @@ class test_LinkedList(unittest.TestCase):
         # Tests if addBack works with a empty LL
         LL = LinkedList()
         LL.addBack(12)
-        self.assertEqual(LL._size, 1)
+        self.assertEqual(len(LL), 1)
         self.assertEqual(LL.to_list(), [12])
         self.assertEqual(LL.get(0), 12)
 
@@ -31,7 +31,7 @@ class test_LinkedList(unittest.TestCase):
         # Tests if addBack works with a non-empty LL
         LL = LinkedList([9,7,4,3])
         LL.addBack(12)
-        self.assertEqual(LL._size, 5)
+        self.assertEqual(len(LL), 5)
         self.assertEqual(LL.to_list(), [9, 7, 4, 3, 12])
         self.assertEqual(LL.get(0), 9)
 
@@ -39,7 +39,7 @@ class test_LinkedList(unittest.TestCase):
         # Tests if addAtIndex works with an empty LL
         LL = LinkedList()
         LL.addAtIndex(12, 0)
-        self.assertEqual(LL._size, 1)
+        self.assertEqual(len(LL), 1)
         self.assertEqual(LL.to_list(), [12])
         self.assertEqual(LL.get(0), 12)
 
@@ -47,7 +47,7 @@ class test_LinkedList(unittest.TestCase):
         # Tests if addAtIndex works with a LL with 1 element
         LL = LinkedList(12)
         LL.addAtIndex(24, 1)
-        self.assertEqual(LL._size, 2)
+        self.assertEqual(len(LL), 2)
         self.assertEqual(LL.to_list(), [12, 24])
         self.assertEqual(LL.get(0), 12)
 
@@ -55,7 +55,7 @@ class test_LinkedList(unittest.TestCase):
         # Tests if addAtIndex works with a non-empty LL
         LL = LinkedList([9,7,4,3])
         LL.addAtIndex(12, 3)
-        self.assertEqual(LL._size, 5)
+        self.assertEqual(len(LL), 5)
         self.assertEqual(LL.to_list(), [9, 7, 4, 12, 3])
         self.assertEqual(LL.get(0), 9)
 
@@ -72,7 +72,7 @@ class test_LinkedList(unittest.TestCase):
         # Tests if removeFront works with LL size 1
         LL = LinkedList(13)
         LL.removeFront()
-        self.assertEqual(LL._size, 0)
+        self.assertEqual(len(LL), 0)
         self.assertEqual(LL.to_list(), [])
         self.assertEqual(LL.get(0), None)
 
@@ -80,7 +80,7 @@ class test_LinkedList(unittest.TestCase):
         # Tests if removeFront works with a non-empty LL
         LL = LinkedList([9,7,4,3])
         LL.removeFront()
-        self.assertEqual(LL._size, 3)
+        self.assertEqual(len(LL), 3)
         self.assertEqual(LL.to_list(), [7, 4, 3])
         self.assertEqual(LL.get(0), 7)
 
@@ -88,7 +88,7 @@ class test_LinkedList(unittest.TestCase):
         # Tests if removeFront works with LL size 0
         LL = LinkedList()
         LL.removeFront()
-        self.assertEqual(LL._size, 0)
+        self.assertEqual(len(LL), 0)
         self.assertEqual(LL.to_list(), [])
         self.assertEqual(LL.get(0), None)
 
@@ -96,7 +96,7 @@ class test_LinkedList(unittest.TestCase):
         # Tests if removeBack works with LL size 0
         LL = LinkedList()
         LL.removeBack()
-        self.assertEqual(LL._size, 0)
+        self.assertEqual(len(LL), 0)
         self.assertEqual(LL.to_list(), [])
         self.assertEqual(LL.get(0), None)
 
@@ -104,7 +104,7 @@ class test_LinkedList(unittest.TestCase):
         # Tests if removeBack works with a LL size 1
         LL = LinkedList(9)
         LL.removeBack()
-        self.assertEqual(LL._size, 0)
+        self.assertEqual(len(LL), 0)
         self.assertEqual(LL.to_list(), [])
         self.assertEqual(LL.get(0), None)
 
@@ -112,7 +112,7 @@ class test_LinkedList(unittest.TestCase):
         # Tests if removeBack works with a non-empty LL
         LL = LinkedList([9,7,4,3])
         LL.addBack(12)
-        self.assertEqual(LL._size, 5)
+        self.assertEqual(len(LL), 5)
         self.assertEqual(LL.to_list(), [9, 7, 4, 3, 12])
         self.assertEqual(LL.get(0), 9)
         
@@ -120,7 +120,7 @@ class test_LinkedList(unittest.TestCase):
         # Tests if removeAtIndex works with a LL with 1 element
         LL = LinkedList(12)
         LL.removeAtIndex(0)
-        self.assertEqual(LL._size, 0)
+        self.assertEqual(len(LL), 0)
         self.assertEqual(LL.to_list(), [])
         self.assertEqual(LL.get(0), None)
 
@@ -128,7 +128,7 @@ class test_LinkedList(unittest.TestCase):
         # Tests if removeAtIndex works with a non-empty LL
         LL = LinkedList([9,7,4,3])
         LL.removeAtIndex(2)
-        self.assertEqual(LL._size, 3)
+        self.assertEqual(len(LL), 3)
         self.assertEqual(LL.to_list(), [9, 7, 3])
         self.assertEqual(LL.get(0), 9)
 

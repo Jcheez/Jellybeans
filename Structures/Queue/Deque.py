@@ -12,5 +12,5 @@ class Deque(Queue):
         '''
         Add an item to the front of the queue
         '''
-        self._size += 1
-        self._queue.addFront(item)
+        self._Queue__size += 1
+        self._Queue__queue.addFront(item)

@@ -6,14 +6,14 @@ class Queue:
     Queue is a FIFO Data structure
     '''
     def __init__(self):
-        self._size = 0
-        self._queue = TailedLinkedList()
+        self.__size = 0
+        self.__queue = TailedLinkedList()
 
     def isEmpty(self) -> bool:
         '''
         Returns whether a queue is empty
         '''
-        return self._size == 0
+        return self.__size == 0
 
     def peek(self) -> Any:
         '''
@@ -21,36 +21,36 @@ class Queue:
         '''
         if self.isEmpty():
             return None
-        return self._queue.get(0)
+        return self.__queue.get(0)
 
     def dequeue(self) -> Any:
         '''
         Returns and remove the element at the front of the queue
         '''
-        if self._size == 0:
+        if self.__size == 0:
             raise IndexError("No item available for removal")
-        self._size -= 1
-        val = self._queue.get(0)
-        self._queue.removeFront()
+        self.__size -= 1
+        val = self.__queue.get(0)
+        self.__queue.removeFront()
         return val
 
     def enqueue(self, item:Any) -> None:
         '''
         Add an item to the back of the queue
         '''
-        self._size += 1
-        self._queue.addBack(item)
+        self.__size += 1
+        self.__queue.addBack(item)
 
     def __len__(self) -> int:
         '''
         Returns the size of the queue
         '''
-        return self._size
+        return self.__size
 
     def __str__(self) -> str:
         '''
         Visual Representation of the queue
         '''
-        if self._size == 0:
+        if self.__size == 0:
             return []
-        return " -> ".join(self._queue.map(lambda x: str(x)).to_list())
+        return " -> ".join(self.__queue.map(lambda x: str(x)).to_list())

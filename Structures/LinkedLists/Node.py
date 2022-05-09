@@ -9,19 +9,19 @@ class Node:
         nextNode: Reference pointer to the next node
     '''
     def __init__(self, item:Any, nextNode:Node=None):
-        self._item = item
-        self._nextNode = nextNode
+        self.__item = item
+        self.__nextNode = nextNode
 
     def getItem(self) -> Any:
-        return self._item
+        return self.__item
 
     def next(self) -> Node:
-        return self._nextNode
+        return self.__nextNode
 
     def setItem(self, newItem: Any) -> Node:
-        self._item = newItem
+        self.__item = newItem
         return self
 
     def setNext(self, newNode:Node) -> Node:
-        self._nextNode = newNode
+        self.__nextNode = newNode
         return self
