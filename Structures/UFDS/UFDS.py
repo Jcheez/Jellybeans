@@ -12,12 +12,13 @@ class UFDS:
             self.__parent.append(i)
             self.__movements.append(i)
             self.__rank.append(0)
-            self.__counts.append(0)
+            self.__counts.append(1)
 
     def findSet(self, itemNumber: int) -> int:
         '''
         Finds the representative node of the set containing 'itemNumber'
         '''
+        itemNumber = self.__movements[itemNumber]
         if self.__parent[itemNumber] == itemNumber:
             return itemNumber
         else:
@@ -40,8 +41,10 @@ class UFDS:
 
             if self.__rank[rep_x] > self.__rank[rep_y]:
                 self.__parent[rep_y] = rep_x
+                self.__counts[rep_x] += self.__counts[rep_y]
             else:
                 self.__parent[rep_x] = rep_y
+                self.__counts[rep_y] += self.__counts[rep_x]
                 if self.__rank[rep_x] == self.__rank[rep_y]:
                     self.__rank[rep_y] += 1
 
@@ -49,12 +52,12 @@ class UFDS:
         '''
         Move an item from its original set to a new set
         '''
-        rootFrom = self.findSet(self.__movements[itemNumber]);
-        rootTo = self.findSet(self.__movements[destinationNumber]);
+        rootFrom = self.findSet(self.__movements[itemNumber])
+        rootTo = self.findSet(self.__movements[destinationNumber])
         if (rootFrom != rootTo):
-            self.__counts[rootFrom] -= 1;
-            self.__counts[rootTo] += 1;
-            self.__movements[itemNumber] = rootTo;
+            self.__counts[rootFrom] -= 1
+            self.__counts[rootTo] += 1
+            self.__movements[itemNumber] = rootTo
 
     def countItems(self, itemNumber: int) -> int:
         '''
@@ -62,4 +65,3 @@ class UFDS:
         '''
         rep = self.findSet(self.__movements[itemNumber])
         return self.__counts[rep]
-    
