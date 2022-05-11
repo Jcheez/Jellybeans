@@ -3,7 +3,6 @@ class UFDS:
     Union Find Disjoint Sets
     '''
     def __init__(self, sets:int) -> None:
-        # MOVEMENTS AND COUNTS HAVE NOT BEEN IMPLEMENTED
         self.__parent = [None]
         self.__movements = [None]
         self.__counts = [None]
@@ -46,15 +45,21 @@ class UFDS:
                 if self.__rank[rep_x] == self.__rank[rep_y]:
                     self.__rank[rep_y] += 1
 
-    def move(self, itemNumber, destinationNumber):
+    def move(self, itemNumber:int, destinationNumber:int) -> None:
         '''
         Move an item from its original set to a new set
         '''
-        pass
+        rootFrom = self.findSet(self.__movements[itemNumber]);
+        rootTo = self.findSet(self.__movements[destinationNumber]);
+        if (rootFrom != rootTo):
+            self.__counts[rootFrom] -= 1;
+            self.__counts[rootTo] += 1;
+            self.__movements[itemNumber] = rootTo;
 
-    def countItems(self, itemNumber) -> int:
+    def countItems(self, itemNumber: int) -> int:
         '''
         Count the number of items in a particular set
         '''
-        pass
+        rep = self.findSet(self.__movements[itemNumber])
+        return self.__counts[rep]
     
