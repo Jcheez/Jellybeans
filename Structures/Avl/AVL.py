@@ -2,11 +2,13 @@ from __future__ import annotations
 from typing import Any, Callable
 from .binaryNode import binaryNode
 
+
 class AVL:
     '''
     This data structure represents a self balancing binary tree
     '''
-    def __init__(self, comparator:Callable = lambda x,y: x>=y) -> None:
+
+    def __init__(self, comparator: Callable = lambda x, y: x >= y) -> None:
         '''
         Comparators should be defined in the following format: \n
         (x, y) => x>=y
@@ -35,7 +37,7 @@ class AVL:
         right = -1 if currNode.getRight() is None else currNode.getRight().getHeight()
         return left - right
 
-    def __rotateLeft(self, currNode:binaryNode) -> binaryNode:
+    def __rotateLeft(self, currNode: binaryNode) -> binaryNode:
         '''
         INTERNAL FUNCTION: Perform a left rotation about the current node
         '''
@@ -56,7 +58,7 @@ class AVL:
         rc.updateHeight()
         return rc
 
-    def __rotateRight(self, currNode:binaryNode) -> binaryNode:
+    def __rotateRight(self, currNode: binaryNode) -> binaryNode:
         '''
         INTERNAL FUNCTION: Perform a right rotation about the current node
         '''
@@ -70,14 +72,14 @@ class AVL:
         currNode.setLeft(lc.getRight())
         if lc.getRight() is not None:
             lc.getRight().setParent(currNode)
-        lc.setRighht(currNode)
+        lc.setRight(currNode)
         currNode.updateSize()
         currNode.updateHeight()
         lc.updateSize()
         lc.updateHeight()
         return lc
 
-    def __balance(self, currNode:binaryNode) -> binaryNode:
+    def __balance(self, currNode: binaryNode) -> binaryNode:
         '''
         INTERNAL FUNCTION: Checks for inbalance at a node and performs
         the necessary rotations 
@@ -95,21 +97,21 @@ class AVL:
                 currNode = self.__rotateLeft(currNode)
             else:
                 currNode = self.__rotateLeft(currNode)
-        
+
         return currNode
 
-    def search(self, item:Any) -> bool:
+    def search(self, item: Any) -> Any:
         '''
         Search for an item in the tree
         '''
         res = self.__helper_search(self.__root, item)
         return None if res is None else res.getItem()
 
-    def insert(self, item:Any) -> None:
+    def insert(self, item: Any) -> None:
         '''
         Insert an element into the tree
         '''
-        def helper(currNode:binaryNode, item:Any) -> binaryNode:
+        def helper(currNode: binaryNode, item: Any) -> binaryNode:
             if currNode is None:
                 return binaryNode(item)
             elif self.comparator(currNode.getItem(), item):
@@ -127,12 +129,12 @@ class AVL:
             return currNode
 
         self.__root = helper(self.__root, item)
-                
-    def delete(self, item:Any) -> None:
+
+    def delete(self, item: Any) -> None:
         '''
         Delete an element from the tree
         '''
-        def helper_delete(currNode:binaryNode, item:Any) -> binaryNode:
+        def helper_delete(currNode: binaryNode, item: Any) -> binaryNode:
             if currNode is None:
                 return currNode
             elif currNode.getItem() == item:
@@ -147,7 +149,8 @@ class AVL:
                 else:
                     item_successor = self.successor(item)
                     currNode.setItem(item_successor)
-                    currNode.setRight(helper_delete(currNode.getRight(), item_successor))
+                    currNode.setRight(helper_delete(
+                        currNode.getRight(), item_successor))
             elif self.comparator(currNode.getItem(), item):
                 currNode.setLeft(helper_delete(currNode.getLeft(), item))
             else:
@@ -180,11 +183,11 @@ class AVL:
             currNode = currNode.getRight()
         return currNode.getItem()
 
-    def successor(self, item:Any) -> Any:
+    def successor(self, item: Any) -> Any:
         '''
         Finds the next biggest element after "item"
         '''
-        def successor_helper(currNode:binaryNode) -> binaryNode:
+        def successor_helper(currNode: binaryNode) -> binaryNode:
             if currNode.getRight() is not None:
                 tempNode = currNode.getRight()
                 while tempNode.getLeft() is not None:
@@ -202,11 +205,11 @@ class AVL:
         res = successor_helper(target)
         return None if res is None else res.getItem()
 
-    def predecessor(self, item:Any) -> Any:
+    def predecessor(self, item: Any) -> Any:
         '''
         Finds the next smallest element after "item"
         '''
-        def predecessor_helper(currNode:binaryNode) -> binaryNode:
+        def predecessor_helper(currNode: binaryNode) -> binaryNode:
             if currNode.getLeft() is not None:
                 tempNode = currNode.getLeft()
                 while tempNode.getRight() is not None:
@@ -224,32 +227,33 @@ class AVL:
         res = predecessor_helper(target)
         return None if res is None else res.getItem()
 
-    def rank(self, item:Any) -> int:
+    def rank(self, item: Any) -> int:
         '''
         Finds the rank of a particular item
         '''
-        def rank_helper(currNode:binaryNode, item:Any) -> int:
+        def rank_helper(currNode: binaryNode, item: Any) -> int:
             if currNode == None:
-                return 0
+                return -1
             if currNode.getItem() == item:
                 return currNode.getLeft().getSize() + 1 if currNode.getLeft() is not None else 1
             elif self.comparator(currNode.getItem(), item):
                 return rank_helper(currNode.getLeft(), item)
             else:
-                res = currNode.getLeft().getSize() + 1 if currNode.getLeft() is not None else 1
-                res += rank_helper(currNode.getRight(), item)
+                left = currNode.getLeft().getSize() + 1 if currNode.getLeft() is not None else 1
+                right = rank_helper(currNode.getRight(), item)
+                res = -1 if right == -1 else left + right
                 return res
-        
+
         return rank_helper(self.__root, item)
 
-    def select(self, rank:int) -> Any:
+    def select(self, rank: int) -> Any:
         '''
         Given the rank, find the associated item
         '''
-        def select_helper(currNode:binaryNode, rank:int) -> binaryNode:
-            leftSize = currNode.getLeft().getSize() + 1 if currNode.getLeft() is not None else 1
+        def select_helper(currNode: binaryNode, rank: int) -> binaryNode:
             if currNode is None:
                 return None
+            leftSize = currNode.getLeft().getSize() + 1 if currNode.getLeft() is not None else 1
             if leftSize == rank:
                 return currNode
             elif leftSize > rank:
@@ -261,37 +265,49 @@ class AVL:
 
         return res.getItem() if res is not None else None
 
-    def print(self, type:int = 1) -> None:
+    def in_order(self) -> list:
+        '''
+        Conduct an in order traversal of the tree and output the result in a list
+        '''
+        def in_order_helper(currNode: binaryNode) -> list:
+            if currNode == None:
+                return []
+            return in_order_helper(currNode.getLeft()) + [currNode.getItem()] + in_order_helper(currNode.getRight())
+
+        return in_order_helper(self.__root)
+
+    def pre_order(self) -> list:
+        '''
+        Conduct a pre order traversal of the tree and output the result in a list
+        '''
+        def pre_order_helper(currNode: binaryNode) -> list:
+            if currNode == None:
+                return []
+            return [currNode.getItem()] + pre_order_helper(currNode.getLeft()) + pre_order_helper(currNode.getRight())
+
+        return pre_order_helper(self.__root)
+
+    def post_order(self) -> list:
+        '''
+        Conduct a post order traversal of the tree and output the result in a list
+        '''
+        def post_order_helper(currNode: binaryNode) -> list:
+            if currNode == None:
+                return []
+            return post_order_helper(currNode.getLeft()) + post_order_helper(currNode.getRight()) + [currNode.getItem()]
+
+        return post_order_helper(self.__root)
+
+    def print(self, type: int = 1) -> None:
         '''
         3 Types of prints available: \n
         In order Traversal (type = 1) \n
         Pre order Traversal (type = 2) \n
         Post order Traversal (type = 3) \n
         '''
-        def in_order_helper(currNode):
-            if currNode == None:
-                return
-            in_order_helper(currNode.getLeft())
-            print(currNode.getItem(), end= " ")
-            in_order_helper(currNode.getRight())
-        
-        def pre_order_helper(currNode):
-            if currNode == None:
-                return
-            print(currNode.getItem(), end= " ")
-            pre_order_helper(currNode.getLeft())
-            pre_order_helper(currNode.getRight())
-
-        def post_order_helper(currNode):
-            if currNode == None:
-                return
-            post_order_helper(currNode.getLeft())
-            post_order_helper(currNode.getRight())
-            print(currNode.getItem(), end= " ")
-
         if type == 1:
-            in_order_helper(self.__root)
+            print(self.in_order())
         elif type == 2:
-            pre_order_helper(self.__root)
+            print(self.pre_order())
         elif type == 3:
-            post_order_helper(self.__root)
+            print(self.post_order())

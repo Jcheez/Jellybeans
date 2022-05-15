@@ -1,8 +1,9 @@
 from __future__ import annotations
 from typing import Any
 
+
 class binaryNode:
-    
+
     def __init__(self, item) -> None:
         self.__leftNode = None
         self.__rightNode = None
@@ -30,15 +31,15 @@ class binaryNode:
         elif self.__rightNode == None:
             self.__height = 1 + self.__leftNode.getHeight()
         else:
-            self.__height = 1 + max(self.__leftNode.getHeight(), self.__rightNode.getHeight())
+            self.__height = 1 + \
+                max(self.__leftNode.getHeight(), self.__rightNode.getHeight())
         return self.__height
 
-    def __eq__(self, other:binaryNode) -> bool:
+    def __eq__(self, other: binaryNode) -> bool:
         if not isinstance(other, binaryNode):
             return False
+        return self.__item == other.getItem()
 
-        return self.__item == self.getItem()
-        
     def getItem(self):
         return self.__item
 
@@ -53,18 +54,18 @@ class binaryNode:
 
     def getSize(self):
         return self.__size
-    
+
     def getHeight(self):
         return self.__height
 
-    def setLeft(self, newNode:binaryNode) -> None:
+    def setLeft(self, newNode: binaryNode) -> None:
         self.__leftNode = newNode
 
-    def setRight(self, newNode:binaryNode) -> None:
+    def setRight(self, newNode: binaryNode) -> None:
         self.__rightNode = newNode
 
-    def setParent(self, newNode:binaryNode) -> None:
+    def setParent(self, newNode: binaryNode) -> None:
         self.__parent = newNode
-    
-    def setItem(self, newItem:Any) -> None:
+
+    def setItem(self, newItem: Any) -> None:
         self.__item = newItem
