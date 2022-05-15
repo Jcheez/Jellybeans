@@ -22,7 +22,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
       - name: Change pwd
-        run: cd /home/runner/work
+        run: |
+          cd /home/runner/work/
+          ls
       - name: Check LS
         run: ls
       - name: Test with unittest
