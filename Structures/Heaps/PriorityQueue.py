@@ -19,43 +19,6 @@ class PriorityQueue:
         self.__comparator = comparator
 
         self.__quickTidy()
-    
-    def insert(self, item:Any) -> None:
-        '''
-        Insert an item into the heap
-        '''
-        self.__size += 1
-        self.__container.append(item)
-        self.__shiftUp(self.__size)
-
-    def peek(self) -> Any:
-        '''
-        Returns the root node of the heap
-        '''
-        return self.__container[1]
-
-    def extract(self) -> Any:
-        '''
-        Returns and remove the root node of the heap
-        '''
-        result = self.__container[1]
-        self.__container[1] = self.__container[self.__size]
-        self.__size -= 1
-        self.__container.pop()
-        self.__shiftDown(1)
-        return result
-
-    def sort(self) -> list:
-        '''
-        Returns a sorted list according to the rules of the comparator
-        '''
-        result = []
-        for i in range(self.__size):
-            result.append(self.extract())
-        return result
-
-    def isEmpty(self) -> bool:
-        return self.__size == 0
 
     def __shiftUp(self, idx:int) -> None:
         '''
@@ -112,6 +75,43 @@ class PriorityQueue:
     def __quickTidy(self) -> None:
         for idx in range(self.__parent(self.__size), 0, -1):
             self.__shiftDown(idx)
+    
+    def insert(self, item:Any) -> None:
+        '''
+        Insert an item into the heap
+        '''
+        self.__size += 1
+        self.__container.append(item)
+        self.__shiftUp(self.__size)
+
+    def peek(self) -> Any:
+        '''
+        Returns the root node of the heap
+        '''
+        return self.__container[1]
+
+    def extract(self) -> Any:
+        '''
+        Returns and remove the root node of the heap
+        '''
+        result = self.__container[1]
+        self.__container[1] = self.__container[self.__size]
+        self.__size -= 1
+        self.__container.pop()
+        self.__shiftDown(1)
+        return result
+
+    def sort(self) -> list:
+        '''
+        Returns a sorted list according to the rules of the comparator
+        '''
+        result = []
+        for i in range(self.__size):
+            result.append(self.extract())
+        return result
+
+    def isEmpty(self) -> bool:
+        return self.__size == 0
 
     def __len__(self) -> int:
         '''
