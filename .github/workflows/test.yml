@@ -23,7 +23,7 @@ jobs:
           python -m pip install --upgrade pip
       - name: Change pwd
         run: |
-          cd /home/runner/work/
+          cd /home/runner/work/Jellybeans
           ls
       - name: Check LS
         run: ls
