@@ -9,7 +9,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
         python-version: ["3.7", "3.8", "3.9"]
 
     steps:
@@ -24,6 +24,4 @@ jobs:
           pip install matplotlib
       - name: Run unit tests
         run: |
-          cd /home/runner/work/Jellybeans
-          ls
-          python -m unittest discover -s Jellybeans/Tests -p 'test_*.py'
+          pwd
