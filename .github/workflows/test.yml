@@ -24,4 +24,5 @@ jobs:
           pip install matplotlib
       - name: Run unit tests
         run: |
-          pwd
+          cd ..
+          python -m unittest discover -s Jellybeans/Tests -p 'test_*.py'
