@@ -1,6 +1,6 @@
 import unittest
 from Jellybeans.Structures import PriorityQueue
-from Jellybeans.Structures.Heaps.NotOneBasedIndexed import NotOneBasedIndexed
+from Jellybeans.Structures.Heaps.NotOneBasedIndexed import _NotOneBasedIndexed
 
 class test_Queue(unittest.TestCase):
 
@@ -13,7 +13,7 @@ class test_Queue(unittest.TestCase):
         self.assertTrue(pq.isEmpty())
 
     def test_OneBased(self):
-        with self.assertRaises(NotOneBasedIndexed):
+        with self.assertRaises(_NotOneBasedIndexed):
             pq = PriorityQueue(arr=[1,2,3])
 
     def test_insert1(self):

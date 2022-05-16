@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import Any, Callable
 from .LinkedList import LinkedList
-from .DoublyNode import DoublyNode
+from .DoublyNode import _DoublyNode
 
 class DoublyLinkedList(LinkedList):
     '''
@@ -15,7 +15,7 @@ class DoublyLinkedList(LinkedList):
         '''
         Adds the item to the front of the linkedList
         '''
-        newNode = DoublyNode(item, self._LinkedList__head)
+        newNode = _DoublyNode(item, self._LinkedList__head)
         self._LinkedList__head = newNode
         if self._LinkedList__head.next() != None:
             newNode.next().setPrev(newNode)
@@ -28,7 +28,7 @@ class DoublyLinkedList(LinkedList):
         '''
         Adds the item to the back of the linkedlist
         '''
-        newNode = DoublyNode(item)
+        newNode = _DoublyNode(item)
 
         if self._LinkedList__head == None:
             self._LinkedList__head = newNode
@@ -59,7 +59,7 @@ class DoublyLinkedList(LinkedList):
             currNode = self._LinkedList__head
             for i in range(index-1):
                 currNode = currNode.next()
-            newNode = DoublyNode(item, currNode.next(), currNode)
+            newNode = _DoublyNode(item, currNode.next(), currNode)
             currNode.next().setPrev(newNode)
             currNode.setNext(newNode)
             self._LinkedList__size += 1

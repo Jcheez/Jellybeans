@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import Any, Callable
 from .LinkedList import LinkedList
-from .Node import Node
+from .Node import _Node
 
 class TailedLinkedList(LinkedList):
     '''
@@ -15,7 +15,7 @@ class TailedLinkedList(LinkedList):
         '''
         Adds the item to the front of the TailedLinkedList
         '''
-        newNode = Node(item, self._LinkedList__head)
+        newNode = _Node(item, self._LinkedList__head)
         self._LinkedList__head = newNode
         if self.__tail == None:
             self.__tail = newNode
@@ -26,7 +26,7 @@ class TailedLinkedList(LinkedList):
         '''
         Adds the item to the back of the TailedLinkedList
         '''
-        newNode = Node(item)
+        newNode = _Node(item)
 
         if self._LinkedList__head == None:
             self._LinkedList__head = newNode

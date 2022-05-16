@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import Any, Callable
-from .binaryNode import binaryNode
+from .binaryNode import _binaryNode
 
 
 class AVL:
@@ -16,7 +16,7 @@ class AVL:
         self.__root = None
         self.comparator = comparator
 
-    def __helper_search(self, currNode: binaryNode, item) -> binaryNode:
+    def __helper_search(self, currNode: _binaryNode, item) -> _binaryNode:
         '''
         INTERNAL FUNCTION: Helper function to find a particular item in the tree
         '''
@@ -29,7 +29,7 @@ class AVL:
         else:
             return self.__helper_search(currNode.getRight(), item)
 
-    def __balanceFactor(self, currNode: binaryNode) -> int:
+    def __balanceFactor(self, currNode: _binaryNode) -> int:
         '''
         INTERNAL FUNCTION: Function to find the balance factor of a particular node
         '''
@@ -37,7 +37,7 @@ class AVL:
         right = -1 if currNode.getRight() is None else currNode.getRight().getHeight()
         return left - right
 
-    def __rotateLeft(self, currNode: binaryNode) -> binaryNode:
+    def __rotateLeft(self, currNode: _binaryNode) -> _binaryNode:
         '''
         INTERNAL FUNCTION: Perform a left rotation about the current node
         '''
@@ -58,7 +58,7 @@ class AVL:
         rc.updateHeight()
         return rc
 
-    def __rotateRight(self, currNode: binaryNode) -> binaryNode:
+    def __rotateRight(self, currNode: _binaryNode) -> _binaryNode:
         '''
         INTERNAL FUNCTION: Perform a right rotation about the current node
         '''
@@ -79,7 +79,7 @@ class AVL:
         lc.updateHeight()
         return lc
 
-    def __balance(self, currNode: binaryNode) -> binaryNode:
+    def __balance(self, currNode: _binaryNode) -> _binaryNode:
         '''
         INTERNAL FUNCTION: Checks for inbalance at a node and performs
         the necessary rotations 
@@ -111,9 +111,9 @@ class AVL:
         '''
         Insert an element into the tree
         '''
-        def helper(currNode: binaryNode, item: Any) -> binaryNode:
+        def helper(currNode: _binaryNode, item: Any) -> _binaryNode:
             if currNode is None:
-                return binaryNode(item)
+                return _binaryNode(item)
             elif self.comparator(currNode.getItem(), item):
                 currNode.setLeft(helper(currNode.getLeft(), item))
                 currNode.getLeft().setParent(currNode)
@@ -134,7 +134,7 @@ class AVL:
         '''
         Delete an element from the tree
         '''
-        def helper_delete(currNode: binaryNode, item: Any) -> binaryNode:
+        def helper_delete(currNode: _binaryNode, item: Any) -> _binaryNode:
             if currNode is None:
                 return currNode
             elif currNode.getItem() == item:
@@ -187,7 +187,7 @@ class AVL:
         '''
         Finds the next biggest element after "item"
         '''
-        def successor_helper(currNode: binaryNode) -> binaryNode:
+        def successor_helper(currNode: _binaryNode) -> _binaryNode:
             if currNode.getRight() is not None:
                 tempNode = currNode.getRight()
                 while tempNode.getLeft() is not None:
@@ -209,7 +209,7 @@ class AVL:
         '''
         Finds the next smallest element after "item"
         '''
-        def predecessor_helper(currNode: binaryNode) -> binaryNode:
+        def predecessor_helper(currNode: _binaryNode) -> _binaryNode:
             if currNode.getLeft() is not None:
                 tempNode = currNode.getLeft()
                 while tempNode.getRight() is not None:
@@ -231,7 +231,7 @@ class AVL:
         '''
         Finds the rank of a particular item
         '''
-        def rank_helper(currNode: binaryNode, item: Any) -> int:
+        def rank_helper(currNode: _binaryNode, item: Any) -> int:
             if currNode == None:
                 return -1
             if currNode.getItem() == item:
@@ -250,7 +250,7 @@ class AVL:
         '''
         Given the rank, find the associated item
         '''
-        def select_helper(currNode: binaryNode, rank: int) -> binaryNode:
+        def select_helper(currNode: _binaryNode, rank: int) -> _binaryNode:
             if currNode is None:
                 return None
             leftSize = currNode.getLeft().getSize() + 1 if currNode.getLeft() is not None else 1
@@ -269,7 +269,7 @@ class AVL:
         '''
         Conduct an in order traversal of the tree and output the result in a list
         '''
-        def in_order_helper(currNode: binaryNode) -> list:
+        def in_order_helper(currNode: _binaryNode) -> list:
             if currNode == None:
                 return []
             return in_order_helper(currNode.getLeft()) + [currNode.getItem()] + in_order_helper(currNode.getRight())
@@ -280,7 +280,7 @@ class AVL:
         '''
         Conduct a pre order traversal of the tree and output the result in a list
         '''
-        def pre_order_helper(currNode: binaryNode) -> list:
+        def pre_order_helper(currNode: _binaryNode) -> list:
             if currNode == None:
                 return []
             return [currNode.getItem()] + pre_order_helper(currNode.getLeft()) + pre_order_helper(currNode.getRight())
@@ -291,7 +291,7 @@ class AVL:
         '''
         Conduct a post order traversal of the tree and output the result in a list
         '''
-        def post_order_helper(currNode: binaryNode) -> list:
+        def post_order_helper(currNode: _binaryNode) -> list:
             if currNode == None:
                 return []
             return post_order_helper(currNode.getLeft()) + post_order_helper(currNode.getRight()) + [currNode.getItem()]

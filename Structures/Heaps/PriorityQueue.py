@@ -1,7 +1,7 @@
 from math import floor
 from typing import Any, Callable
 from ...Algos.privateFuncs import swap
-from .NotOneBasedIndexed import NotOneBasedIndexed
+from .NotOneBasedIndexed import _NotOneBasedIndexed
 
 class PriorityQueue:
     '''
@@ -12,7 +12,7 @@ class PriorityQueue:
         if type(arr) != list and arr != None:
             raise Exception("parameter arr must be of type list")
         elif arr != None and (len(arr) == 0 or arr[0] != None):
-            raise NotOneBasedIndexed("Input is not a one based Indexed list")
+            raise _NotOneBasedIndexed("Input is not a one based Indexed list")
         
         self.__size = 0 if arr is None else len(arr) - 1
         self.__container = [None] if arr is None else arr

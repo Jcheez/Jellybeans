@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import Any, Callable, NewType, Union
-from .Node import Node
+from .Node import _Node
 
 class LinkedList:
     '''
@@ -27,7 +27,7 @@ class LinkedList:
         '''
         Adds the item to the front of the linkedList
         '''
-        newNode = Node(item, self.__head)
+        newNode = _Node(item, self.__head)
         self.__head = newNode
         self.__size += 1
         return self
@@ -36,7 +36,7 @@ class LinkedList:
         '''
         Adds the item to the back of the linkedlist
         '''
-        newNode = Node(item)
+        newNode = _Node(item)
 
         if self.__head == None:
             self.__head = newNode
@@ -64,7 +64,7 @@ class LinkedList:
             currNode = self.__head
             for i in range(index-1):
                 currNode = currNode.next()
-            newNode = Node(item, currNode.next())
+            newNode = _Node(item, currNode.next())
             currNode.setNext(newNode)
             self.__size += 1
         return self
