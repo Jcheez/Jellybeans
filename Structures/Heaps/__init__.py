@@ -1,1 +1,1 @@
-from Jellybeans.Structures.Heaps import PriorityQueue
+from Jellybeans.Structures.Heaps import *

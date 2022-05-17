@@ -2,7 +2,7 @@
 
 [![Tests Actions status](https://github.com/Jcheez/Jellybeans/workflows/Tests/badge.svg)](https://github.com/Jcheez/Jellybeans/actions)
 
-This package aims to provide a better development environment when using various data structures in python.
+This package aims to provide an easier development environment when working with various data structures in python.
 
 ## Data Structures
 
