@@ -7,3 +7,4 @@ from Jellybeans.Structures.Queue.Deque import *
 from Jellybeans.Structures.Heaps.PriorityQueue import *
 from Jellybeans.Structures.UFDS.UFDS import *
 from Jellybeans.Structures.Avl.AVL import *
+from Jellybeans.Structures.Graph.Graph import *
