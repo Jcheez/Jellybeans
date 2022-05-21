@@ -1,4 +1,4 @@
-[![Test Suite Actions status](https://github.com/Jcheez/Jellybeans/workflows/Tests/badge.svg)](https://github.com/Jcheez/Jellybeans/actions)
+[![Test Suite Actions status](https://github.com/Jcheez/Jellybeans/workflows/Test Suite/badge.svg)](https://github.com/Jcheez/Jellybeans/actions)
 
 # About
 
