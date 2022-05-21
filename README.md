@@ -1,20 +1,20 @@
 [![Tests Actions status](https://github.com/Jcheez/Jellybeans/workflows/Tests/badge.svg)](https://github.com/Jcheez/Jellybeans/actions)
 
-## About
+# About
 
 Jellybeans aims to provide an easier development process when working with various data structures in python. Visualisations are also provided for sorting algortihms.
 
-## Documentation
+# Documentation
 [How to use this library?]()
 
-## Installation
+# Installation
 
 1. Ensure that you have python 3.7 and above
 2. Run the following command: pip install Jellybeans
 
-## Implementations
+# Implementations
 
-### Data Structures
+## Data Structures
 
 - AVL Tree
 - Binary Heap
@@ -26,7 +26,7 @@ Jellybeans aims to provide an easier development process when working with vario
 - Stack
 - Union Find Disjoint Sets (UFDS)
 
-### Sorting Algorithms
+## Sorting Algorithms
 
 - Bubble Sort
 - Selection Sort
@@ -34,7 +34,7 @@ Jellybeans aims to provide an easier development process when working with vario
 - Merge Sort
 - Quick Sort
 
-### Graphing Algorithms (TBC)
+## Graphing Algorithms (TBC)
 
 - Reachability
 - Number of components
@@ -44,10 +44,10 @@ Jellybeans aims to provide an easier development process when working with vario
 - Single Source Shortest Path (Bellman Ford, One-pass BF, Dijkstra's)
 - All Pairs Shortest Path (Floyd Warshall)
 
-## Acknowledgment
+# Acknowledgment
 
 I would also like to mention that majority of the knowledge used to develop this library came from the undertaking of National University of Singapore's course CS2040.
 
-## Contributions
+# Contributions
 
-Anyone who wishes to value add to this library is welcomed to do so. Check out the [Contribution Guide]() for further information on how you can contribute!
+Anyone who wishes to value add to this library is welcomed to do so. Check out the [Contribution Guide](https://github.com/Jcheez/Jellybeans/blob/main/CONTRIBUTING.md) for further information on how you can contribute!
