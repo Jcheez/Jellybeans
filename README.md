@@ -14,6 +14,8 @@ Jellybeans aims to provide an easier development process when working with vario
 
 # Implementations
 
+Below are the data structures and sorting algorithms that are covered in this library.
+
 ## Data Structures
 
 - AVL Tree
