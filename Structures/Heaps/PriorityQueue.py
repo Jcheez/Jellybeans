@@ -1,6 +1,6 @@
 from math import floor
 from typing import Any, Callable
-from ...Algos.privateFuncs import swap
+from Jellybeans.Algos.sorts.privateFuncs import swap
 from Jellybeans.Exceptions.NotOneBasedIndexed import _NotOneBasedIndexed
 
 class PriorityQueue:
