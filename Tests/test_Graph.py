@@ -130,3 +130,77 @@ class test_Graph(unittest.TestCase):
         g.delete_vertex(2)
         with self.assertRaises(_GraphProperty):
             g.delete_vertex(2)
+
+    def test_edge_list1(self):
+        g = Graph()
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_edge(1, 2, 5)
+        g.add_edge(3, 2, 6)
+        g.add_edge(1, 3, 7)
+        self.assertEqual(g.to_edgeList(), [(1, 2, 5), (1, 3, 7), (3, 2, 6)])
+
+    def test_edge_list2(self):
+        g = Graph()
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_edge(1, 2, 5)
+        g.add_edge(3, 2, 6)
+        g.add_edge(1, 3, 7)
+        g.delete_vertex(2)
+        self.assertEqual(g.to_edgeList(), [(1, 3, 7)])
+
+    def test_adj_list1(self):
+        g = Graph()
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_edge(1, 2, 5)
+        g.add_edge(3, 2, 6)
+        g.add_edge(1, 3, 7)
+        self.assertEqual(g.to_adjList(), {1: [(2, 5), (3, 7)], 2: [], 3: [(2, 6)]})
+
+    def test_adj_list2(self):
+        g = Graph()
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_edge(1, 2, 5)
+        g.add_edge(3, 2, 6)
+        g.add_edge(1, 3, 7)
+        g.delete_vertex(2)
+        self.assertEqual(g.to_adjList(), {1: [(3, 7)], 3: []})
+
+    def test_adj_Matrix1(self):
+        g = Graph()
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_edge(1, 2, 5)
+        g.add_edge(3, 2, 6)
+        g.add_edge(1, 3, 7)
+        self.assertEqual(g.to_adjMatrix()[1], [[0, 5, 7], [0, 0, 0], [0, 6, 0]])
+
+    def test_adj_Matrix2(self):
+        g = Graph()
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_edge(1, 2, 5)
+        g.add_edge(3, 2, 6)
+        g.add_edge(1, 3, 7)
+        g.delete_vertex(2)
+        self.assertEqual(g.to_adjMatrix()[1], [[0, 7], [0, 0]])
+
+    def test_update_weight(self):
+        g = Graph()
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_edge(1, 2, 5)
+        g.add_edge(3, 2, 6)
+        g.add_edge(1, 3, 7)
+        g.update_edge_weight([1, 3], 123)
+        self.assertEqual(g.to_adjMatrix()[1], [[0, 5, 123], [0, 0, 0], [0, 6, 0]])

@@ -14,17 +14,17 @@ class Graph:
             raise _GraphProperty("Vertex already present in graph")
 
     def delete_vertex(self, vertex:int) -> None:
-        # Get nodes that point to vertex from reachableBy
         if vertex not in self.__adjList or vertex not in self.__reachableBy:
             raise _GraphProperty(f"Vertex {vertex} not present in graph")
         reachable = self.can_reach(vertex)
         connected = self.neighbours_of(vertex)
-        # Delete the corresponding edges from self.__adjList
+
         for tex in reachable:
             self.delete_edge([tex, vertex])
+
         for node in connected:
             self.delete_edge([vertex, node])
-        # delete node from adjList and from reachableBy
+
         del self.__adjList[vertex]
         del self.__reachableBy[vertex]
         
@@ -61,6 +61,11 @@ class Graph:
         self.__adjList[vFrom] = new_adjList
         self.__reachableBy[vTo].remove(vFrom)
 
+    def update_edge_weight(self, edge:list, newWeight:int) -> None:
+        vFrom, vTo = edge
+        self.delete_edge(edge)
+        self.add_edge(vFrom, vTo, newWeight)
+
     def neighbours_of(self, vertex:int) -> list:
         return [x[0] for x in self.edges_of(vertex)]
 
@@ -68,16 +73,37 @@ class Graph:
         return len(self.neighbours_of(vertex))
 
     def edges_of(self, vertex:int) -> list:
-        return self.__adjList[vertex]
+        return self.__adjList[vertex].copy()
 
     def can_reach(self, vertex:int) -> list:
-        return self.__reachableBy[vertex]
+        return self.__reachableBy[vertex].copy()
 
-    def to_edgeList(self):
-        pass
-
-    def to_adjList(self):
-        pass
+    def to_edgeList(self) -> list:
+        res = []
+        for vertex in self.list_vertices():
+            edges = self.__adjList[vertex]
+            for e in edges:
+                complete_edge = (vertex,) + e
+                res.append(complete_edge)
+        return res
+        
+    def to_adjList(self) -> dict:
+        return self.__adjList
 
     def to_adjMatrix(self):
-        pass
+        vertices = self.list_vertices()
+        res = []
+        mapping = {}
+        # find out the number of vertices
+        counter = 0
+        for v in vertices:
+            row = [0 for x in vertices]
+            res.append(row)
+            mapping[v] = counter
+            counter += 1
+        # fill the x*x matrix first with 0 values
+        for vFrom in vertices:
+            lst = self.__adjList[vFrom]
+            for vTo,weight in lst:
+                res[mapping[vFrom]][mapping[vTo]] = weight
+        return mapping, res
