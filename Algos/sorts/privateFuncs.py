@@ -1,20 +1,31 @@
 '''
 TO DEVELOPERS: DO NOT USE THESE FUNCTION WITHOUT UNDERSTANDING ITS FULL FUNCTIONALITY.
 '''
+from typing import Any, Callable
 
-from typing import Any
-
-def swap(lst, idx1, idx2):
+def swap(lst:list, idx1:int, idx2:int) -> None:
     '''
-    Private method which swaps two elements in a list
+    Description:
+        Private method which swaps two elements in a list
+    Args:
+        lst: list of elements
+        idx1: index of first element to be swapped
+        idx2: index of second element to be swapped
     '''
     temp = lst[idx1]
     lst[idx1] = lst[idx2]
     lst[idx2] = temp
 
-def merge(lst, start, mid, end, key):
+def merge(lst:list, start:int, mid:int, end:int, key:Callable) -> None:
     '''
-    Underlying method two merge 2 lists based on a key
+    Description:
+        Underlying method two merge 2 lists based on a key
+    Args:
+        lst: List of elements to be merged
+        start: Starting index of the first list to be merged
+        mid: Stopping index of the first list to be merged (inclusive)
+        end: Stopping index of the second list to be merged
+        key: Sorting key
     '''
     temp = []
     left = start
@@ -37,7 +48,18 @@ def merge(lst, start, mid, end, key):
     for i in range(len(temp)):
         lst[start + i] = temp[i]
 
-def partition(lst, start, end, key):
+def partition(lst:list, start:int, end:int, key:callable) -> int:
+    '''
+    Description:
+        This function seperates elements into 2 different groups.
+    Args:
+        lst: List of elements to be partitioned
+        start: Starting index of elements to partition
+        end: Stopping index of elements to partition
+        key: Sorting key
+    Returns:
+        The index of the reference element used to partition the elements
+    '''
     pivot = lst[start]
     margin = start
     for idx in range(start+1, end+1):
