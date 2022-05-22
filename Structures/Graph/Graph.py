@@ -46,6 +46,10 @@ class Graph:
         edges.append((vTo, weight))
         self.__reachableBy[vTo].append(vFrom)
     
+    def add_bidirected_edge(self, vFrom:int, vTo:int, weight:tuple):
+        self.add_edge(vFrom, vTo, weight[0])
+        self.add_edge(vTo, vFrom, weight[1])
+    
     def delete_edge(self, edge:list) -> None:
         vFrom, vTo = edge
 
