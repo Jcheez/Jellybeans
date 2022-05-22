@@ -1,1 +1,2 @@
-from Jellybeans.Algos import *
+from Jellybeans.Algos.sorts import *
+from Jellybeans.Algos.Graphs import *
