@@ -1,3 +1,4 @@
+from __future__ import annotations
 from Jellybeans.Exceptions.GraphProperty import _GraphProperty
 
 class Graph:
@@ -46,6 +47,10 @@ class Graph:
         edges.append((vTo, weight))
         self.__reachableBy[vTo].append(vFrom)
     
+    def add_bidirected_edge(self, vFrom:int, vTo:int, weight:tuple):
+        self.add_edge(vFrom, vTo, weight[0])
+        self.add_edge(vTo, vFrom, weight[1])
+    
     def delete_edge(self, edge:list) -> None:
         vFrom, vTo = edge
 
@@ -86,6 +91,14 @@ class Graph:
                 complete_edge = (vertex,) + e
                 res.append(complete_edge)
         return res
+
+    def transpose(self) -> Graph:
+        newG = Graph()
+        for v in self.list_vertices():
+            newG.add_vertex(v)
+        for vFrom, vTo, weight in self.to_edgeList():
+            newG.add_edge(vTo, vFrom, -weight)
+        return newG
         
     def to_adjList(self) -> dict:
         return self.__adjList
