@@ -1,6 +1,6 @@
 from __future__ import annotations
 from Jellybeans.Structures import Graph, Queue
-from Jellybeans.Algos.Graphs.pfuncs import _BFS, _path_construction
+from Jellybeans.Algos.Graphs.pfuncs import _BFS, _path_construction, _DFS_topo, _DFS
 
 def reachability(graph:Graph, source:int, destination:int) -> tuple:
     '''
@@ -53,7 +53,7 @@ def counting_components(graph:Graph) -> int:
 
 def topological_sort(graph:Graph) -> list:
     '''
-    Performs a topological sort on the graph. Based on Kahn's Algorithm
+    Performs a topological sort on the directed graph. Based on Kahn's Algorithm
     Args:
         graph: Graph object
     Returns:
@@ -87,3 +87,51 @@ def topological_sort(graph:Graph) -> list:
             if in_degree[mapping[v]] == 0:
                 q.enqueue(v)
     return toposort
+
+def DFS_toposort(graph:Graph) -> list:
+    '''
+    Performs a topological sort on the directed graph. This is a DFS implementation
+    Args:
+        graph: Graph object
+    Returns:
+        List containing a valid topological ordering
+    '''
+    vertices = graph.list_vertices()
+    toposort =[]
+    visited = []
+    mapping = {}
+    counter = 0
+    for v in vertices:
+        visited.append(0)
+        mapping[v] = counter
+        counter += 1
+    for v in vertices:
+        if visited[mapping[v]] == 0:
+            _DFS_topo(visited, toposort, v, graph.to_adjList(), mapping)
+    toposort.reverse()
+    return toposort
+
+def count_strong_connected_components(graph:Graph) -> int:
+    '''
+    Finds the number of strongly connected components (SCC) in a directed graph
+    Args:
+        graph: Graph object
+    Returns:
+        Number of SCCs
+    '''
+    toposort = DFS_toposort(graph)
+    SCC = 0
+    vertices = graph.list_vertices()
+    visited = []
+    mapping = {}
+    counter = 0
+    for v in vertices:
+        visited.append(0)
+        mapping[v] = counter
+        counter += 1
+    for idx in range(len(toposort)):
+        ele = toposort[idx]
+        if visited[mapping[ele]] == 0:
+            SCC += 1
+            _DFS(visited, ele, graph.transpose().to_adjList(), mapping)
+    return SCC
