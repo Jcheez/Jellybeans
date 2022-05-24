@@ -1,5 +1,5 @@
 import unittest
-from Jellybeans.Algos import reachability, counting_components, topological_sort, DFS_toposort, count_strong_connected_components
+from Jellybeans.Algos import reachability, counting_components, topological_sort, DFS_toposort, count_strong_connected_components, spanning_tree_prim
 from Jellybeans.Structures import Graph
 
 class test_GraphAlgos(unittest.TestCase):
@@ -228,3 +228,71 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(9, 8)
         res = count_strong_connected_components(g)
         self.assertEqual(res, 3)
+    
+    def test_MST_prim1(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_bidirected_edge(0, 1, (4, 4))
+        g.add_bidirected_edge(0, 2, (4, 4))
+        g.add_bidirected_edge(0, 3, (6, 6))
+        g.add_bidirected_edge(0, 4, (6, 6))
+        g.add_bidirected_edge(1, 2, (2, 2))
+        g.add_bidirected_edge(2, 3, (8, 8))
+        g.add_bidirected_edge(3, 4, (9, 9))
+        res = spanning_tree_prim(g, 0, False)
+        self.assertEqual(sum(map(lambda x: x[2], res.to_edgeList())) / 2, 27)
+    
+    def test_MST_prim2(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_bidirected_edge(0, 1, (4, 4))
+        g.add_bidirected_edge(0, 2, (4, 4))
+        g.add_bidirected_edge(0, 3, (6, 6))
+        g.add_bidirected_edge(0, 4, (6, 6))
+        g.add_bidirected_edge(1, 2, (2, 2))
+        g.add_bidirected_edge(2, 3, (8, 8))
+        g.add_bidirected_edge(3, 4, (9, 9))
+        res = spanning_tree_prim(g, 0, True)
+        self.assertEqual(sum(map(lambda x: x[2], res.to_edgeList())) / 2, 18)
+
+    def test_MST_prim3(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_bidirected_edge(0, 1, (9, 9))
+        g.add_bidirected_edge(0, 2, (75, 75))
+        g.add_bidirected_edge(1, 2, (95, 95))
+        g.add_bidirected_edge(1, 3, (19, 19))
+        g.add_bidirected_edge(1, 4, (42, 42))
+        g.add_bidirected_edge(2, 3, (51, 51))
+        g.add_bidirected_edge(3, 4, (31, 31))
+        res = spanning_tree_prim(g, 0, True)
+        self.assertEqual(sum(map(lambda x: x[2], res.to_edgeList())) / 2, 110)
+    
+    def test_MST_prim4(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_bidirected_edge(0, 1, (9, 9))
+        g.add_bidirected_edge(0, 2, (75, 75))
+        g.add_bidirected_edge(1, 2, (95, 95))
+        g.add_bidirected_edge(1, 3, (19, 19))
+        g.add_bidirected_edge(1, 4, (42, 42))
+        g.add_bidirected_edge(2, 3, (51, 51))
+        g.add_bidirected_edge(3, 4, (31, 31))
+        res = spanning_tree_prim(g, 0, False)
+        self.assertEqual(sum(map(lambda x: x[2], res.to_edgeList())) / 2, 263)
