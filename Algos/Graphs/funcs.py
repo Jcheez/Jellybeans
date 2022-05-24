@@ -1,5 +1,5 @@
 from __future__ import annotations
-from Jellybeans.Structures import Graph, Queue, PriorityQueue
+from Jellybeans.Structures import Graph, Queue, PriorityQueue, UFDS
 from Jellybeans.Algos.Graphs.pfuncs import _BFS, _path_construction, _DFS_topo, _DFS, _initializer
 
 def reachability(graph:Graph, source:int, destination:int) -> tuple:
@@ -37,7 +37,7 @@ def counting_components(graph:Graph) -> int:
 
 def topological_sort(graph:Graph) -> list:
     '''
-    Performs a topological sort on the directed graph. Based on Kahn's Algorithm
+    Performs a topological sort on the directed graph. Based on Kahn's Algorithm \n
     Args:
         graph: Graph object
     Returns:
@@ -74,7 +74,7 @@ def topological_sort(graph:Graph) -> list:
 
 def DFS_toposort(graph:Graph) -> list:
     '''
-    Performs a topological sort on the directed graph. This is a DFS implementation
+    Performs a topological sort on the directed graph. This is a DFS implementation \n
     Args:
         graph: Graph object
     Returns:
@@ -91,7 +91,7 @@ def DFS_toposort(graph:Graph) -> list:
 
 def count_strong_connected_components(graph:Graph) -> int:
     '''
-    Finds the number of strongly connected components (SCC) in a directed graph
+    Finds the number of strongly connected components (SCC) in a directed graph \n
     Args:
         graph: Graph object
     Returns:
@@ -109,7 +109,7 @@ def count_strong_connected_components(graph:Graph) -> int:
 
 def spanning_tree_prim(graph:Graph, source: int, minimum:bool) -> Graph:
     '''
-    Finds the minimum/maximum spanning tree of a graph
+    Finds the minimum/maximum spanning tree of a graph using Prim's Algorithm \n
     Args:
         graph: Graph Object
         source: Source vertex to begin algorithm
@@ -130,10 +130,34 @@ def spanning_tree_prim(graph:Graph, source: int, minimum:bool) -> Graph:
     while not pq.isEmpty():
         vFrom, vTo, weight = pq.extract()
         if visited[mapping[vTo]] == 0:
-            mst.add_edge(vFrom, vTo, weight)
-            mst.add_edge(vTo, vFrom, weight)
+            mst.add_bidirected_edge(vFrom, vTo, (weight, weight))
             visited[mapping[vTo]] = 1
             for to, w in adj_list[vTo]:
                 if visited[mapping[to]] == 0:
                     pq.insert((vTo, to, w))
+    return mst
+
+def spanning_tree_kruskal(graph:Graph, minimum:bool) -> Graph:
+    '''
+    Finds the minimum/maximum spanning tree of a graph using Kruskal's Algorrithm \n
+    Args:
+        graph: Graph Object
+        minimum: True=minimum, False=Maximum
+    Returns:
+        Graph object of the mst
+    '''
+    edge_list_sorted = sorted(graph.to_edgeList(), key=lambda x:x[2], reverse= not minimum)
+    counter = 1
+    mapping = {}
+    mst = Graph()
+    ufds = UFDS(graph.num_vertices())
+    
+    for v in graph.list_vertices():
+        mst.add_vertex(v)
+        mapping[v] = counter
+        counter += 1
+    for vFrom, vTo, weight in edge_list_sorted:
+        if not ufds.isSameSet(mapping[vFrom], mapping[vTo]):
+            ufds.union(mapping[vFrom], mapping[vTo])
+            mst.add_bidirected_edge(vFrom, vTo, (weight, weight))
     return mst
