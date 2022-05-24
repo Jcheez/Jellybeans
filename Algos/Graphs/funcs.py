@@ -1,6 +1,6 @@
 from __future__ import annotations
 from Jellybeans.Structures import Graph, Queue
-from Jellybeans.Algos.Graphs.pfuncs import _BFS, _path_construction, _DFS_topo, _DFS
+from Jellybeans.Algos.Graphs.pfuncs import _BFS, _path_construction, _DFS_topo, _DFS, _initializer
 
 def reachability(graph:Graph, source:int, destination:int) -> tuple:
     '''
@@ -12,15 +12,7 @@ def reachability(graph:Graph, source:int, destination:int) -> tuple:
     Returns:
         A tuple consisting of a boolean value and the path to travel from source to destination.
     '''
-    visited = []
-    parent = []
-    mapping = {}
-    counter = 0
-    for v in graph.list_vertices():
-        visited.append(0)
-        parent.append(-1)
-        mapping[v] = counter
-        counter += 1
+    visited, parent, mapping = _initializer(True, True, True, graph)
     adj_list = graph.to_adjList()
     _BFS(visited, parent, mapping, source, adj_list)
     return (True, _path_construction(parent, mapping, source, destination)) if visited[mapping[destination]] == 1 else (False, None)
@@ -34,16 +26,8 @@ def counting_components(graph:Graph) -> int:
         Number of connected components
     '''
     components = 0
-    visited = []
-    parent = []
-    mapping = {}
-    counter = 0
+    visited, parent, mapping = _initializer(True, True, True, graph)
     vertices = graph.list_vertices()
-    for v in vertices:
-        visited.append(0)
-        parent.append(-1)
-        mapping[v] = counter
-        counter += 1
     adj_list = graph.to_adjList()
     for v in vertices:
         if visited[mapping[v]] == 0:
@@ -98,13 +82,7 @@ def DFS_toposort(graph:Graph) -> list:
     '''
     vertices = graph.list_vertices()
     toposort =[]
-    visited = []
-    mapping = {}
-    counter = 0
-    for v in vertices:
-        visited.append(0)
-        mapping[v] = counter
-        counter += 1
+    visited, _, mapping = _initializer(True, True, True, graph)
     for v in vertices:
         if visited[mapping[v]] == 0:
             _DFS_topo(visited, toposort, v, graph.to_adjList(), mapping)
@@ -121,17 +99,13 @@ def count_strong_connected_components(graph:Graph) -> int:
     '''
     toposort = DFS_toposort(graph)
     SCC = 0
-    vertices = graph.list_vertices()
-    visited = []
-    mapping = {}
-    counter = 0
-    for v in vertices:
-        visited.append(0)
-        mapping[v] = counter
-        counter += 1
+    visited, _, mapping = _initializer(True, True, True, graph)
     for idx in range(len(toposort)):
         ele = toposort[idx]
         if visited[mapping[ele]] == 0:
             SCC += 1
             _DFS(visited, ele, graph.transpose().to_adjList(), mapping)
     return SCC
+
+def minimum_spanning_tree(graph:Graph) -> Graph:
+    pass

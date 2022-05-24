@@ -1,4 +1,29 @@
-from Jellybeans.Structures import Queue
+from __future__ import annotations
+from Jellybeans.Structures import Queue, Graph
+
+def _initializer(visited:bool, parent:bool, mapping:bool, graph:Graph) -> tuple:
+    '''
+    Initializer function which helps in producing lists used in graph traversals \n
+    Args:
+        visited: init the visited list?
+        visited: init the parent list?
+        visited: init the mapping dict?
+    Returns:
+        A tuple containing the 
+    '''    
+    visited_lst = [] if visited else None
+    parent_lst = [] if parent else None
+    mapping_dict = {} if mapping else None
+    counter = 0
+    for v in graph.list_vertices():
+        if visited:
+            visited_lst.append(0)
+        if parent:
+            parent_lst.append(-1)
+        if mapping:
+            mapping_dict[v] = counter
+        counter += 1
+    return (visited_lst, parent_lst, mapping_dict)
 
 def _BFS(visited:list, parent:list, mapping:dict, source:int, adj_list:dict) -> None:
     '''
