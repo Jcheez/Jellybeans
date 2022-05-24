@@ -1,6 +1,5 @@
 from math import floor
 from typing import Any, Callable
-from Jellybeans.Algos.sorts.privateFuncs import swap
 from Jellybeans.Exceptions.NotOneBasedIndexed import _NotOneBasedIndexed
 
 class PriorityQueue:
@@ -26,7 +25,7 @@ class PriorityQueue:
         Conduct shiftups on a node so that heap property is not violated
         '''
         while idx > 1 and self.__comparator(self.__container[idx], self.__container[self.__parent(idx)]):
-            swap(self.__container, idx, self.__parent(idx))
+            self.__container[idx], self.__container[self.__parent(idx)] = self.__container[self.__parent(idx)], self.__container[idx], 
             idx = self.__parent(idx)
 
     def __shiftDown(self, idx:int) -> None:
@@ -46,7 +45,7 @@ class PriorityQueue:
                 currNode = self.__container[self.__right(idx)]
 
             if (currIdx != idx):
-                swap(self.__container, idx, currIdx)
+                self.__container[idx], self.__container[currIdx] = self.__container[currIdx],  self.__container[idx]
                 idx = currIdx
             else:
                 break

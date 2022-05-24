@@ -1,5 +1,5 @@
 from __future__ import annotations
-from Jellybeans.Structures import Graph, Queue
+from Jellybeans.Structures import Graph, Queue, PriorityQueue
 from Jellybeans.Algos.Graphs.pfuncs import _BFS, _path_construction, _DFS_topo, _DFS, _initializer
 
 def reachability(graph:Graph, source:int, destination:int) -> tuple:
@@ -107,5 +107,33 @@ def count_strong_connected_components(graph:Graph) -> int:
             _DFS(visited, ele, graph.transpose().to_adjList(), mapping)
     return SCC
 
-def minimum_spanning_tree(graph:Graph) -> Graph:
-    pass
+def spanning_tree_prim(graph:Graph, source: int, minimum:bool) -> Graph:
+    '''
+    Finds the minimum/maximum spanning tree of a graph
+    Args:
+        graph: Graph Object
+        source: Source vertex to begin algorithm
+        minimum: True=minimum, False=Maximum
+    Returns:
+        Graph object of the mst
+    '''
+    adj_list = graph.to_adjList()
+    mst = Graph()
+    visited, _, mapping = _initializer(True, True, True, graph)
+    pq = PriorityQueue(comparator=(lambda x,y: x[2] <= y [2]) if minimum else (lambda x,y: x[2] >= y [2]))
+    for v in graph.list_vertices():
+        mst.add_vertex(v)
+    
+    for vTo, weight in adj_list[source]:
+        pq.insert((source, vTo, weight))
+    visited[source] = 1
+    while not pq.isEmpty():
+        vFrom, vTo, weight = pq.extract()
+        if visited[mapping[vTo]] == 0:
+            mst.add_edge(vFrom, vTo, weight)
+            mst.add_edge(vTo, vFrom, weight)
+            visited[mapping[vTo]] = 1
+            for to, w in adj_list[vTo]:
+                if visited[mapping[to]] == 0:
+                    pq.insert((vTo, to, w))
+    return mst
