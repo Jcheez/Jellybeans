@@ -1,6 +1,6 @@
 from __future__ import annotations
 from Jellybeans.Exceptions.GraphProperty import _GraphProperty
-from .pfuncs import _DFS
+from .pfuncs import _DFS_tree
 
 class Graph:
 
@@ -130,16 +130,18 @@ class Graph:
 
     def is_tree(self) -> bool:
         visited = []
+        parent = []
         mapping = {}
         counter = 0
         vertices = self.list_vertices()
         for v in vertices:
             visited.append(0)
+            parent.append(-1)
             mapping[v] = counter
             counter += 1
-        if not _DFS(visited, vertices[0], self.__adjList, mapping, -1):
+        parent[0] = 0
+        if not _DFS_tree(visited, vertices[0], self.__adjList, mapping, parent):
             return False
-
         for visit in visited:
             if visit == 0:
                 return False
@@ -147,3 +149,6 @@ class Graph:
 
     def is_unweighted(self) -> bool:
         return self.__unweighted
+
+    def is_DAG(self) -> bool:
+        pass

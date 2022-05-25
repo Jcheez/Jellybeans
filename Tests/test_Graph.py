@@ -293,6 +293,28 @@ class test_Graph(unittest.TestCase):
         g.add_edge(4, 5)
         self.assertTrue(g.is_tree())
 
+    def test_is_tree9(self):
+        g = Graph()
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_edge(1, 2)
+        g.add_edge(1, 3)
+        g.add_edge(2, 3)
+        self.assertFalse(g.is_tree())
+
+    def test_is_tree10(self):
+        g = Graph()
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_edge(4, 1)
+        g.add_edge(1, 2)
+        g.add_edge(1, 3)
+        g.add_edge(2, 3)
+        self.assertFalse(g.is_tree())
+
     def test_is_unweighted1(self):
         g = Graph()
         g.add_vertex(1)
