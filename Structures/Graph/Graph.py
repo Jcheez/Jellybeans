@@ -1,5 +1,6 @@
 from __future__ import annotations
 from Jellybeans.Exceptions.GraphProperty import _GraphProperty
+from .pfuncs import _DFS
 
 class Graph:
 
@@ -120,3 +121,20 @@ class Graph:
             for vTo,weight in lst:
                 res[mapping[vFrom]][mapping[vTo]] = weight
         return mapping, res
+
+    def isTree(self) -> bool:
+        visited = []
+        mapping = {}
+        counter = 0
+        vertices = self.list_vertices()
+        for v in vertices:
+            visited.append(0)
+            mapping[v] = counter
+            counter += 1
+        if not _DFS(visited, vertices[0], self.__adjList, mapping, -1):
+            return False
+
+        for visit in visited:
+            if visit == 0:
+                return False
+        return True
