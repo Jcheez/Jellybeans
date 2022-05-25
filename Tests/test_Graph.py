@@ -205,16 +205,16 @@ class test_Graph(unittest.TestCase):
         g.update_edge_weight([1, 3], 123)
         self.assertEqual(g.to_adjMatrix()[1], [[0, 5, 123], [0, 0, 0], [0, 6, 0]])
 
-    def test_isTree1(self):
+    def test_is_tree1(self):
         g = Graph()
         g.add_vertex(1)
         g.add_vertex(2)
         g.add_vertex(3)
         g.add_bidirected_edge(1, 2, (1,1))
         g.add_bidirected_edge(2, 3, (1,1))
-        self.assertTrue(g.isTree())
+        self.assertTrue(g.is_tree())
 
-    def test_isTree2(self):
+    def test_is_tree2(self):
         g = Graph()
         g.add_vertex(1)
         g.add_vertex(2)
@@ -222,9 +222,9 @@ class test_Graph(unittest.TestCase):
         g.add_bidirected_edge(1, 2, (1,1))
         g.add_bidirected_edge(2, 3, (1,1))
         g.add_bidirected_edge(3, 1, (1,1))
-        self.assertFalse(g.isTree())
+        self.assertFalse(g.is_tree())
 
-    def test_isTree3(self):
+    def test_is_tree3(self):
         g = Graph()
         g.add_vertex(1)
         g.add_vertex(2)
@@ -236,9 +236,9 @@ class test_Graph(unittest.TestCase):
         g.add_bidirected_edge(3, 4, (1,1))
         g.add_bidirected_edge(4, 5, (1,1))
         g.add_bidirected_edge(5, 3, (1,1))
-        self.assertFalse(g.isTree())
+        self.assertFalse(g.is_tree())
 
-    def test_isTree4(self):
+    def test_is_tree4(self):
         g = Graph()
         g.add_vertex(1)
         g.add_vertex(2)
@@ -246,9 +246,9 @@ class test_Graph(unittest.TestCase):
         g.add_vertex(4)
         g.add_bidirected_edge(1, 2, (1,1))
         g.add_bidirected_edge(2, 3, (1,1))
-        self.assertFalse(g.isTree())
+        self.assertFalse(g.is_tree())
 
-    def test_isTree5(self):
+    def test_is_tree5(self):
         g = Graph()
         g.add_vertex(1)
         g.add_vertex(2)
@@ -256,9 +256,9 @@ class test_Graph(unittest.TestCase):
         g.add_edge(1, 2)
         g.add_edge(2, 3)
         g.add_edge(3, 1)
-        self.assertFalse(g.isTree())
+        self.assertFalse(g.is_tree())
 
-    def test_isTree6(self):
+    def test_is_tree6(self):
         g = Graph()
         g.add_vertex(1)
         g.add_vertex(2)
@@ -267,9 +267,9 @@ class test_Graph(unittest.TestCase):
         g.add_edge(1, 2)
         g.add_edge(2, 3)
         g.add_edge(3, 1)
-        self.assertFalse(g.isTree())
+        self.assertFalse(g.is_tree())
 
-    def test_isTree7(self):
+    def test_is_tree7(self):
         g = Graph()
         g.add_vertex(1)
         g.add_vertex(2)
@@ -278,9 +278,9 @@ class test_Graph(unittest.TestCase):
         g.add_edge(1, 2)
         g.add_edge(2, 3)
         g.add_edge(3, 4)
-        self.assertTrue(g.isTree())
+        self.assertTrue(g.is_tree())
 
-    def test_isTree8(self):
+    def test_is_tree8(self):
         g = Graph()
         g.add_vertex(1)
         g.add_vertex(2)
@@ -291,4 +291,54 @@ class test_Graph(unittest.TestCase):
         g.add_edge(1, 3)
         g.add_edge(1, 4)
         g.add_edge(4, 5)
-        self.assertTrue(g.isTree())
+        self.assertTrue(g.is_tree())
+
+    def test_is_unweighted1(self):
+        g = Graph()
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_vertex(5)
+        g.add_edge(1, 2)
+        g.add_edge(1, 3)
+        g.add_edge(1, 4)
+        g.add_edge(4, 5)
+        self.assertTrue(g.is_unweighted())
+
+    def test_is_unweighted2(self):
+        g = Graph()
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_vertex(5)
+        g.add_edge(1, 2, 10)
+        g.add_edge(1, 3, 3)
+        g.add_edge(1, 4, 7)
+        g.add_edge(4, 5, 5)
+        self.assertFalse(g.is_unweighted())
+
+    def test_is_unweighted3(self):
+        g = Graph()
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_bidirected_edge(1, 2, (1,1))
+        g.add_bidirected_edge(2, 3, (1,1))
+        self.assertTrue(g.is_unweighted())
+
+    def test_is_unweighted4(self):
+        g = Graph()
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_bidirected_edge(1, 2, (123,123))
+        self.assertTrue(g.is_unweighted())
+
+    def test_is_unweighted5(self):
+        g = Graph()
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_bidirected_edge(1, 2, (123,124))
+        self.assertFalse(g.is_unweighted())
