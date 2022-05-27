@@ -82,7 +82,7 @@ def DFS_toposort(graph:Graph) -> list:
     '''
     vertices = graph.list_vertices()
     toposort =[]
-    visited, _, mapping = _initializer(True, True, True, graph)
+    visited, _, mapping = _initializer(True, False, True, graph)
     for v in vertices:
         if visited[mapping[v]] == 0:
             _DFS_topo(visited, toposort, v, graph.to_adjList(), mapping)
@@ -99,7 +99,7 @@ def count_strong_connected_components(graph:Graph) -> int:
     '''
     toposort = DFS_toposort(graph)
     SCC = 0
-    visited, _, mapping = _initializer(True, True, True, graph)
+    visited, _, mapping = _initializer(True, False, True, graph)
     for idx in range(len(toposort)):
         ele = toposort[idx]
         if visited[mapping[ele]] == 0:

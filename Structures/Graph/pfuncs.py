@@ -8,7 +8,7 @@ def _DFS_tree(visited: list, source: int, adj_list:dict, mapping:dict, parent_ls
         source: Source Vertex
         adj_List: Graph structure stored in the form of an adjacency list
         mapping: Mapping of vertice number to index number
-        parent: The parent vertex
+        parent_lst: List of parents of a node
     '''
     visited[mapping[source]] = 1
     for neighbor, _ in adj_list[source]:

@@ -1,4 +1,5 @@
 from __future__ import annotations
+from Jellybeans.Structures import Queue
 from Jellybeans.Exceptions.GraphProperty import _GraphProperty
 from .pfuncs import _DFS_tree
 
@@ -36,7 +37,7 @@ class Graph:
         return list(self.__adjList.keys())
 
     def num_vertices(self) -> int:
-        return len(self.list_vertices())
+        return len(self.__adjList)
 
     def add_edge(self, vFrom:int, vTo:int, weight:int = 1) -> None:
         if vFrom == vTo:
@@ -151,4 +152,52 @@ class Graph:
         return self.__unweighted
 
     def is_DAG(self) -> bool:
-        pass
+       
+        def topo_sort(graph:Graph) -> list:
+            '''
+            Performs a topological sort on the graph. Based on Kahn's Algorithm \n
+            Args:
+                graph: Graph object
+            Returns:
+                List containing a valid topological ordering
+            '''
+            in_degree = []
+            mapping = {}
+            toposort = []
+            vertices = graph.list_vertices()
+            inv_map = [0 for _ in vertices]
+            adj_list = graph.to_adjList()
+            counter = 0
+            q = Queue()
+            for v in vertices:
+                in_degree.append(0)
+                mapping[v] = counter
+                inv_map[counter] = v
+                counter += 1
+            for _, vTo,_ in graph.to_edgeList():
+                in_degree[mapping[vTo]] += 1
+
+            for idx in range(len(in_degree)):
+                if in_degree[idx] == 0:
+                    q.enqueue(inv_map[idx])
+
+            while not q.isEmpty():
+                tex = q.dequeue()
+                toposort.append(tex)
+                for v,_ in adj_list[tex]:
+                    in_degree[mapping[v]] -= 1
+                    if in_degree[mapping[v]] == 0:
+                        q.enqueue(v)
+            return toposort
+
+        toposort = topo_sort(self)
+        if len(toposort) < len(self.__adjList):
+            return False
+        idxs = {toposort[idx]: idx for idx in range(len(toposort))}
+        for v,edges in self.__adjList.items():
+            for edge,_ in edges:
+                idx_v = idxs[v]
+                idx_w = idxs[edge]
+                if idx_v > idx_w:
+                    return False
+        return True
