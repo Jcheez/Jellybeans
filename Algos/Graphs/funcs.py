@@ -1,5 +1,5 @@
 from __future__ import annotations
-from Jellybeans.Structures import Graph, Queue
+from Jellybeans.Structures import Graph, Queue, PriorityQueue, UFDS
 from Jellybeans.Algos.Graphs.pfuncs import _BFS, _path_construction, _DFS_topo, _DFS, _initializer
 
 def reachability(graph:Graph, source:int, destination:int) -> tuple:
@@ -37,7 +37,7 @@ def counting_components(graph:Graph) -> int:
 
 def topological_sort(graph:Graph) -> list:
     '''
-    Performs a topological sort on the directed graph. Based on Kahn's Algorithm
+    Performs a topological sort on the directed graph. Based on Kahn's Algorithm \n
     Args:
         graph: Graph object
     Returns:
@@ -74,7 +74,7 @@ def topological_sort(graph:Graph) -> list:
 
 def DFS_toposort(graph:Graph) -> list:
     '''
-    Performs a topological sort on the directed graph. This is a DFS implementation
+    Performs a topological sort on the directed graph. This is a DFS implementation \n
     Args:
         graph: Graph object
     Returns:
@@ -82,7 +82,7 @@ def DFS_toposort(graph:Graph) -> list:
     '''
     vertices = graph.list_vertices()
     toposort =[]
-    visited, _, mapping = _initializer(True, True, True, graph)
+    visited, _, mapping = _initializer(True, False, True, graph)
     for v in vertices:
         if visited[mapping[v]] == 0:
             _DFS_topo(visited, toposort, v, graph.to_adjList(), mapping)
@@ -91,7 +91,7 @@ def DFS_toposort(graph:Graph) -> list:
 
 def count_strong_connected_components(graph:Graph) -> int:
     '''
-    Finds the number of strongly connected components (SCC) in a directed graph
+    Finds the number of strongly connected components (SCC) in a directed graph \n
     Args:
         graph: Graph object
     Returns:
@@ -99,7 +99,7 @@ def count_strong_connected_components(graph:Graph) -> int:
     '''
     toposort = DFS_toposort(graph)
     SCC = 0
-    visited, _, mapping = _initializer(True, True, True, graph)
+    visited, _, mapping = _initializer(True, False, True, graph)
     for idx in range(len(toposort)):
         ele = toposort[idx]
         if visited[mapping[ele]] == 0:
@@ -107,5 +107,57 @@ def count_strong_connected_components(graph:Graph) -> int:
             _DFS(visited, ele, graph.transpose().to_adjList(), mapping)
     return SCC
 
-def minimum_spanning_tree(graph:Graph) -> Graph:
-    pass
+def spanning_tree_prim(graph:Graph, source: int, minimum:bool) -> Graph:
+    '''
+    Finds the minimum/maximum spanning tree of a graph using Prim's Algorithm \n
+    Args:
+        graph: Graph Object
+        source: Source vertex to begin algorithm
+        minimum: True=minimum, False=Maximum
+    Returns:
+        Graph object of the mst
+    '''
+    adj_list = graph.to_adjList()
+    mst = Graph()
+    visited, _, mapping = _initializer(True, True, True, graph)
+    pq = PriorityQueue(comparator=(lambda x,y: x[2] <= y [2]) if minimum else (lambda x,y: x[2] >= y [2]))
+    for v in graph.list_vertices():
+        mst.add_vertex(v)
+    
+    for vTo, weight in adj_list[source]:
+        pq.insert((source, vTo, weight))
+    visited[source] = 1
+    while not pq.isEmpty():
+        vFrom, vTo, weight = pq.extract()
+        if visited[mapping[vTo]] == 0:
+            mst.add_bidirected_edge(vFrom, vTo, (weight, weight))
+            visited[mapping[vTo]] = 1
+            for to, w in adj_list[vTo]:
+                if visited[mapping[to]] == 0:
+                    pq.insert((vTo, to, w))
+    return mst
+
+def spanning_tree_kruskal(graph:Graph, minimum:bool) -> Graph:
+    '''
+    Finds the minimum/maximum spanning tree of a graph using Kruskal's Algorrithm \n
+    Args:
+        graph: Graph Object
+        minimum: True=minimum, False=Maximum
+    Returns:
+        Graph object of the mst
+    '''
+    edge_list_sorted = sorted(graph.to_edgeList(), key=lambda x:x[2], reverse= not minimum)
+    counter = 1
+    mapping = {}
+    mst = Graph()
+    ufds = UFDS(graph.num_vertices())
+    
+    for v in graph.list_vertices():
+        mst.add_vertex(v)
+        mapping[v] = counter
+        counter += 1
+    for vFrom, vTo, weight in edge_list_sorted:
+        if not ufds.isSameSet(mapping[vFrom], mapping[vTo]):
+            ufds.union(mapping[vFrom], mapping[vTo])
+            mst.add_bidirected_edge(vFrom, vTo, (weight, weight))
+    return mst
