@@ -458,7 +458,7 @@ class test_Graph(unittest.TestCase):
         g.add_edge(1, 0)
         self.assertTrue(g.is_DAG())
 
-    def test_is_dag8(self):
+    def test_is_dag9(self):
         g = Graph()
         g.add_vertex(1)
         g.add_vertex(2)
@@ -479,7 +479,7 @@ class test_Graph(unittest.TestCase):
         g.add_edge(1, 0)
         self.assertFalse(g.is_DAG())
 
-    def test_is_dag9(self):
+    def test_is_dag10(self):
         g = Graph()
         g.add_vertex(1)
         g.add_vertex(2)
