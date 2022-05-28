@@ -1,1 +1,1 @@
-from Jellybeans.Structures.Graph import *
+from Jellybeans.Structures.Graph.Graph import *
