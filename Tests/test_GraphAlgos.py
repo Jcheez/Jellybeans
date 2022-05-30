@@ -1,5 +1,16 @@
 import unittest
-from Jellybeans.Algos import reachability, counting_components, topological_sort, DFS_toposort, count_strong_connected_components, spanning_tree_prim, spanning_tree_kruskal
+from Jellybeans.Exceptions.NegativeCycle import _Negativecycle
+
+from Jellybeans.Algos import (
+    reachability, 
+    counting_components, 
+    topological_sort, 
+    DFS_toposort, 
+    count_strong_connected_components, 
+    spanning_tree_prim, 
+    spanning_tree_kruskal,
+    sssp_tree
+)
 from Jellybeans.Structures import Graph
 
 class test_GraphAlgos(unittest.TestCase):
@@ -364,3 +375,118 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(3, 4, (31, 31))
         res = spanning_tree_kruskal(g, False)
         self.assertEqual(sum(map(lambda x: x[2], res.to_edgeList())) / 2, 263)
+
+    def test_sssp_tree1(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_bidirected_edge(0, 1, (2, 2))
+        g.add_bidirected_edge(1, 2, (3, 3))
+        res = sssp_tree(g, 0)
+        self.assertEqual(res, {0:0, 1:2, 2:5})
+
+    def test_sssp_tree2(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_bidirected_edge(0, 1, (2, 2))
+        g.add_bidirected_edge(1, 2, (3, 3))
+        with self.assertRaises(TypeError):
+            sssp_tree(g, 0)
+
+    def test_sssp_tree3(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_bidirected_edge(0, 1, (1, 1))
+        g.add_bidirected_edge(1, 2, (2, 2))
+        g.add_bidirected_edge(1, 3, (3, 3))
+        res = sssp_tree(g, 0)
+        self.assertEqual(res, {0:0, 1:1, 2:3, 3:4})
+
+    def test_sssp_tree4(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(5)
+        g.add_vertex(100)
+        g.add_vertex(120)
+        g.add_bidirected_edge(0, 5, (1, 1))
+        g.add_bidirected_edge(5, 100, (2, 2))
+        g.add_bidirected_edge(5, 120, (3, 3))
+        res = sssp_tree(g, 0)
+        self.assertEqual(res, {0:0, 5:1, 100:3, 120:4})
+
+    def test_sssp_tree5(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(5)
+        g.add_vertex(100)
+        g.add_vertex(120)
+        g.add_bidirected_edge(0, 5, (-1, -1))
+        g.add_bidirected_edge(5, 100, (-2, -2))
+        g.add_bidirected_edge(5, 120, (-3, -3))
+        with self.assertRaises(_Negativecycle):
+            sssp_tree(g, 5)
+
+    def test_sssp_tree6(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(5)
+        g.add_vertex(100)
+        g.add_vertex(120)
+        g.add_bidirected_edge(0, 5, (10, -11))
+        g.add_bidirected_edge(5, 100, (2, 2))
+        g.add_bidirected_edge(5, 120, (3, 3))
+        with self.assertRaises(_Negativecycle):
+            sssp_tree(g, 0)
+
+    def test_sssp_tree7(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_vertex(5)
+        g.add_bidirected_edge(0, 5, (4, 4))
+        g.add_bidirected_edge(0, 1, (2, 2))
+        g.add_bidirected_edge(1, 3, (9, 9))
+        g.add_bidirected_edge(3, 4, (1, 1))
+        g.add_bidirected_edge(3, 2, (5, 5))
+        res = sssp_tree(g, 0)
+        self.assertEqual(res, {0:0, 1:2, 2:16, 3:11, 4:12, 5:4})
+
+    def test_sssp_tree8(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_vertex(5)
+        g.add_bidirected_edge(0, 5, (4, 4))
+        g.add_bidirected_edge(0, 1, (2, 2))
+        g.add_bidirected_edge(1, 3, (9, 9))
+        g.add_bidirected_edge(3, 4, (1, 1))
+        g.add_bidirected_edge(3, 2, (5, 5))
+        res = sssp_tree(g, 3)
+        self.assertEqual(res, {0:11, 1:9, 2:5, 3:0, 4:1, 5:15})
+
+    def test_sssp_tree8(self):
+        g = Graph()
+        g.add_vertex(0)
+        res = sssp_tree(g, 0)
+        self.assertEqual(res, {0:0})
+
+    def test_sssp_tree9(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_bidirected_edge(0, 1, (3, -3))
+        res = sssp_tree(g, 0)
+        self.assertEqual(res, {0:0, 1:3})
