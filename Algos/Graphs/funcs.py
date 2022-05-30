@@ -183,3 +183,6 @@ def sssp_tree(graph:Graph, source:int) -> dict:
     visited[mapping[source]] = 1
     _dfs_sssp_tree(source, visited, parent, cost, graph.to_adjList(), mapping)
     return {vertices[idx]:cost for idx, cost in enumerate(cost)}
+
+def sssp_unweighted(graph:Graph, source:int) -> dict:
+    pass
