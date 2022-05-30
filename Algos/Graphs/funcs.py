@@ -161,3 +161,6 @@ def spanning_tree_kruskal(graph:Graph, minimum:bool) -> Graph:
             ufds.union(mapping[vFrom], mapping[vTo])
             mst.add_bidirected_edge(vFrom, vTo, (weight, weight))
     return mst
+
+def sssp_unweighted(graph:Graph, source:int) -> dict:
+    pass
