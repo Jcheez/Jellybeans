@@ -6,7 +6,8 @@ from .pfuncs import (
     _DFS_topo, 
     _DFS, _initializer, 
     _dfs_sssp_tree,
-    _bfs_sssp_unweighted
+    _bfs_sssp_unweighted,
+    _relax
 )
 
 def reachability(graph:Graph, source:int, destination:int) -> tuple:
@@ -206,4 +207,29 @@ def sssp_unweighted(graph:Graph, source:int) -> dict:
     mapping = {vertices:idx for idx, vertices in enumerate(vertices)}
     cost[mapping[source]] = 0
     _bfs_sssp_unweighted(source, parent, cost, graph.to_adjList(), mapping)
+    return {vertices[idx]:cost for idx, cost in enumerate(cost)}
+
+def sssp_DAG(graph:Graph, source:int) -> dict:
+    '''
+    Finds the single source shortest path of a Directed Acyclic Graph (DAG).
+    Args:
+        graph: Graph Object
+        source: Source vertex Number
+    Returns:
+        A dictionary of vertex -> cost
+    '''
+    if not graph.is_DAG():
+        raise TypeError("This graph is not a DAG")
+    vertices = graph.list_vertices()
+    cost = [1000000000 for _ in vertices]
+    parent = [-1 for _ in vertices]
+    mapping = {vertices:idx for idx, vertices in enumerate(vertices)}
+    cost[mapping[source]] = 0
+    
+    topo = topological_sort(graph)
+    
+    for v_from in topo:
+        for neighbor, weight in graph.to_adjList()[v_from]:
+            _relax(v_from, neighbor, weight, parent, cost)
+
     return {vertices[idx]:cost for idx, cost in enumerate(cost)}

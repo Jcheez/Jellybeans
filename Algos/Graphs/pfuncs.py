@@ -119,7 +119,6 @@ def _dfs_sssp_tree(vertex:int, parent:list, cost:list, adj_list:list, mapping:li
     DFS implementation of doing SSSP on trees
     Args:
         vertex: Source vertex
-        visited: Visited list
         parent: Parent list
         cost: Cost list
         adj_list: Adjacency list
@@ -133,7 +132,16 @@ def _dfs_sssp_tree(vertex:int, parent:list, cost:list, adj_list:list, mapping:li
             if cost[mapping[vertex]] + weight < cost[mapping[neighbor]]:
                 raise _Negativecycle("Edge with negative weight detected!")
 
-def _bfs_sssp_unweighted(vertex:int, parent:list, cost:list, adj_list:list, mapping:list):
+def _bfs_sssp_unweighted(vertex:int, parent:list, cost:list, adj_list:list, mapping:list) -> None:
+    '''
+    BFS implementation of doing SSSP on unweighted graphs
+    Args:
+        vertex: Source vertex
+        parent: Parent list
+        cost: Cost list
+        adj_list: Adjacency list
+        mapping: mapping of vertices to indexes
+    '''
     q = Queue()
     q.enqueue(vertex)
 

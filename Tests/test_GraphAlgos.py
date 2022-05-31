@@ -10,7 +10,8 @@ from Jellybeans.Algos import (
     spanning_tree_prim, 
     spanning_tree_kruskal,
     sssp_tree,
-    sssp_unweighted
+    sssp_unweighted,
+    sssp_DAG
 )
 from Jellybeans.Structures import Graph
 
@@ -653,3 +654,137 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(9, 5, 4)
         with self.assertRaises(TypeError):
             sssp_unweighted(g, 0)
+
+    def test_sssp_DAG1(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_edge(1, 0, 10)
+        g.add_edge(2, 0, 20)
+        res = sssp_DAG(g, 1)
+        self.assertEqual(res, {0:10, 1:0, 2:1000000000})
+
+    def test_sssp_DAG2(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_bidirected_edge(1, 0, (10, 10))
+        g.add_bidirected_edge(2, 0, (20, 20))
+        with self.assertRaises(TypeError):
+            sssp_DAG(g, 1)
+
+    def test_sssp_DAG3(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_edge(0, 2, 6)
+        g.add_edge(0, 1, 2)
+        g.add_edge(0, 3, 7)
+        g.add_edge(1, 3, 3)
+        g.add_edge(1, 4, 6)
+        g.add_edge(2, 4, 1)
+        g.add_edge(3, 4, 5)
+        res = sssp_DAG(g, 1)
+        self.assertEqual(res, {0:1000000000, 1:0, 2:1000000000, 3:3, 4:6})
+
+    def test_sssp_DAG4(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_edge(0, 2, 6)
+        g.add_edge(0, 1, 2)
+        g.add_edge(0, 3, 7)
+        g.add_edge(1, 3, 3)
+        g.add_edge(1, 4, 6)
+        g.add_edge(2, 4, 1)
+        g.add_edge(3, 4, 5)
+        res = sssp_DAG(g, 0)
+        self.assertEqual(res, {0:0, 1:2, 2:6, 3:5, 4:7})
+
+    def test_sssp_DAG5(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_edge(0, 1, 1)
+        g.add_edge(0, 2, 10)
+        g.add_edge(1, 3, 2)
+        g.add_edge(2, 3, -10)
+        g.add_edge(3, 4, 3)
+        res = sssp_DAG(g, 0)
+        self.assertEqual(res, {0:0, 1:1, 2:10, 3:0, 4:3})
+
+    def test_sssp_DAG6(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_vertex(5)
+        g.add_vertex(6)
+        g.add_vertex(7)
+        g.add_vertex(8)
+        g.add_vertex(9)
+        g.add_edge(0, 1, 4)
+        g.add_edge(0, 2, 4)
+        g.add_edge(1, 3, 4)
+        g.add_edge(1, 4, 4)
+        g.add_edge(2, 1, 4)
+        g.add_edge(2, 5, 4)
+        g.add_edge(3, 6, 4)
+        g.add_edge(3, 7, 4)
+        g.add_edge(4, 2, 2)
+        g.add_edge(4, 3, 4)
+        g.add_edge(4, 7, 4)
+        g.add_edge(4, 8, 4)
+        g.add_edge(5, 4, 4)
+        g.add_edge(5, 8, 4)
+        g.add_edge(6, 7, 4)
+        g.add_edge(7, 8, 4)
+        g.add_edge(8, 9, 4)
+        g.add_edge(9, 5, 4)
+        with self.assertRaises(TypeError):
+            sssp_DAG(g, 0)
+
+    def test_sssp_DAG7(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_edge(0, 1, 4)
+        g.add_edge(0, 2, 8)
+        g.add_bidirected_edge(1, 2)
+        g.add_edge(1, 3, 8)
+        g.add_edge(2, 3, 3)
+        with self.assertRaises(TypeError):
+            sssp_DAG(g, 0)
+
+    def test_sssp_DAG8(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_vertex(5)
+        g.add_vertex(6)
+        g.add_edge(0, 1, 6)
+        g.add_edge(1, 2, 5)
+        g.add_edge(2, 3, 4)
+        g.add_edge(3, 4, 3)
+        g.add_edge(4, 5, 2)
+        g.add_edge(5, 6, 1)
+        res = sssp_DAG(g, 0)
+        self.assertEqual(res, {0:0, 1:6, 2:11, 3:15, 4:18, 5:20, 6:21})
