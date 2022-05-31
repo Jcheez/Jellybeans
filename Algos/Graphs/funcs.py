@@ -185,6 +185,10 @@ def sssp_tree(graph:Graph, source:int) -> dict:
     return {vertices[idx]:cost for idx, cost in enumerate(cost)}
 
 def sssp_unweighted(graph:Graph, source:int) -> dict:
+<<<<<<< HEAD
     if not graph.is_unweighted():
         raise TypeError("This graph is not unweighted")
     pass
+=======
+    pass
+>>>>>>> a0d984905dda11b6515e3be2d81b00adf8d1e01e
