@@ -1,6 +1,6 @@
 from __future__ import annotations
 from Jellybeans.Structures import Queue, Graph
-from Jellybeans.Exceptions.NegativeCycle import _Negativecycle
+from Jellybeans.Exceptions.Negativecycle import _Negativecycle
 
 def _initializer(visited:bool, parent:bool, mapping:bool, graph:Graph) -> tuple:
     '''
@@ -10,7 +10,7 @@ def _initializer(visited:bool, parent:bool, mapping:bool, graph:Graph) -> tuple:
         visited: init the parent list?
         visited: init the mapping dict?
     Returns:
-        A tuple containing the 
+        A tuple containing the lists
     '''    
     visited_lst = [] if visited else None
     parent_lst = [] if parent else None

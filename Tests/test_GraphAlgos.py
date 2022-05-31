@@ -1,5 +1,5 @@
 import unittest
-from Jellybeans.Exceptions.NegativeCycle import _Negativecycle
+from Jellybeans.Exceptions.Negativecycle import _Negativecycle
 
 from Jellybeans.Algos import (
     reachability, 

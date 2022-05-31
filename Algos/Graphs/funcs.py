@@ -190,6 +190,14 @@ def sssp_tree(graph:Graph, source:int) -> dict:
     return {vertices[idx]:cost for idx, cost in enumerate(cost)}
 
 def sssp_unweighted(graph:Graph, source:int) -> dict:
+    '''
+    Finds the single source shortest path of an unweighted graph.
+    Args:
+        graph: Graph Object
+        source: Source vertex Number
+    Returns:
+        A dictionary of vertex -> cost
+    '''
     if not graph.is_unweighted():
         raise TypeError("This graph is not unweighted")
     vertices = graph.list_vertices()
