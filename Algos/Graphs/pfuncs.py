@@ -114,7 +114,7 @@ def _relax(vertex_from:int, vertex_to:int, weight:int, parent:list, cost:list) -
         cost[vertex_to] = cost[vertex_from] + weight
         parent[vertex_to] = vertex_from
 
-def _dfs_sssp_tree(vertex:int, visited:list, parent:list, cost:list, adj_list:list, mapping:list) -> None:
+def _dfs_sssp_tree(vertex:int, parent:list, cost:list, adj_list:list, mapping:list) -> None:
     '''
     DFS implementation of doing SSSP on trees
     Args:
@@ -126,10 +126,24 @@ def _dfs_sssp_tree(vertex:int, visited:list, parent:list, cost:list, adj_list:li
         mapping: mapping of vertices to indexes
     '''
     for neighbor, weight in adj_list[vertex]:
-        if visited[mapping[neighbor]] == 0:
-            visited[mapping[neighbor]] = 1
+        if cost[mapping[neighbor]] == 1000000000:
             _relax(mapping[vertex], mapping[neighbor], weight, parent, cost)
-            _dfs_sssp_tree(neighbor, visited, parent, cost, adj_list, mapping)
+            _dfs_sssp_tree(neighbor, parent, cost, adj_list, mapping)
         else:
             if cost[mapping[vertex]] + weight < cost[mapping[neighbor]]:
                 raise _Negativecycle("Edge with negative weight detected!")
+
+def _bfs_sssp_unweighted(vertex:int, parent:list, cost:list, adj_list:list, mapping:list):
+    q = Queue()
+    q.enqueue(vertex)
+
+    while not q.isEmpty():
+        curr = q.dequeue()
+        for neighbor, weight in adj_list[curr]:
+            if cost[mapping[neighbor]] == 1000000000:
+                cost[mapping[neighbor]] = cost[mapping[curr]] + weight
+                parent[mapping[neighbor]] = mapping[curr]
+                q.enqueue(neighbor)
+            else:
+                if cost[mapping[curr]] + weight < cost[mapping[neighbor]]:
+                    raise _Negativecycle("Edge with negative weight detected!")

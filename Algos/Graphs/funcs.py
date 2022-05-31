@@ -1,6 +1,13 @@
 from __future__ import annotations
 from Jellybeans.Structures import Graph, Queue, PriorityQueue, UFDS
-from .pfuncs import _BFS, _path_construction, _DFS_topo, _DFS, _initializer, _dfs_sssp_tree
+from .pfuncs import (
+    _BFS, 
+    _path_construction, 
+    _DFS_topo, 
+    _DFS, _initializer, 
+    _dfs_sssp_tree,
+    _bfs_sssp_unweighted
+)
 
 def reachability(graph:Graph, source:int, destination:int) -> tuple:
     '''
@@ -177,9 +184,18 @@ def sssp_tree(graph:Graph, source:int) -> dict:
     vertices = graph.list_vertices()
     cost = [1000000000 for _ in vertices]
     parent = [-1 for _ in vertices]
-    visited = [0 for _ in vertices]
     mapping = {vertices:idx for idx, vertices in enumerate(vertices)}
     cost[mapping[source]] = 0
-    visited[mapping[source]] = 1
-    _dfs_sssp_tree(source, visited, parent, cost, graph.to_adjList(), mapping)
+    _dfs_sssp_tree(source, parent, cost, graph.to_adjList(), mapping)
+    return {vertices[idx]:cost for idx, cost in enumerate(cost)}
+
+def sssp_unweighted(graph:Graph, source:int) -> dict:
+    if not graph.is_unweighted():
+        raise TypeError("This graph is not unweighted")
+    vertices = graph.list_vertices()
+    cost = [1000000000 for _ in vertices]
+    parent = [-1 for _ in vertices]
+    mapping = {vertices:idx for idx, vertices in enumerate(vertices)}
+    cost[mapping[source]] = 0
+    _bfs_sssp_unweighted(source, parent, cost, graph.to_adjList(), mapping)
     return {vertices[idx]:cost for idx, cost in enumerate(cost)}
