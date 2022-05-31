@@ -51,7 +51,8 @@ class Graph:
         if self.__first_weight is None:
             self.__first_weight = weight
         else:
-            self.__unweighted = False if weight != self.__first_weight else True
+            if self.__unweighted:
+                self.__unweighted = not weight != self.__first_weight
         self.__reachableBy[vTo].append(vFrom)
     
     def add_bidirected_edge(self, vFrom:int, vTo:int, weight:tuple = (1,1)):
