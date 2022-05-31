@@ -1,5 +1,6 @@
 from __future__ import annotations
 from Jellybeans.Structures import Queue, Graph
+from Jellybeans.Exceptions.Negativecycle import _Negativecycle
 
 def _initializer(visited:bool, parent:bool, mapping:bool, graph:Graph) -> tuple:
     '''
@@ -98,3 +99,37 @@ def _DFS_topo(visited: list, toposort_arr: list, source: int, adj_list:dict, map
         if visited[mapping[neighbor]] == 0:
             _DFS_topo(visited, toposort_arr, neighbor, adj_list, mapping)
     toposort_arr.append(source)
+
+def _relax(vertex_from:int, vertex_to:int, weight:int, parent:list, cost:list) -> None:
+    '''
+    This is a internal function used to relax weight costs in SSSP Algorithms
+    Args:
+        vertex_from: Source vertex
+        vertex_to: Neighbouring vertex to source
+        weight: edge weight connecting vertex_from to vertex_to
+        parent: parent list
+        cost: cost list
+    '''
+    if cost[vertex_to] > cost[vertex_from] + weight:
+        cost[vertex_to] = cost[vertex_from] + weight
+        parent[vertex_to] = vertex_from
+
+def _dfs_sssp_tree(vertex:int, visited:list, parent:list, cost:list, adj_list:list, mapping:list) -> None:
+    '''
+    DFS implementation of doing SSSP on trees
+    Args:
+        vertex: Source vertex
+        visited: Visited list
+        parent: Parent list
+        cost: Cost list
+        adj_list: Adjacency list
+        mapping: mapping of vertices to indexes
+    '''
+    for neighbor, weight in adj_list[vertex]:
+        if visited[mapping[neighbor]] == 0:
+            visited[mapping[neighbor]] = 1
+            _relax(mapping[vertex], mapping[neighbor], weight, parent, cost)
+            _dfs_sssp_tree(neighbor, visited, parent, cost, adj_list, mapping)
+        else:
+            if cost[mapping[vertex]] + weight < cost[mapping[neighbor]]:
+                raise _Negativecycle("Edge with negative weight detected!")
