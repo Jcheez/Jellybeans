@@ -9,6 +9,7 @@ from .pfuncs import (
     _bfs_sssp_unweighted,
     _relax
 )
+from Jellybeans.Exceptions.Negativecycle import _Negativecycle
 
 def reachability(graph:Graph, source:int, destination:int) -> tuple:
     '''
@@ -230,6 +231,23 @@ def sssp_DAG(graph:Graph, source:int) -> dict:
     
     for v_from in topo:
         for neighbor, weight in graph.to_adjList()[v_from]:
-            _relax(v_from, neighbor, weight, parent, cost)
+            _relax(mapping[v_from], mapping[neighbor], weight, parent, cost)
 
+    return {vertices[idx]:cost for idx, cost in enumerate(cost)}
+
+def sssp_bellman_ford(graph:Graph, source:int) -> dict:
+    vertices = graph.list_vertices()
+    cost = [1000000000 for _ in vertices]
+    parent = [-1 for _ in vertices]
+    mapping = {vertices:idx for idx, vertices in enumerate(vertices)}
+    cost[mapping[source]] = 0
+    edge_list = graph.to_edgeList()
+    
+    for _ in range(len(vertices) - 1):
+        for v_from, v_to, weight in edge_list:
+            _relax(mapping[v_from], mapping[v_to], weight, parent, cost)
+    
+    for v_from, v_to, weight in edge_list:
+        if cost[mapping[v_from]] != 1000000000 and cost[mapping[v_to]] > cost[mapping[v_from]] + weight:
+            raise _Negativecycle("Negative Weight Cycle detected!")
     return {vertices[idx]:cost for idx, cost in enumerate(cost)}

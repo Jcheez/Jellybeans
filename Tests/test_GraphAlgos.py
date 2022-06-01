@@ -11,7 +11,8 @@ from Jellybeans.Algos import (
     spanning_tree_kruskal,
     sssp_tree,
     sssp_unweighted,
-    sssp_DAG
+    sssp_DAG,
+    sssp_bellman_ford
 )
 from Jellybeans.Structures import Graph
 
@@ -788,3 +789,117 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(5, 6, 1)
         res = sssp_DAG(g, 0)
         self.assertEqual(res, {0:0, 1:6, 2:11, 3:15, 4:18, 5:20, 6:21})
+
+    def test_sssp_bellman1(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_edge(0, 1, 4)
+        g.add_edge(0, 3, 6)
+        g.add_edge(0, 4, 6)
+        g.add_edge(1, 2, 2)
+        g.add_edge(2, 0, 4)
+        g.add_edge(2, 3, 8)
+        g.add_edge(3, 4, 9)
+        res = sssp_bellman_ford(g, 3)
+        self.assertEqual(res, {0:1000000000, 1:1000000000, 2:1000000000, 3:0, 4:9})
+    
+    def test_sssp_bellman2(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_edge(0, 1, 4)
+        g.add_edge(0, 3, 6)
+        g.add_edge(0, 4, 6)
+        g.add_edge(1, 2, 2)
+        g.add_edge(2, 0, 4)
+        g.add_edge(2, 3, 8)
+        g.add_edge(3, 4, 9)
+        res = sssp_bellman_ford(g, 0)
+        self.assertEqual(res, {0:0, 1:4, 2:6, 3:6, 4:6})
+
+    def test_sssp_bellman3(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_edge(0, 2, 75)
+        g.add_edge(0, 1, 9)
+        g.add_edge(1, 2, 95)
+        g.add_edge(2, 3, 51)
+        g.add_edge(3, 1, 19)
+        g.add_edge(1, 4, 42)
+        g.add_edge(4, 3, 31)
+        res = sssp_bellman_ford(g, 0)
+        self.assertEqual(res, {0:0, 1:9, 2:75, 3:82, 4:51})
+
+    def test_sssp_bellman4(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(18)
+        g.add_vertex(29)
+        g.add_vertex(35)
+        g.add_vertex(47)
+        g.add_edge(0, 29, 75)
+        g.add_edge(0, 18, 9)
+        g.add_edge(18, 29, 95)
+        g.add_edge(29, 35, 51)
+        g.add_edge(35, 18, 19)
+        g.add_edge(18, 47, 42)
+        g.add_edge(47, 35, 31)
+        res = sssp_bellman_ford(g, 0)
+        self.assertEqual(res, {0:0, 18:9, 29:75, 35:82, 47:51})
+
+    def test_sssp_bellman5(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_edge(0, 1, 4)
+        g.add_edge(0, 2, 8)
+        g.add_bidirected_edge(1, 2)
+        g.add_edge(1, 3, 8)
+        g.add_edge(2, 3, 3)
+        res = sssp_bellman_ford(g, 0)
+        self.assertEqual(res, {0:0, 1:4, 2:5, 3:8})
+
+    def test_sssp_bellman6(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_edge(0, 1, 14)
+        g.add_edge(0, 2, 14)
+        g.add_edge(0, 3, 14)
+        g.add_edge(0, 4, 14)
+        g.add_edge(1, 2, 14)
+        g.add_edge(2, 3, 14)
+        g.add_edge(3, 4, 14)
+        g.add_edge(4, 1, 14)
+        res = sssp_bellman_ford(g, 0)
+        self.assertEqual(res, {0:0, 1:14, 2:14, 3:14, 4:14})
+
+    def test_sssp_bellman7(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_edge(0, 1, 99)
+        g.add_edge(0, 4, -99)
+        g.add_bidirected_edge(1, 2, (15, -42))
+        g.add_edge(2, 3, 10)
+        with self.assertRaises(_Negativecycle):
+            sssp_bellman_ford(g, 0)
