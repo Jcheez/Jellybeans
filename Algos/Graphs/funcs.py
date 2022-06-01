@@ -236,6 +236,14 @@ def sssp_DAG(graph:Graph, source:int) -> dict:
     return {vertices[idx]:cost for idx, cost in enumerate(cost)}
 
 def sssp_bellman_ford(graph:Graph, source:int) -> dict:
+    '''
+    Find the single source shortest path of any weighted graph using the bellman ford algorithm.
+    Args:
+        graph: Graph Object
+        source: Source vertex Number
+    Returns:
+        A dictionary of vertex -> cost
+    '''
     vertices = graph.list_vertices()
     cost = [1000000000 for _ in vertices]
     parent = [-1 for _ in vertices]
@@ -251,3 +259,14 @@ def sssp_bellman_ford(graph:Graph, source:int) -> dict:
         if cost[mapping[v_from]] != 1000000000 and cost[mapping[v_to]] > cost[mapping[v_from]] + weight:
             raise _Negativecycle("Negative Weight Cycle detected!")
     return {vertices[idx]:cost for idx, cost in enumerate(cost)}
+
+def sssp_dijkstra_algorithm(graph:Graph, source:int) -> dict:
+    '''
+    Find the single source shortest path of any graph with no negative weight edge.
+    Args:
+        graph: Graph Object
+        source: Source vertex Number
+    Returns:
+        A dictionary of vertex -> cost
+    '''
+    pass
