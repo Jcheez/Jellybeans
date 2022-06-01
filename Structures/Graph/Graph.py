@@ -7,8 +7,8 @@ class Graph:
     def __init__(self) -> None:
         self.__adjList = {}
         self.__reachableBy = {}
-        self.__unweighted = True
-        self.__first_weight = None
+        self.__unweighted = [True, None]
+        self.__positive_weighted = True
 
     def add_vertex(self, nodeId:int) -> None:
         if nodeId not in self.__adjList and nodeId not in self.__reachableBy:
@@ -48,11 +48,14 @@ class Graph:
             if v == vTo:
                 raise _GraphProperty(f"Edge {vFrom} -> {vTo} already present in graph")
         edges.append((vTo, weight))
-        if self.__first_weight is None:
-            self.__first_weight = weight
+        if self.__unweighted[1] is None:
+            self.__unweighted[1] = weight
         else:
-            if self.__unweighted:
-                self.__unweighted = not weight != self.__first_weight
+            if self.__unweighted[0]:
+                self.__unweighted[0] = weight == self.__unweighted[1]
+
+        if self.__positive_weighted:
+            self.__positive_weighted = weight >= 0
         self.__reachableBy[vTo].append(vFrom)
     
     def add_bidirected_edge(self, vFrom:int, vTo:int, weight:tuple = (1,1)):
@@ -138,7 +141,10 @@ class Graph:
         return True
         
     def is_unweighted(self) -> bool:
-        return self.__unweighted
+        return self.__unweighted[0]
+
+    def is_positive(self) -> bool:
+        return self.__positive_weighted
 
     def is_DAG(self) -> bool:
 
