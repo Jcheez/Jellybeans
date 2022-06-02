@@ -104,6 +104,103 @@ class test_Queue(unittest.TestCase):
         self.assertEqual(len(pq), 6)
         self.assertEqual(pq.sort(), [6, 7, 9, 10, 30, 120])
 
+    def test_search1(self):
+        pq = PriorityQueue(arr=[None, 1,30,120,4,5], comparator=lambda x,y:x<=y)
+        pq.insert(9)
+        pq.insert(6)
+        pq.insert(7)
+        pq.insert(10)
+        self.assertTrue(pq.search(10))
+
+    def test_search2(self):
+        pq = PriorityQueue(arr=[None, 1,30,120,4,5], comparator=lambda x,y:x<=y)
+        pq.insert(9)
+        pq.insert(6)
+        pq.insert(7)
+        pq.insert(10)
+        pq.extract()
+        self.assertFalse(pq.search(1))
+
+    def test_search3(self):
+        pq = PriorityQueue(arr=[None, 1,30,120,4,5], comparator=lambda x,y:x<=y)
+        pq.insert(9)
+        pq.insert(6)
+        pq.insert(7)
+        pq.insert(10)
+        pq.extract()
+        pq.extract()
+        pq.extract()
+        self.assertFalse(pq.search(5))
+
+    def test_update1(self):
+        pq = PriorityQueue(arr=[None, 1,30,120,4,5], comparator=lambda x,y:x<=y)
+        pq.insert(9)
+        pq.insert(6)
+        pq.insert(7)
+        pq.insert(10)
+        pq.extract()
+        pq.extract()
+        pq.extract()
+        pq.update(120, 31)
+        self.assertEqual(pq.sort(), [6, 7, 9, 10, 30, 31])
+
+    def test_update2(self):
+        pq = PriorityQueue(arr=[None, 1,30,120,4,5], comparator=lambda x,y:x<=y)
+        pq.insert(9)
+        pq.insert(6)
+        pq.insert(7)
+        pq.insert(10)
+        pq.extract()
+        pq.extract()
+        pq.extract()
+        pq.update(6, 31)
+        self.assertEqual(pq.sort(), [7, 9, 10, 30, 31, 120])
+
+    def test_update3(self):
+        pq = PriorityQueue(comparator=lambda x,y:len(x) >= len(y))
+        pq.insert("a")
+        pq.insert("ab")
+        pq.insert("abc")
+        pq.insert("abcd")
+        pq.update("a", "abc")
+        self.assertEqual(pq.sort(), ["abcd", "abc", "abc", "ab"])
+
+    def test_update4(self):
+        pq = PriorityQueue(arr=[None, 1,30,120,4,5], comparator=lambda x,y:x<=y)
+        pq.insert(9)
+        pq.insert(6)
+        pq.insert(7)
+        pq.insert(10)
+        pq.extract()
+        pq.extract()
+        pq.extract()
+        pq.update(6, 120)
+        self.assertEqual(pq.sort(), [7, 9, 10, 30, 120, 120])
+
+    def test_update5(self):
+        pq = PriorityQueue(arr=[None, 1,30,120,4,5], comparator=lambda x,y:x<=y)
+        pq.insert(9)
+        pq.insert(6)
+        pq.insert(7)
+        pq.insert(10)
+        pq.extract()
+        pq.extract()
+        pq.extract()
+        pq.update(7, 6)
+        self.assertEqual(pq.sort(), [6, 6, 9, 10, 30, 120])
+
+    def test_update6(self):
+        pq = PriorityQueue(arr=[None, 1,30,120,4,5], comparator=lambda x,y:x < y)
+        pq.insert(9)
+        pq.insert(6)
+        pq.insert(7)
+        pq.insert(10)
+        pq.extract()
+        pq.extract()
+        pq.extract()
+        pq.update(7, 6)
+        self.assertEqual(pq.sort(), [6, 6, 9, 10, 30, 120])
+
     def test_random1(self):
         pq = PriorityQueue(comparator=lambda x,y:len(x) >= len(y))
         pq.insert("a")
