@@ -260,7 +260,7 @@ def sssp_bellman_ford(graph:Graph, source:int) -> dict:
             raise _Negativecycle("Negative Weight Cycle detected!")
     return {vertices[idx]:cost for idx, cost in enumerate(cost)}
 
-def sssp_dijkstra_algorithm(graph:Graph, source:int) -> dict:
+def sssp_dijkstra(graph:Graph, source:int) -> dict:
     '''
     Find the single source shortest path of any graph with no negative weight edge.
     Args:
@@ -269,4 +269,23 @@ def sssp_dijkstra_algorithm(graph:Graph, source:int) -> dict:
     Returns:
         A dictionary of vertex -> cost
     '''
-    pass
+    if not graph.is_positive():
+        raise TypeError("This graph contains negative weight edges")
+    vertices = graph.list_vertices()
+    pq = PriorityQueue(comparator = lambda x, y: x[0] <= y[0])
+    costs = {}
+    for v in vertices:
+        if v == source:
+            costs[v] = 0
+            pq.insert([0, v])
+        else:
+            costs[v] = 1000000000
+            pq.insert((1000000000, v))
+    while not pq.isEmpty():
+        curr_weight, curr_vertex = pq.extract()
+
+        for neighbor, weight in graph.to_adjList()[curr_vertex]:
+            if costs[neighbor] > curr_weight + weight:
+                pq.update((costs[neighbor], neighbor), (curr_weight + weight, neighbor))
+                costs[neighbor] = curr_weight + weight    
+    return costs 
