@@ -116,20 +116,12 @@ class Graph:
 
     def to_adjMatrix(self):
         vertices = self.list_vertices()
-        res = []
-        mapping = {}
-        # find out the number of vertices
-        counter = 0
+        mapping = {v:idx for idx,v in enumerate(vertices)}
+        res = [[0 for _ in vertices] for _ in vertices]
+    
         for v in vertices:
-            row = [0 for x in vertices]
-            res.append(row)
-            mapping[v] = counter
-            counter += 1
-        # fill the x*x matrix first with 0 values
-        for vFrom in vertices:
-            lst = self.__adjList[vFrom]
-            for vTo,weight in lst:
-                res[mapping[vFrom]][mapping[vTo]] = weight
+            for neighbor, weight in self.__adjList[v]:
+                res[mapping[v]][mapping[neighbor]] = weight
         return mapping, res
 
     def is_tree(self) -> bool:

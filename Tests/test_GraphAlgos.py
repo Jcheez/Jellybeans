@@ -13,7 +13,8 @@ from Jellybeans.Algos import (
     sssp_unweighted,
     sssp_DAG,
     sssp_bellman_ford,
-    sssp_dijkstra
+    sssp_dijkstra,
+    floyd_warshall
 )
 from Jellybeans.Structures import Graph
 
@@ -1081,3 +1082,23 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(1, 2, (3, 3))
         res = sssp_dijkstra(g, 0)
         self.assertEqual(res, {0:0, 1:2, 2:5})
+
+    def test_floyd1(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_edge(0, 1, 2)
+        g.add_edge(0, 2, 1)
+        g.add_edge(0, 4, 3)
+        g.add_edge(1, 3, 4)
+        g.add_edge(2, 1, 1)
+        g.add_edge(2, 4, 1)
+        g.add_edge(3, 0, 1)
+        g.add_edge(3, 2, 3)
+        g.add_edge(3, 4, 5)
+        res, mapping = floyd_warshall(g, 1)
+        print(res)
+        self.assertEqual(res, [[0, 2, 1, 6, 2], [5, 0, 6, 4, 7], [6, 1, 0, 5, 1], [1, 3, 2, 0, 3], [1000000000, 1000000000, 1000000000, 1000000000, 0]])

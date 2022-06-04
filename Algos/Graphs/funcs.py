@@ -7,7 +7,8 @@ from .pfuncs import (
     _DFS, _initializer, 
     _dfs_sssp_tree,
     _bfs_sssp_unweighted,
-    _relax
+    _relax,
+    _floyd_SP
 )
 from Jellybeans.Exceptions.Negativecycle import _Negativecycle
 
@@ -288,4 +289,8 @@ def sssp_dijkstra(graph:Graph, source:int) -> dict:
             if costs[neighbor] > curr_weight + weight:
                 pq.update((costs[neighbor], neighbor), (curr_weight + weight, neighbor))
                 costs[neighbor] = curr_weight + weight    
-    return costs 
+    return costs
+
+def floyd_warshall(graph:Graph, type:int) -> tuple:
+    return _floyd_SP(graph.list_vertices(), graph.to_adjList())
+        

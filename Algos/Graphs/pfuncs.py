@@ -155,3 +155,18 @@ def _bfs_sssp_unweighted(vertex:int, parent:list, cost:list, adj_list:list, mapp
             else:
                 if cost[mapping[curr]] + weight < cost[mapping[neighbor]]:
                     raise _Negativecycle("Edge with negative weight detected!")
+
+def _floyd_SP(vertices:list, adj_list:list):
+    mapping = {v:idx for idx,v in enumerate(vertices)}
+    res = [[1000000000 for _ in vertices] for _ in vertices]
+
+    for v in vertices:
+        res[v][v] = 0
+        for neighbor, weight in adj_list[v]:
+            res[mapping[v]][mapping[neighbor]] = weight
+    
+    for a in range(len(vertices)):
+        for b in range(len(vertices)):
+            for c in range(len(vertices)):
+                res[b][c] = min(res[b][c], res[b][a] + res[a][c])
+    return res, mapping
