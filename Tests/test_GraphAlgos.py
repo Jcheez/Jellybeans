@@ -2,20 +2,22 @@ import unittest
 from Jellybeans.Exceptions.Negativecycle import _Negativecycle
 
 from Jellybeans.Algos import (
-    reachability, 
-    counting_components, 
-    topological_sort, 
-    DFS_toposort, 
-    count_strong_connected_components, 
-    spanning_tree_prim, 
+    reachability,
+    counting_components,
+    topological_sort,
+    DFS_toposort,
+    count_strong_connected_components,
+    spanning_tree_prim,
     spanning_tree_kruskal,
     sssp_tree,
     sssp_unweighted,
     sssp_DAG,
     sssp_bellman_ford,
-    sssp_dijkstra
+    sssp_dijkstra,
+    floyd_warshall
 )
 from Jellybeans.Structures import Graph
+
 
 class test_GraphAlgos(unittest.TestCase):
 
@@ -125,7 +127,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(1, 0)
         res = topological_sort(g)
         self.assertEqual(res, [3, 2, 1, 0])
-    
+
     def test_toposort3(self):
         g = Graph()
         g.add_vertex(0)
@@ -243,7 +245,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(9, 8)
         res = count_strong_connected_components(g)
         self.assertEqual(res, 3)
-    
+
     def test_MST_prim1(self):
         g = Graph()
         g.add_vertex(0)
@@ -260,7 +262,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(3, 4, (9, 9))
         res = spanning_tree_prim(g, 0, False)
         self.assertEqual(sum(map(lambda x: x[2], res.to_edgeList())) / 2, 27)
-    
+
     def test_MST_prim2(self):
         g = Graph()
         g.add_vertex(0)
@@ -294,7 +296,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(3, 4, (31, 31))
         res = spanning_tree_prim(g, 0, True)
         self.assertEqual(sum(map(lambda x: x[2], res.to_edgeList())) / 2, 110)
-    
+
     def test_MST_prim4(self):
         g = Graph()
         g.add_vertex(0)
@@ -328,7 +330,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(3, 4, (9, 9))
         res = spanning_tree_kruskal(g, False)
         self.assertEqual(sum(map(lambda x: x[2], res.to_edgeList())) / 2, 27)
-    
+
     def test_MST_kruskal2(self):
         g = Graph()
         g.add_vertex(0)
@@ -362,7 +364,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(3, 4, (31, 31))
         res = spanning_tree_kruskal(g, True)
         self.assertEqual(sum(map(lambda x: x[2], res.to_edgeList())) / 2, 110)
-    
+
     def test_MST_kruskal4(self):
         g = Graph()
         g.add_vertex(0)
@@ -388,7 +390,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(0, 1, (2, 2))
         g.add_bidirected_edge(1, 2, (3, 3))
         res = sssp_tree(g, 0)
-        self.assertEqual(res, {0:0, 1:2, 2:5})
+        self.assertEqual(res, {0: 0, 1: 2, 2: 5})
 
     def test_sssp_tree2(self):
         g = Graph()
@@ -411,7 +413,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(1, 2, (2, 2))
         g.add_bidirected_edge(1, 3, (3, 3))
         res = sssp_tree(g, 0)
-        self.assertEqual(res, {0:0, 1:1, 2:3, 3:4})
+        self.assertEqual(res, {0: 0, 1: 1, 2: 3, 3: 4})
 
     def test_sssp_tree4(self):
         g = Graph()
@@ -423,7 +425,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(5, 100, (2, 2))
         g.add_bidirected_edge(5, 120, (3, 3))
         res = sssp_tree(g, 0)
-        self.assertEqual(res, {0:0, 5:1, 100:3, 120:4})
+        self.assertEqual(res, {0: 0, 5: 1, 100: 3, 120: 4})
 
     def test_sssp_tree5(self):
         g = Graph()
@@ -463,7 +465,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(3, 4, (1, 1))
         g.add_bidirected_edge(3, 2, (5, 5))
         res = sssp_tree(g, 0)
-        self.assertEqual(res, {0:0, 1:2, 2:16, 3:11, 4:12, 5:4})
+        self.assertEqual(res, {0: 0, 1: 2, 2: 16, 3: 11, 4: 12, 5: 4})
 
     def test_sssp_tree8(self):
         g = Graph()
@@ -479,13 +481,13 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(3, 4, (1, 1))
         g.add_bidirected_edge(3, 2, (5, 5))
         res = sssp_tree(g, 3)
-        self.assertEqual(res, {0:11, 1:9, 2:5, 3:0, 4:1, 5:15})
+        self.assertEqual(res, {0: 11, 1: 9, 2: 5, 3: 0, 4: 1, 5: 15})
 
     def test_sssp_tree9(self):
         g = Graph()
         g.add_vertex(0)
         res = sssp_tree(g, 0)
-        self.assertEqual(res, {0:0})
+        self.assertEqual(res, {0: 0})
 
     def test_sssp_tree10(self):
         g = Graph()
@@ -493,7 +495,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_vertex(1)
         g.add_bidirected_edge(0, 1, (3, -3))
         res = sssp_tree(g, 0)
-        self.assertEqual(res, {0:0, 1:3})
+        self.assertEqual(res, {0: 0, 1: 3})
 
     def test_sssp_unweighted1(self):
         g = Graph()
@@ -520,7 +522,8 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(4, 0)
         g.add_edge(4, 3)
         res = sssp_unweighted(g, 3)
-        self.assertEqual(res, {0:1000000000, 1:1000000000, 2:1000000000, 3:0, 4:1000000000, 5:1})
+        self.assertEqual(res, {0: 1000000000, 1: 1000000000,
+                               2: 1000000000, 3: 0, 4: 1000000000, 5: 1})
 
     def test_sssp_unweighted3(self):
         g = Graph()
@@ -539,7 +542,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(4, 0)
         g.add_edge(4, 3)
         res = sssp_unweighted(g, 0)
-        self.assertEqual(res, {0:0, 1:1, 2:1, 3:2, 4:2, 5:2})
+        self.assertEqual(res, {0: 0, 1: 1, 2: 1, 3: 2, 4: 2, 5: 2})
 
     def test_sssp_unweighted4(self):
         g = Graph()
@@ -589,7 +592,8 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(10, 11)
         g.add_bidirected_edge(11, 12)
         res = sssp_unweighted(g, 10)
-        self.assertEqual(res, {0:3, 1:2, 2:3, 3:4, 4:3, 5:1, 6:2, 7:3, 8:2, 9:1, 10:0, 11:1, 12:2})
+        self.assertEqual(res, {0: 3, 1: 2, 2: 3, 3: 4, 4: 3,
+                               5: 1, 6: 2, 7: 3, 8: 2, 9: 1, 10: 0, 11: 1, 12: 2})
 
     def test_sssp_unweighted7(self):
         g = Graph()
@@ -622,7 +626,8 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(8, 9, 4)
         g.add_edge(9, 5, 4)
         res = sssp_unweighted(g, 4)
-        self.assertEqual(res, {0:1000000000, 1:8, 2:4, 3:4, 4:0, 5:8, 6:8, 7:4, 8:4, 9:8})
+        self.assertEqual(res, {0: 1000000000, 1: 8, 2: 4,
+                               3: 4, 4: 0, 5: 8, 6: 8, 7: 4, 8: 4, 9: 8})
 
     def test_sssp_unweighted8(self):
         g = Graph()
@@ -665,7 +670,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(1, 0, 10)
         g.add_edge(2, 0, 20)
         res = sssp_DAG(g, 1)
-        self.assertEqual(res, {0:10, 1:0, 2:1000000000})
+        self.assertEqual(res, {0: 10, 1: 0, 2: 1000000000})
 
     def test_sssp_DAG2(self):
         g = Graph()
@@ -692,7 +697,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(2, 4, 1)
         g.add_edge(3, 4, 5)
         res = sssp_DAG(g, 1)
-        self.assertEqual(res, {0:1000000000, 1:0, 2:1000000000, 3:3, 4:6})
+        self.assertEqual(res, {0: 1000000000, 1: 0, 2: 1000000000, 3: 3, 4: 6})
 
     def test_sssp_DAG4(self):
         g = Graph()
@@ -709,7 +714,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(2, 4, 1)
         g.add_edge(3, 4, 5)
         res = sssp_DAG(g, 0)
-        self.assertEqual(res, {0:0, 1:2, 2:6, 3:5, 4:7})
+        self.assertEqual(res, {0: 0, 1: 2, 2: 6, 3: 5, 4: 7})
 
     def test_sssp_DAG5(self):
         g = Graph()
@@ -724,7 +729,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(2, 3, -10)
         g.add_edge(3, 4, 3)
         res = sssp_DAG(g, 0)
-        self.assertEqual(res, {0:0, 1:1, 2:10, 3:0, 4:3})
+        self.assertEqual(res, {0: 0, 1: 1, 2: 10, 3: 0, 4: 3})
 
     def test_sssp_DAG6(self):
         g = Graph()
@@ -789,7 +794,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(4, 5, 2)
         g.add_edge(5, 6, 1)
         res = sssp_DAG(g, 0)
-        self.assertEqual(res, {0:0, 1:6, 2:11, 3:15, 4:18, 5:20, 6:21})
+        self.assertEqual(res, {0: 0, 1: 6, 2: 11, 3: 15, 4: 18, 5: 20, 6: 21})
 
     def test_sssp_bellman1(self):
         g = Graph()
@@ -806,8 +811,9 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(2, 3, 8)
         g.add_edge(3, 4, 9)
         res = sssp_bellman_ford(g, 3)
-        self.assertEqual(res, {0:1000000000, 1:1000000000, 2:1000000000, 3:0, 4:9})
-    
+        self.assertEqual(
+            res, {0: 1000000000, 1: 1000000000, 2: 1000000000, 3: 0, 4: 9})
+
     def test_sssp_bellman2(self):
         g = Graph()
         g.add_vertex(0)
@@ -823,7 +829,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(2, 3, 8)
         g.add_edge(3, 4, 9)
         res = sssp_bellman_ford(g, 0)
-        self.assertEqual(res, {0:0, 1:4, 2:6, 3:6, 4:6})
+        self.assertEqual(res, {0: 0, 1: 4, 2: 6, 3: 6, 4: 6})
 
     def test_sssp_bellman3(self):
         g = Graph()
@@ -840,7 +846,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(1, 4, 42)
         g.add_edge(4, 3, 31)
         res = sssp_bellman_ford(g, 0)
-        self.assertEqual(res, {0:0, 1:9, 2:75, 3:82, 4:51})
+        self.assertEqual(res, {0: 0, 1: 9, 2: 75, 3: 82, 4: 51})
 
     def test_sssp_bellman4(self):
         g = Graph()
@@ -857,7 +863,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(18, 47, 42)
         g.add_edge(47, 35, 31)
         res = sssp_bellman_ford(g, 0)
-        self.assertEqual(res, {0:0, 18:9, 29:75, 35:82, 47:51})
+        self.assertEqual(res, {0: 0, 18: 9, 29: 75, 35: 82, 47: 51})
 
     def test_sssp_bellman5(self):
         g = Graph()
@@ -871,7 +877,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(1, 3, 8)
         g.add_edge(2, 3, 3)
         res = sssp_bellman_ford(g, 0)
-        self.assertEqual(res, {0:0, 1:4, 2:5, 3:8})
+        self.assertEqual(res, {0: 0, 1: 4, 2: 5, 3: 8})
 
     def test_sssp_bellman6(self):
         g = Graph()
@@ -889,7 +895,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(3, 4, 14)
         g.add_edge(4, 1, 14)
         res = sssp_bellman_ford(g, 0)
-        self.assertEqual(res, {0:0, 1:14, 2:14, 3:14, 4:14})
+        self.assertEqual(res, {0: 0, 1: 14, 2: 14, 3: 14, 4: 14})
 
     def test_sssp_bellman7(self):
         g = Graph()
@@ -913,7 +919,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(0, 1, 99)
         g.add_edge(0, 2, 90)
         res = sssp_dijkstra(g, 0)
-        self.assertEqual(res, {0:0, 1:99, 2:90})
+        self.assertEqual(res, {0: 0, 1: 99, 2: 90})
 
     def test_sssp_o_dijkstra2(self):
         g = Graph()
@@ -930,7 +936,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(2, 3, 8)
         g.add_edge(3, 4, 9)
         res = sssp_dijkstra(g, 0)
-        self.assertEqual(res, {0:0, 1:4, 2:6, 3:6, 4:6})
+        self.assertEqual(res, {0: 0, 1: 4, 2: 6, 3: 6, 4: 6})
 
     def test_sssp_o_dijkstra3(self):
         g = Graph()
@@ -947,7 +953,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(2, 4, 1)
         g.add_edge(3, 4, 5)
         res = sssp_dijkstra(g, 0)
-        self.assertEqual(res, {0:0, 1:2, 2:6, 3:5, 4:7})
+        self.assertEqual(res, {0: 0, 1: 2, 2: 6, 3: 5, 4: 7})
 
     def test_sssp_o_dijkstra4(self):
         g = Graph()
@@ -961,7 +967,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(1, 3, 8)
         g.add_edge(2, 3, 3)
         res = sssp_dijkstra(g, 1)
-        self.assertEqual(res, {0:1000000000, 1:0, 2:1, 3:4})
+        self.assertEqual(res, {0: 1000000000, 1: 0, 2: 1, 3: 4})
 
     def test_sssp_o_dijkstra5(self):
         g = Graph()
@@ -975,7 +981,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(1, 3, 8)
         g.add_edge(2, 3, 3)
         res = sssp_dijkstra(g, 0)
-        self.assertEqual(res, {0:0, 1:4, 2:5, 3:8})
+        self.assertEqual(res, {0: 0, 1: 4, 2: 5, 3: 8})
 
     def test_sssp_o_dijkstra6(self):
         g = Graph()
@@ -989,7 +995,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(1, 3, (8, 8))
         g.add_bidirected_edge(2, 3, (9, 9))
         res = sssp_dijkstra(g, 1)
-        self.assertEqual(res, {0:5, 1:0, 2:7, 3:8})
+        self.assertEqual(res, {0: 5, 1: 0, 2: 7, 3: 8})
 
     def test_sssp_o_dijkstra7(self):
         g = Graph()
@@ -1037,7 +1043,8 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(10, 11)
         g.add_bidirected_edge(11, 12)
         res = sssp_dijkstra(g, 10)
-        self.assertEqual(res, {0:3, 1:2, 2:3, 3:4, 4:3, 5:1, 6:2, 7:3, 8:2, 9:1, 10:0, 11:1, 12:2})
+        self.assertEqual(res, {0: 3, 1: 2, 2: 3, 3: 4, 4: 3,
+                               5: 1, 6: 2, 7: 3, 8: 2, 9: 1, 10: 0, 11: 1, 12: 2})
 
     def test_sssp_o_dijkstra9(self):
         g = Graph()
@@ -1070,7 +1077,8 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_edge(8, 9, 4)
         g.add_edge(9, 5, 4)
         res = sssp_dijkstra(g, 4)
-        self.assertEqual(res, {0:1000000000, 1:8, 2:4, 3:4, 4:0, 5:8, 6:8, 7:4, 8:4, 9:8})
+        self.assertEqual(res, {0: 1000000000, 1: 8, 2: 4,
+                               3: 4, 4: 0, 5: 8, 6: 8, 7: 4, 8: 4, 9: 8})
 
     def test_sssp_o_dijkstra10(self):
         g = Graph()
@@ -1080,4 +1088,323 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(0, 1, (2, 2))
         g.add_bidirected_edge(1, 2, (3, 3))
         res = sssp_dijkstra(g, 0)
-        self.assertEqual(res, {0:0, 1:2, 2:5})
+        self.assertEqual(res, {0: 0, 1: 2, 2: 5})
+
+    def test_floyd_sp1(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_edge(0, 1, 2)
+        g.add_edge(0, 2, 1)
+        g.add_edge(0, 4, 3)
+        g.add_edge(1, 3, 4)
+        g.add_edge(2, 1, 1)
+        g.add_edge(2, 4, 1)
+        g.add_edge(3, 0, 1)
+        g.add_edge(3, 2, 3)
+        g.add_edge(3, 4, 5)
+        res, _ = floyd_warshall(g, 1)
+        self.assertEqual(res, [[0, 2, 1, 6, 2],
+                               [5, 0, 6, 4, 7],
+                               [6, 1, 0, 5, 1],
+                               [1, 3, 2, 0, 3],
+                               [1000000000, 1000000000, 1000000000, 1000000000, 0]])
+
+    def test_floyd_sp2(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_vertex(5)
+        g.add_edge(0, 1, 1)
+        g.add_edge(0, 2, 7)
+        g.add_edge(1, 3, 9)
+        g.add_edge(1, 5, 15)
+        g.add_edge(2, 4, 4)
+        g.add_edge(3, 5, 5)
+        g.add_edge(3, 4, 10)
+        g.add_edge(4, 5, 3)
+        res, _ = floyd_warshall(g, 1)
+        self.assertEqual(res, [[0, 1, 7, 10, 11, 14],
+                               [1000000000, 0, 1000000000, 9, 19, 14],
+                               [1000000000, 1000000000, 0, 1000000000, 4, 7],
+                               [1000000000, 1000000000, 1000000000, 0, 10, 5],
+                               [1000000000, 1000000000,
+                                   1000000000, 1000000000, 0, 3],
+                               [1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 0]])
+
+    def test_floyd_sp3(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_edge(0, 1, 13)
+        g.add_edge(0, 2, 13)
+        g.add_edge(0, 3, 13)
+        g.add_edge(0, 4, 13)
+        g.add_edge(1, 2, 13)
+        g.add_edge(2, 3, 13)
+        g.add_edge(3, 4, 13)
+        g.add_edge(4, 1, 13)
+        res, _ = floyd_warshall(g, 1)
+        self.assertEqual(res, [[0, 13, 13, 13, 13],
+                               [1000000000, 0, 13, 26, 39],
+                               [1000000000, 39, 0, 13, 26],
+                               [1000000000, 26, 39, 0, 13],
+                               [1000000000, 13, 26, 39, 0]])
+
+    def test_floyd_sp4(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_edge(0, 1, 1)
+        g.add_edge(0, 2, 10)
+        g.add_edge(1, 3, 2)
+        g.add_edge(2, 3, -10)
+        g.add_edge(3, 4, 3)
+        res, _ = floyd_warshall(g, 1)
+        self.assertEqual(res, [[0, 1, 10, 0, 3],
+                               [1000000000, 0, 1000000000, 2, 5],
+                               [1000000000, 1000000000, 0, -10, -7],
+                               [1000000000, 1000000000, 1000000000, 0, 3],
+                               [1000000000, 1000000000, 1000000000, 1000000000, 0]])
+
+    def test_floyd_sp5(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_edge(0, 1, 4)
+        g.add_edge(0, 2, 8)
+        g.add_bidirected_edge(1, 2)
+        g.add_edge(1, 3, 8)
+        g.add_edge(2, 3, 3)
+        res, _ = floyd_warshall(g, 1)
+        self.assertEqual(res, [[0, 4, 5, 8],
+                               [1000000000, 0, 1, 4],
+                               [1000000000, 1, 0, 3],
+                               [1000000000, 1000000000, 1000000000, 0]])
+
+    def test_floyd_reach1(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_edge(0, 1, 2)
+        g.add_edge(0, 2, 1)
+        g.add_edge(0, 4, 3)
+        g.add_edge(1, 3, 4)
+        g.add_edge(2, 1, 1)
+        g.add_edge(2, 4, 1)
+        g.add_edge(3, 0, 1)
+        g.add_edge(3, 2, 3)
+        g.add_edge(3, 4, 5)
+        res, _ = floyd_warshall(g, 2)
+        self.assertEqual(res, [[1, 1, 1, 1, 1],
+                               [1, 1, 1, 1, 1],
+                               [1, 1, 1, 1, 1],
+                               [1, 1, 1, 1, 1],
+                               [0, 0, 0, 0, 0]])
+
+    def test_floyd_reach2(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_vertex(5)
+        g.add_edge(0, 1, 1)
+        g.add_edge(0, 2, 7)
+        g.add_edge(1, 3, 9)
+        g.add_edge(1, 5, 15)
+        g.add_edge(2, 4, 4)
+        g.add_edge(3, 5, 5)
+        g.add_edge(3, 4, 10)
+        g.add_edge(4, 5, 3)
+        res, _ = floyd_warshall(g, 2)
+        self.assertEqual(res, [[0, 1, 1, 1, 1, 1],
+                               [0, 0, 0, 1, 1, 1],
+                               [0, 0, 0, 0, 1, 1],
+                               [0, 0, 0, 0, 1, 1],
+                               [0, 0, 0, 0, 0, 1],
+                               [0, 0, 0, 0, 0, 0]])
+
+    def test_floyd_reach3(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_edge(0, 1, 13)
+        g.add_edge(0, 2, 13)
+        g.add_edge(0, 3, 13)
+        g.add_edge(0, 4, 13)
+        g.add_edge(1, 2, 13)
+        g.add_edge(2, 3, 13)
+        g.add_edge(3, 4, 13)
+        g.add_edge(4, 1, 13)
+        res, _ = floyd_warshall(g, 2)
+        self.assertEqual(res, [[0, 1, 1, 1, 1],
+                               [0, 1, 1, 1, 1],
+                               [0, 1, 1, 1, 1],
+                               [0, 1, 1, 1, 1],
+                               [0, 1, 1, 1, 1]])
+
+    def test_floyd_reach4(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_edge(0, 1, 1)
+        g.add_edge(0, 2, 10)
+        g.add_edge(1, 3, 2)
+        g.add_edge(2, 3, -10)
+        g.add_edge(3, 4, 3)
+        res, _ = floyd_warshall(g, 2)
+        self.assertEqual(res, [[0, 1, 1, 1, 1],
+                               [0, 0, 0, 1, 1],
+                               [0, 0, 0, 1, 1],
+                               [0, 0, 0, 0, 1],
+                               [0, 0, 0, 0, 0]])
+
+    def test_floyd_reach5(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_edge(0, 1, 4)
+        g.add_edge(0, 2, 8)
+        g.add_bidirected_edge(1, 2)
+        g.add_edge(1, 3, 8)
+        g.add_edge(2, 3, 3)
+        res, _ = floyd_warshall(g, 2)
+        self.assertEqual(res, [[0, 1, 1, 1],
+                               [0, 1, 1, 1],
+                               [0, 1, 1, 1],
+                               [0, 0, 0, 0]])
+
+    def test_floyd_cycle1(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_edge(0, 1, 2)
+        g.add_edge(0, 2, 1)
+        g.add_edge(0, 4, 3)
+        g.add_edge(1, 3, 4)
+        g.add_edge(2, 1, 1)
+        g.add_edge(2, 4, 1)
+        g.add_edge(3, 0, 1)
+        g.add_edge(3, 2, 3)
+        g.add_edge(3, 4, 5)
+        res, _ = floyd_warshall(g, 3)
+        self.assertEqual(res, [[7, 2, 1, 6, 2],
+                               [5, 7, 6, 4, 7],
+                               [6, 1, 7, 5, 1],
+                               [1, 3, 2, 7, 3],
+                               [1000000000, 1000000000, 1000000000, 1000000000, 1000000000]])
+
+    def test_floyd_cycle2(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_vertex(5)
+        g.add_edge(0, 1, 1)
+        g.add_edge(0, 2, 7)
+        g.add_edge(1, 3, 9)
+        g.add_edge(1, 5, 15)
+        g.add_edge(2, 4, 4)
+        g.add_edge(3, 5, 5)
+        g.add_edge(3, 4, 10)
+        g.add_edge(4, 5, 3)
+        res, _ = floyd_warshall(g, 3)
+        self.assertEqual(res, [[1000000000, 1, 7, 10, 11, 14],
+                               [1000000000, 1000000000, 1000000000, 9, 19, 14],
+                               [1000000000, 1000000000,
+                                   1000000000, 1000000000, 4, 7],
+                               [1000000000, 1000000000,
+                                   1000000000, 1000000000, 10, 5],
+                               [1000000000, 1000000000,
+                                   1000000000, 1000000000, 1000000000, 3],
+                               [1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000]])
+
+    def test_floyd_cycle3(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_edge(0, 1, 13)
+        g.add_edge(0, 2, 13)
+        g.add_edge(0, 3, 13)
+        g.add_edge(0, 4, 13)
+        g.add_edge(1, 2, 13)
+        g.add_edge(2, 3, 13)
+        g.add_edge(3, 4, 13)
+        g.add_edge(4, 1, 13)
+        res, _ = floyd_warshall(g, 3)
+        self.assertEqual(res, [[1000000000, 13, 13, 13, 13],
+                               [1000000000, 52, 13, 26, 39],
+                               [1000000000, 39, 52, 13, 26],
+                               [1000000000, 26, 39, 52, 13],
+                               [1000000000, 13, 26, 39, 52]])
+
+    def test_floyd_cycle4(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_vertex(4)
+        g.add_edge(0, 1, 1)
+        g.add_edge(0, 2, 10)
+        g.add_edge(1, 3, 2)
+        g.add_edge(2, 3, -10)
+        g.add_edge(3, 4, 3)
+        res, _ = floyd_warshall(g, 3)
+        self.assertEqual(res, [[1000000000, 1, 10, 0, 3],
+                               [1000000000, 1000000000, 1000000000, 2, 5],
+                               [1000000000, 1000000000, 1000000000, -10, -7],
+                               [1000000000, 1000000000, 1000000000, 1000000000, 3],
+                               [1000000000, 1000000000, 1000000000, 1000000000, 1000000000]])
+
+    def test_floyd_cycle5(self):
+        g = Graph()
+        g.add_vertex(0)
+        g.add_vertex(1)
+        g.add_vertex(2)
+        g.add_vertex(3)
+        g.add_edge(0, 1, 4)
+        g.add_edge(0, 2, 8)
+        g.add_bidirected_edge(1, 2)
+        g.add_edge(1, 3, 8)
+        g.add_edge(2, 3, 3)
+        res, _ = floyd_warshall(g, 3)
+        self.assertEqual(res, [[1000000000, 4, 5, 8],
+                               [1000000000, 2, 1, 4],
+                               [1000000000, 1, 2, 3],
+                               [1000000000, 1000000000, 1000000000, 1000000000]])

@@ -2,7 +2,8 @@ from __future__ import annotations
 from Jellybeans.Structures import Queue, Graph
 from Jellybeans.Exceptions.Negativecycle import _Negativecycle
 
-def _initializer(visited:bool, parent:bool, mapping:bool, graph:Graph) -> tuple:
+
+def _initializer(visited: bool, parent: bool, mapping: bool, graph: Graph) -> tuple:
     '''
     Initializer function which helps in producing lists used in graph traversals \n
     Args:
@@ -11,7 +12,7 @@ def _initializer(visited:bool, parent:bool, mapping:bool, graph:Graph) -> tuple:
         visited: init the mapping dict?
     Returns:
         A tuple containing the lists
-    '''    
+    '''
     visited_lst = [] if visited else None
     parent_lst = [] if parent else None
     mapping_dict = {} if mapping else None
@@ -26,7 +27,8 @@ def _initializer(visited:bool, parent:bool, mapping:bool, graph:Graph) -> tuple:
         counter += 1
     return (visited_lst, parent_lst, mapping_dict)
 
-def _BFS(visited:list, parent:list, mapping:dict, source:int, adj_list:dict) -> None:
+
+def _BFS(visited: list, parent: list, mapping: dict, source: int, adj_list: dict) -> None:
     '''
     This is a modified version of Breath First Search \n
     Args:
@@ -41,13 +43,14 @@ def _BFS(visited:list, parent:list, mapping:dict, source:int, adj_list:dict) -> 
     visited[mapping[source]] = 1
     while not q.isEmpty():
         tex = q.dequeue()
-        for v,_ in adj_list[tex]:
+        for v, _ in adj_list[tex]:
             if visited[mapping[v]] == 0:
                 visited[mapping[v]] = 1
                 parent[mapping[v]] = tex
                 q.enqueue(v)
 
-def _DFS(visited: list, source: int, adj_list:dict, mapping:dict) -> None:
+
+def _DFS(visited: list, source: int, adj_list: dict, mapping: dict) -> None:
     '''
     This is a modified version of Depth First Search \n
     Args:
@@ -60,8 +63,9 @@ def _DFS(visited: list, source: int, adj_list:dict, mapping:dict) -> None:
     for neighbor, _ in adj_list[source]:
         if visited[mapping[neighbor]] == 0:
             _DFS(visited, neighbor, adj_list, mapping)
-    
-def _path_construction(parent: list, mapping:dict, source:int, destination:int) -> tuple:
+
+
+def _path_construction(parent: list, mapping: dict, source: int, destination: int) -> tuple:
     '''
     Finds a valid path from the source vertex to the destination vertex \n
     Args:
@@ -84,7 +88,8 @@ def _path_construction(parent: list, mapping:dict, source:int, destination:int) 
     path.reverse()
     return tuple(path)
 
-def _DFS_topo(visited: list, toposort_arr: list, source: int, adj_list:dict, mapping:dict) -> None:
+
+def _DFS_topo(visited: list, toposort_arr: list, source: int, adj_list: dict, mapping: dict) -> None:
     '''
     This is a helper function used for the DFS implementation of the topological sort \n
     Args:
@@ -100,7 +105,8 @@ def _DFS_topo(visited: list, toposort_arr: list, source: int, adj_list:dict, map
             _DFS_topo(visited, toposort_arr, neighbor, adj_list, mapping)
     toposort_arr.append(source)
 
-def _relax(vertex_from:int, vertex_to:int, weight:int, parent:list, cost:list) -> None:
+
+def _relax(vertex_from: int, vertex_to: int, weight: int, parent: list, cost: list) -> None:
     '''
     This is a internal function used to relax weight costs in SSSP Algorithms
     Args:
@@ -114,7 +120,8 @@ def _relax(vertex_from:int, vertex_to:int, weight:int, parent:list, cost:list) -
         cost[vertex_to] = cost[vertex_from] + weight
         parent[vertex_to] = vertex_from
 
-def _dfs_sssp_tree(vertex:int, parent:list, cost:list, adj_list:list, mapping:list) -> None:
+
+def _dfs_sssp_tree(vertex: int, parent: list, cost: list, adj_list: list, mapping: list) -> None:
     '''
     DFS implementation of doing SSSP on trees
     Args:
@@ -132,7 +139,8 @@ def _dfs_sssp_tree(vertex:int, parent:list, cost:list, adj_list:list, mapping:li
             if cost[mapping[vertex]] + weight < cost[mapping[neighbor]]:
                 raise _Negativecycle("Edge with negative weight detected!")
 
-def _bfs_sssp_unweighted(vertex:int, parent:list, cost:list, adj_list:list, mapping:list) -> None:
+
+def _bfs_sssp_unweighted(vertex: int, parent: list, cost: list, adj_list: list, mapping: list) -> None:
     '''
     BFS implementation of doing SSSP on unweighted graphs
     Args:
@@ -155,3 +163,71 @@ def _bfs_sssp_unweighted(vertex:int, parent:list, cost:list, adj_list:list, mapp
             else:
                 if cost[mapping[curr]] + weight < cost[mapping[neighbor]]:
                     raise _Negativecycle("Edge with negative weight detected!")
+
+
+def _floyd_SP(vertices: list, adj_list: list) -> tuple:
+    '''
+    Floyd Warshall algorithm to find the shortest path estimate for every pair of vertices
+    Args:
+        vertices: List of vertices
+        adj_list: Adjacency list for every matrix
+    '''
+    mapping = {v: idx for idx, v in enumerate(vertices)}
+    res = [[1000000000 for _ in vertices] for _ in vertices]
+
+    for v in vertices:
+        res[v][v] = 0
+        for neighbor, weight in adj_list[v]:
+            res[mapping[v]][mapping[neighbor]] = weight
+
+    for a in range(len(vertices)):
+        for b in range(len(vertices)):
+            for c in range(len(vertices)):
+                if res[b][a] != 1000000000 and res[a][c] != 1000000000:
+                    res[b][c] = min(res[b][c], res[b][a] + res[a][c])
+    return res, mapping
+
+
+def _floyd_reachability(vertices: list, adj_list: list) -> tuple:
+    '''
+    Floyd Warshall algorithm to find reachability for every pair of vertices
+    Args:
+        vertices: List of vertices
+        adj_list: Adjacency list for every matrix
+    '''
+    mapping = {v: idx for idx, v in enumerate(vertices)}
+    res = [[0 for _ in vertices] for _ in vertices]
+
+    for v in vertices:
+        for neighbor, _ in adj_list[v]:
+            res[mapping[v]][mapping[neighbor]] = 1
+
+    for a in range(len(vertices)):
+        for b in range(len(vertices)):
+            for c in range(len(vertices)):
+                if res[b][a] != 0 and res[a][c] != 0:
+                    res[b][c] = 1 if res[b][c] or (
+                        res[b][a] and res[a][c]) else 0
+    return res, mapping
+
+
+def _floyd_detect_cycle(vertices: list, adj_list: list) -> tuple:
+    '''
+    Floyd Warshall algorithm to find the shortest path estimate for every pair of vertices
+    Args:
+        vertices: List of vertices
+        adj_list: Adjacency list for every matrix
+    '''
+    mapping = {v: idx for idx, v in enumerate(vertices)}
+    res = [[1000000000 for _ in vertices] for _ in vertices]
+
+    for v in vertices:
+        for neighbor, weight in adj_list[v]:
+            res[mapping[v]][mapping[neighbor]] = weight
+
+    for a in range(len(vertices)):
+        for b in range(len(vertices)):
+            for c in range(len(vertices)):
+                if res[b][a] != 1000000000 and res[a][c] != 1000000000:
+                    res[b][c] = min(res[b][c], res[b][a] + res[a][c])
+    return res, mapping
