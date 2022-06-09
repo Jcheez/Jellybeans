@@ -25,7 +25,7 @@ class test_Graph(unittest.TestCase):
         with self.assertRaises(_GraphProperty):
             g.add_edge(1, 4, weight=3)
         with self.assertRaises(_GraphProperty):
-            g.add_edge(vFrom=5, vTo=6, weight=10)
+            g.add_edge(v_from=5, v_to=6, weight=10)
 
     def test_add_replicated_edge(self):
         g = Graph()
@@ -35,7 +35,7 @@ class test_Graph(unittest.TestCase):
         with self.assertRaises(_GraphProperty):
             g.add_edge(1, 2, weight=3)
         with self.assertRaises(_GraphProperty):
-            g.add_edge(vFrom=1, vTo=2, weight=4)
+            g.add_edge(v_from=1, v_to=2, weight=4)
 
     def test_add_edge_with_replicated_node(self):
         g = Graph()
@@ -139,7 +139,7 @@ class test_Graph(unittest.TestCase):
         g.add_edge(1, 2, 5)
         g.add_edge(3, 2, 6)
         g.add_edge(1, 3, 7)
-        self.assertEqual(g.to_edgeList(), [(1, 2, 5), (1, 3, 7), (3, 2, 6)])
+        self.assertEqual(g.to_edge_list(), [(1, 2, 5), (1, 3, 7), (3, 2, 6)])
 
     def test_edge_list2(self):
         g = Graph()
@@ -150,7 +150,7 @@ class test_Graph(unittest.TestCase):
         g.add_edge(3, 2, 6)
         g.add_edge(1, 3, 7)
         g.delete_vertex(2)
-        self.assertEqual(g.to_edgeList(), [(1, 3, 7)])
+        self.assertEqual(g.to_edge_list(), [(1, 3, 7)])
 
     def test_adj_list1(self):
         g = Graph()
@@ -160,7 +160,7 @@ class test_Graph(unittest.TestCase):
         g.add_edge(1, 2, 5)
         g.add_edge(3, 2, 6)
         g.add_edge(1, 3, 7)
-        self.assertEqual(g.to_adjList(), {1: [(2, 5), (3, 7)], 2: [], 3: [(2, 6)]})
+        self.assertEqual(g.to_adj_list(), {1: [(2, 5), (3, 7)], 2: [], 3: [(2, 6)]})
 
     def test_adj_list2(self):
         g = Graph()
@@ -171,7 +171,7 @@ class test_Graph(unittest.TestCase):
         g.add_edge(3, 2, 6)
         g.add_edge(1, 3, 7)
         g.delete_vertex(2)
-        self.assertEqual(g.to_adjList(), {1: [(3, 7)], 3: []})
+        self.assertEqual(g.to_adj_list(), {1: [(3, 7)], 3: []})
 
     def test_adj_Matrix1(self):
         g = Graph()

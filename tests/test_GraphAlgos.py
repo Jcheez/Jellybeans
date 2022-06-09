@@ -261,7 +261,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(2, 3, (8, 8))
         g.add_bidirected_edge(3, 4, (9, 9))
         res = spanning_tree_prim(g, 0, False)
-        self.assertEqual(sum(map(lambda x: x[2], res.to_edgeList())) / 2, 27)
+        self.assertEqual(sum(map(lambda x: x[2], res.to_edge_list())) / 2, 27)
 
     def test_MST_prim2(self):
         g = Graph()
@@ -278,7 +278,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(2, 3, (8, 8))
         g.add_bidirected_edge(3, 4, (9, 9))
         res = spanning_tree_prim(g, 0, True)
-        self.assertEqual(sum(map(lambda x: x[2], res.to_edgeList())) / 2, 18)
+        self.assertEqual(sum(map(lambda x: x[2], res.to_edge_list())) / 2, 18)
 
     def test_MST_prim3(self):
         g = Graph()
@@ -295,7 +295,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(2, 3, (51, 51))
         g.add_bidirected_edge(3, 4, (31, 31))
         res = spanning_tree_prim(g, 0, True)
-        self.assertEqual(sum(map(lambda x: x[2], res.to_edgeList())) / 2, 110)
+        self.assertEqual(sum(map(lambda x: x[2], res.to_edge_list())) / 2, 110)
 
     def test_MST_prim4(self):
         g = Graph()
@@ -312,7 +312,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(2, 3, (51, 51))
         g.add_bidirected_edge(3, 4, (31, 31))
         res = spanning_tree_prim(g, 0, False)
-        self.assertEqual(sum(map(lambda x: x[2], res.to_edgeList())) / 2, 263)
+        self.assertEqual(sum(map(lambda x: x[2], res.to_edge_list())) / 2, 263)
 
     def test_MST_kruskal1(self):
         g = Graph()
@@ -329,7 +329,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(2, 3, (8, 8))
         g.add_bidirected_edge(3, 4, (9, 9))
         res = spanning_tree_kruskal(g, False)
-        self.assertEqual(sum(map(lambda x: x[2], res.to_edgeList())) / 2, 27)
+        self.assertEqual(sum(map(lambda x: x[2], res.to_edge_list())) / 2, 27)
 
     def test_MST_kruskal2(self):
         g = Graph()
@@ -346,7 +346,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(2, 3, (8, 8))
         g.add_bidirected_edge(3, 4, (9, 9))
         res = spanning_tree_kruskal(g, True)
-        self.assertEqual(sum(map(lambda x: x[2], res.to_edgeList())) / 2, 18)
+        self.assertEqual(sum(map(lambda x: x[2], res.to_edge_list())) / 2, 18)
 
     def test_MST_kruskal3(self):
         g = Graph()
@@ -363,7 +363,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(2, 3, (51, 51))
         g.add_bidirected_edge(3, 4, (31, 31))
         res = spanning_tree_kruskal(g, True)
-        self.assertEqual(sum(map(lambda x: x[2], res.to_edgeList())) / 2, 110)
+        self.assertEqual(sum(map(lambda x: x[2], res.to_edge_list())) / 2, 110)
 
     def test_MST_kruskal4(self):
         g = Graph()
@@ -380,7 +380,7 @@ class test_GraphAlgos(unittest.TestCase):
         g.add_bidirected_edge(2, 3, (51, 51))
         g.add_bidirected_edge(3, 4, (31, 31))
         res = spanning_tree_kruskal(g, False)
-        self.assertEqual(sum(map(lambda x: x[2], res.to_edgeList())) / 2, 263)
+        self.assertEqual(sum(map(lambda x: x[2], res.to_edge_list())) / 2, 263)
 
     def test_sssp_tree1(self):
         g = Graph()

@@ -18,7 +18,8 @@ from jellybeans.exceptions.negative_cycle import _Negativecycle
 
 def reachability(graph: Graph, source: int, destination: int) -> tuple:
     '''
-    This function checks if it is possible to travel from a source vertex to a destination vertex \n
+    This function checks if it is possible to travel from a source vertex to a destination vertex 
+
     Args:
         graph: Graph object
         source: Source vertex
@@ -27,14 +28,15 @@ def reachability(graph: Graph, source: int, destination: int) -> tuple:
         A tuple consisting of a boolean value and the path to travel from source to destination.
     '''
     visited, parent, mapping = _initializer(True, True, True, graph)
-    adj_list = graph.to_adjList()
+    adj_list = graph.to_adj_list()
     _BFS(visited, parent, mapping, source, adj_list)
     return (True, _path_construction(parent, mapping, source, destination)) if visited[mapping[destination]] == 1 else (False, None)
 
 
 def counting_components(graph: Graph) -> int:
     '''
-    This function checks for the number of components in an UNDIRECTED graph. \n
+    This function checks for the number of components in an UNDIRECTED graph. 
+
     Args:
         graph: Graph object
     Returns:
@@ -43,7 +45,7 @@ def counting_components(graph: Graph) -> int:
     components = 0
     visited, parent, mapping = _initializer(True, True, True, graph)
     vertices = graph.list_vertices()
-    adj_list = graph.to_adjList()
+    adj_list = graph.to_adj_list()
     for v in vertices:
         if visited[mapping[v]] == 0:
             components += 1
@@ -53,7 +55,8 @@ def counting_components(graph: Graph) -> int:
 
 def topological_sort(graph: Graph) -> list:
     '''
-    Performs a topological sort on the directed graph. Based on Kahn's Algorithm \n
+    Performs a topological sort on the directed graph. Based on Kahn's Algorithm 
+
     Args:
         graph: Graph object
     Returns:
@@ -64,7 +67,7 @@ def topological_sort(graph: Graph) -> list:
     toposort = []
     vertices = graph.list_vertices()
     inv_map = [0 for _ in vertices]
-    adj_list = graph.to_adjList()
+    adj_list = graph.to_adj_list()
     counter = 0
     q = Queue()
     for v in vertices:
@@ -72,7 +75,7 @@ def topological_sort(graph: Graph) -> list:
         mapping[v] = counter
         inv_map[counter] = v
         counter += 1
-    for _, vTo, _ in graph.to_edgeList():
+    for _, vTo, _ in graph.to_edge_list():
         in_degree[mapping[vTo]] += 1
 
     for idx in range(len(in_degree)):
@@ -91,7 +94,8 @@ def topological_sort(graph: Graph) -> list:
 
 def dfs_toposort(graph: Graph) -> list:
     '''
-    Performs a topological sort on the directed graph. This is a DFS implementation \n
+    Performs a topological sort on the directed graph. This is a DFS implementation 
+
     Args:
         graph: Graph object
     Returns:
@@ -102,14 +106,15 @@ def dfs_toposort(graph: Graph) -> list:
     visited, _, mapping = _initializer(True, False, True, graph)
     for v in vertices:
         if visited[mapping[v]] == 0:
-            _dfs_topo(visited, toposort, v, graph.to_adjList(), mapping)
+            _dfs_topo(visited, toposort, v, graph.to_adj_list(), mapping)
     toposort.reverse()
     return toposort
 
 
 def count_strong_connected_components(graph: Graph) -> int:
     '''
-    Finds the number of strongly connected components (SCC) in a directed graph \n
+    Finds the number of strongly connected components (SCC) in a directed graph 
+
     Args:
         graph: Graph object
     Returns:
@@ -122,13 +127,14 @@ def count_strong_connected_components(graph: Graph) -> int:
         ele = toposort[idx]
         if visited[mapping[ele]] == 0:
             SCC += 1
-            _dfs(visited, ele, graph.transpose().to_adjList(), mapping)
+            _dfs(visited, ele, graph.transpose().to_adj_list(), mapping)
     return SCC
 
 
 def spanning_tree_prim(graph: Graph, source: int, minimum: bool) -> Graph:
     '''
-    Finds the minimum/maximum spanning tree of a graph using Prim's Algorithm \n
+    Finds the minimum/maximum spanning tree of a graph using Prim's Algorithm 
+
     Args:
         graph: Graph Object
         source: Source vertex to begin algorithm
@@ -136,7 +142,7 @@ def spanning_tree_prim(graph: Graph, source: int, minimum: bool) -> Graph:
     Returns:
         Graph object of the mst
     '''
-    adj_list = graph.to_adjList()
+    adj_list = graph.to_adj_list()
     mst = Graph()
     visited, _, mapping = _initializer(True, True, True, graph)
     pq = PriorityQueue(comparator=(
@@ -160,7 +166,8 @@ def spanning_tree_prim(graph: Graph, source: int, minimum: bool) -> Graph:
 
 def spanning_tree_kruskal(graph: Graph, minimum: bool) -> Graph:
     '''
-    Finds the minimum/maximum spanning tree of a graph using Kruskal's Algorrithm \n
+    Finds the minimum/maximum spanning tree of a graph using Kruskal's Algorrithm 
+
     Args:
         graph: Graph Object
         minimum: True=minimum, False=Maximum
@@ -168,7 +175,7 @@ def spanning_tree_kruskal(graph: Graph, minimum: bool) -> Graph:
         Graph object of the mst
     '''
     edge_list_sorted = sorted(
-        graph.to_edgeList(), key=lambda x: x[2], reverse=not minimum)
+        graph.to_edge_list(), key=lambda x: x[2], reverse=not minimum)
     counter = 1
     mapping = {}
     mst = Graph()
@@ -188,6 +195,7 @@ def spanning_tree_kruskal(graph: Graph, minimum: bool) -> Graph:
 def sssp_tree(graph: Graph, source: int) -> dict:
     '''
     Finds the single source shortest path of a tree.
+    
     Args:
         graph: Graph Object
         source: Source vertex Number
@@ -202,13 +210,14 @@ def sssp_tree(graph: Graph, source: int) -> dict:
     parent = [-1 for _ in vertices]
     mapping = {vertices: idx for idx, vertices in enumerate(vertices)}
     cost[mapping[source]] = 0
-    _dfs_sssp_tree(source, parent, cost, graph.to_adjList(), mapping)
+    _dfs_sssp_tree(source, parent, cost, graph.to_adj_list(), mapping)
     return {vertices[idx]: cost for idx, cost in enumerate(cost)}
 
 
 def sssp_unweighted(graph: Graph, source: int) -> dict:
     '''
     Finds the single source shortest path of an unweighted graph.
+
     Args:
         graph: Graph Object
         source: Source vertex Number
@@ -222,13 +231,14 @@ def sssp_unweighted(graph: Graph, source: int) -> dict:
     parent = [-1 for _ in vertices]
     mapping = {vertices: idx for idx, vertices in enumerate(vertices)}
     cost[mapping[source]] = 0
-    _bfs_sssp_unweighted(source, parent, cost, graph.to_adjList(), mapping)
+    _bfs_sssp_unweighted(source, parent, cost, graph.to_adj_list(), mapping)
     return {vertices[idx]: cost for idx, cost in enumerate(cost)}
 
 
 def sssp_dag(graph: Graph, source: int) -> dict:
     '''
     Finds the single source shortest path of a Directed Acyclic Graph (DAG).
+
     Args:
         graph: Graph Object
         source: Source vertex Number
@@ -246,7 +256,7 @@ def sssp_dag(graph: Graph, source: int) -> dict:
     topo = topological_sort(graph)
 
     for v_from in topo:
-        for neighbor, weight in graph.to_adjList()[v_from]:
+        for neighbor, weight in graph.to_adj_list()[v_from]:
             _relax(mapping[v_from], mapping[neighbor], weight, parent, cost)
 
     return {vertices[idx]: cost for idx, cost in enumerate(cost)}
@@ -255,6 +265,7 @@ def sssp_dag(graph: Graph, source: int) -> dict:
 def sssp_bellman_ford(graph: Graph, source: int) -> dict:
     '''
     Find the single source shortest path of any weighted graph using the bellman ford algorithm.
+
     Args:
         graph: Graph Object
         source: Source vertex Number
@@ -266,7 +277,7 @@ def sssp_bellman_ford(graph: Graph, source: int) -> dict:
     parent = [-1 for _ in vertices]
     mapping = {vertices: idx for idx, vertices in enumerate(vertices)}
     cost[mapping[source]] = 0
-    edge_list = graph.to_edgeList()
+    edge_list = graph.to_edge_list()
 
     for _ in range(len(vertices) - 1):
         for v_from, v_to, weight in edge_list:
@@ -281,6 +292,7 @@ def sssp_bellman_ford(graph: Graph, source: int) -> dict:
 def sssp_dijkstra(graph: Graph, source: int) -> dict:
     '''
     Find the single source shortest path of any graph with no negative weight edge.
+
     Args:
         graph: Graph Object
         source: Source vertex Number
@@ -302,7 +314,7 @@ def sssp_dijkstra(graph: Graph, source: int) -> dict:
     while not pq.isEmpty():
         curr_weight, curr_vertex = pq.extract()
 
-        for neighbor, weight in graph.to_adjList()[curr_vertex]:
+        for neighbor, weight in graph.to_adj_list()[curr_vertex]:
             if costs[neighbor] > curr_weight + weight:
                 pq.update((costs[neighbor], neighbor),
                           (curr_weight + weight, neighbor))
@@ -313,6 +325,7 @@ def sssp_dijkstra(graph: Graph, source: int) -> dict:
 def floyd_warshall(graph: Graph, type: int) -> tuple:
     '''
     Find the all pairs shortest path by using Floud Warshall algorithm
+
     Args:
         graph: Graph Object
         source: Source vertex Number
@@ -320,11 +333,11 @@ def floyd_warshall(graph: Graph, type: int) -> tuple:
         A tuple containing 2 elements. (mapping, dictionary of vertex -> cost)
     '''
     if type == 1:
-        return _floyd_sp(graph.list_vertices(), graph.to_adjList())
+        return _floyd_sp(graph.list_vertices(), graph.to_adj_list())
     elif type == 2:
-        return _floyd_reachability(graph.list_vertices(), graph.to_adjList())
+        return _floyd_reachability(graph.list_vertices(), graph.to_adj_list())
     elif type == 3:
-        return _floyd_detect_cycle(graph.list_vertices(), graph.to_adjList())
+        return _floyd_detect_cycle(graph.list_vertices(), graph.to_adj_list())
     else:
         raise TypeError(
             "Invalid parameter type: type should be one of 1, 2, 3")

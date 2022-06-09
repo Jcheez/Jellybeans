@@ -69,7 +69,8 @@ class TailedLinkedList(LinkedList):
 
     def removeAtIndex(self, index) -> TailedLinkedList:
         '''
-        Remove an item from a specified index \n
+        Remove an item from a specified index 
+
         Args:
             index: Index of item to remove
         '''

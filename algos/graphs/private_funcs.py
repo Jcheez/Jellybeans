@@ -5,7 +5,8 @@ from jellybeans.exceptions.negative_cycle import _Negativecycle
 
 def _initializer(visited: bool, parent: bool, mapping: bool, graph: Graph) -> tuple:
     '''
-    Initializer function which helps in producing lists used in graph traversals \n
+    Initializer function which helps in producing lists used in graph traversals 
+
     Args:
         visited: init the visited list?
         visited: init the parent list?
@@ -30,7 +31,8 @@ def _initializer(visited: bool, parent: bool, mapping: bool, graph: Graph) -> tu
 
 def _BFS(visited: list, parent: list, mapping: dict, source: int, adj_list: dict) -> None:
     '''
-    This is a modified version of Breath First Search \n
+    This is a modified version of Breath First Search 
+
     Args:
         visited: List to show if a vertex has been visited
         parent: List to show the parent of the current vertex
@@ -52,7 +54,8 @@ def _BFS(visited: list, parent: list, mapping: dict, source: int, adj_list: dict
 
 def _dfs(visited: list, source: int, adj_list: dict, mapping: dict) -> None:
     '''
-    This is a modified version of Depth First Search \n
+    This is a modified version of Depth First Search 
+
     Args:
         visited: List to show if a vertex has been visited
         source: Source Vertex
@@ -67,7 +70,8 @@ def _dfs(visited: list, source: int, adj_list: dict, mapping: dict) -> None:
 
 def _path_construction(parent: list, mapping: dict, source: int, destination: int) -> tuple:
     '''
-    Finds a valid path from the source vertex to the destination vertex \n
+    Finds a valid path from the source vertex to the destination vertex 
+
     Args:
         parent: A list of the vertex's predescessor
         mapping: Mapping of vertice number to index nu
@@ -91,7 +95,8 @@ def _path_construction(parent: list, mapping: dict, source: int, destination: in
 
 def _dfs_topo(visited: list, toposort_arr: list, source: int, adj_list: dict, mapping: dict) -> None:
     '''
-    This is a helper function used for the DFS implementation of the topological sort \n
+    This is a helper function used for the DFS implementation of the topological sort 
+
     Args:
         visited: List to show if a vertex has been visited
         toposort_arr: List that contains the toposort ordering

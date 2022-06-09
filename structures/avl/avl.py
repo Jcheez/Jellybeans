@@ -12,7 +12,8 @@ class Avl:
         '''
         Args:
             comparator: Function which is used to decide the relative ordering of elements
-        Comparators should be defined in the following format: \n
+        Comparators should be defined in the following format: 
+
         (x, y) => x>=y
         '''
         self.__root = None
@@ -20,7 +21,8 @@ class Avl:
 
     def __helper_search(self, curr_node: _BinaryNode, item) -> _BinaryNode:
         '''
-        INTERNAL FUNCTION: Helper function to find a particular item in the tree \n
+        INTERNAL FUNCTION: Helper function to find a particular item in the tree 
+
         Args:
             curr_node: The current Node to perform the search on
             item: The item that is to be found
@@ -38,7 +40,8 @@ class Avl:
 
     def __balance_factor(self, curr_node: _BinaryNode) -> int:
         '''
-        INTERNAL FUNCTION: Function to find the balance factor of a particular node \n
+        INTERNAL FUNCTION: Function to find the balance factor of a particular node 
+
         Args:
             curr_node: The node to get the balance factor
         Returns:
@@ -50,7 +53,8 @@ class Avl:
 
     def __rotate_left(self, curr_node: _BinaryNode) -> _BinaryNode:
         '''
-        INTERNAL FUNCTION: Perform a left rotation about the current node \n
+        INTERNAL FUNCTION: Perform a left rotation about the current node 
+
         Args:
             curr_node: The node to perform a left rotation
         Returns:
@@ -75,7 +79,8 @@ class Avl:
 
     def __rotate_right(self, curr_node: _BinaryNode) -> _BinaryNode:
         '''
-        INTERNAL FUNCTION: Perform a right rotation about the current node \n
+        INTERNAL FUNCTION: Perform a right rotation about the current node 
+
         Args:
             curr_node: The node to perform a right rotation
         Returns:
@@ -100,7 +105,8 @@ class Avl:
 
     def __balance(self, curr_node: _BinaryNode) -> _BinaryNode:
         '''
-        INTERNAL FUNCTION: Checks for inbalance at a node and performs the necessary rotations \n
+        INTERNAL FUNCTION: Checks for inbalance at a node and performs the necessary rotations 
+
         Args:
             curr_node: The node to balance
         Returns:
@@ -124,7 +130,8 @@ class Avl:
 
     def search(self, item: Any) -> Any:
         '''
-        Search for an item in the tree \n
+        Search for an item in the tree 
+
         Args:
             item: The item to search for
         Returns:
@@ -135,7 +142,8 @@ class Avl:
 
     def insert(self, item: Any) -> None:
         '''
-        Insert an element into the tree \n
+        Insert an element into the tree 
+
         Args:
             item: The item to be inserted into the tree
         '''
@@ -160,7 +168,8 @@ class Avl:
 
     def delete(self, item: Any) -> None:
         '''
-        Delete an element from the tree \n
+        Delete an element from the tree 
+
         Args:
             item: The item to be deleted from the tree
         '''
@@ -197,7 +206,8 @@ class Avl:
 
     def min(self) -> Any:
         '''
-        Find the smallest element in the tree \n
+        Find the smallest element in the tree 
+
         Returns:
             The item which is the minimum
         '''
@@ -208,7 +218,8 @@ class Avl:
 
     def max(self) -> Any:
         '''
-        Find the largest element in the tree \n
+        Find the largest element in the tree 
+
         Returns:
             The item which is the maximum
         '''
@@ -219,7 +230,8 @@ class Avl:
 
     def successor(self, item: Any) -> Any:
         '''
-        Finds the next biggest element after "item" \n
+        Finds the next biggest element after "item" 
+
         Args:
             item: To find the successor of this item
         Returns:
@@ -245,7 +257,8 @@ class Avl:
 
     def predecessor(self, item: Any) -> Any:
         '''
-        Finds the next smallest element after "item" \n
+        Finds the next smallest element after "item" 
+
         Args:
             item: To find the predecessor of this item
         Returns:
@@ -271,7 +284,8 @@ class Avl:
 
     def rank(self, item: Any) -> int:
         '''
-        Finds the rank of a particular item \n
+        Finds the rank of a particular item 
+
         Args:
             item: To find the rank of this item
         Returns:
@@ -294,7 +308,8 @@ class Avl:
 
     def select(self, rank: int) -> Any:
         '''
-        Given the rank, find the associated item \n
+        Given the rank, find the associated item 
+
         Args:
             rank: The rank of the item
         Returns:
@@ -317,7 +332,8 @@ class Avl:
 
     def in_order(self) -> list:
         '''
-        Conduct an in order traversal of the tree and output the result in a list \n
+        Conduct an in order traversal of the tree and output the result in a list 
+
         Returns:
             list of in order sequence
         '''
@@ -330,7 +346,8 @@ class Avl:
 
     def pre_order(self) -> list:
         '''
-        Conduct a pre order traversal of the tree and output the result in a list \n
+        Conduct a pre order traversal of the tree and output the result in a list 
+
         Returns:
             list of pre order sequence
         '''
@@ -343,7 +360,8 @@ class Avl:
 
     def post_order(self) -> list:
         '''
-        Conduct a post order traversal of the tree and output the result in a list \n
+        Conduct a post order traversal of the tree and output the result in a list 
+
         Returns:
             list of post order sequence
         '''
@@ -356,10 +374,14 @@ class Avl:
 
     def print(self, type: int = 1) -> None:
         '''
-        3 Types of prints available: \n
-        In order Traversal (type = 1) \n
-        Pre order Traversal (type = 2) \n
-        Post order Traversal (type = 3) \n
+        3 Types of prints available: 
+
+        In order Traversal (type = 1) 
+
+        Pre order Traversal (type = 2) 
+
+        Post order Traversal (type = 3) 
+
 
         Args:
             type: see above

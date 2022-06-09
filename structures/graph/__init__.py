@@ -1,1 +1,1 @@
-from jellybeans.structures.graph.Graph import *
+from jellybeans.structures.graph.graph import *

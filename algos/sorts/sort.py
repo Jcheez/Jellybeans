@@ -13,6 +13,7 @@ from .private_funcs import swap, merge, partition
 def bubble_sort(lst:list, key:Callable = lambda x:x, visualise:bool = False, animate:bool = False) -> Generator:
     '''
     Bubble sort is in place & stable
+
     Args: 
         lst: Takes in a list 
         key: custom sorting key
@@ -33,6 +34,7 @@ def bubble_sort(lst:list, key:Callable = lambda x:x, visualise:bool = False, ani
 def bubble_sort_optimised(lst:list, key:Callable = lambda x:x, visualise:bool = False, animate:bool = False) -> Generator:
     '''
     Optimised Bubble sort terminates when there are no swaps happening between elements
+
     Args: 
         lst: Takes in a list 
         key: custom sorting key
@@ -58,6 +60,7 @@ def bubble_sort_optimised(lst:list, key:Callable = lambda x:x, visualise:bool = 
 def selection_sort(lst:list, key:Callable = lambda x:x, visualise:bool = False, animate:bool = False) -> Generator:
     '''
     Selection sort is in place & not stable
+
     Args: 
         lst: Takes in a list 
         key: custom sorting key
@@ -77,6 +80,7 @@ def selection_sort(lst:list, key:Callable = lambda x:x, visualise:bool = False, 
 def insertion_sort(lst:list, key:Callable = lambda x:x, visualise:bool = False, animate:bool = False) -> Generator:
     '''
     Insertion sort is in place & stable
+
     Args: 
         lst: Takes in a list 
         key: custom sorting key
@@ -97,6 +101,7 @@ def insertion_sort(lst:list, key:Callable = lambda x:x, visualise:bool = False, 
 def merge_sort(lst:list, key:Callable = lambda x:x, visualise:bool = False, animate:bool = False) -> list:
     '''
     merge sort is not in place & stable
+
     Args: 
         lst: Takes in a list 
         key: custom sorting key
@@ -111,6 +116,7 @@ def merge_sort(lst:list, key:Callable = lambda x:x, visualise:bool = False, anim
 def __merge_sort_helper(lst:list, start:int, end:int, steps:list, key:Callable = lambda x:x) -> list:
     '''
     Merge sort recursive helper function. Divide and conquer method
+
     Args: 
         lst: Takes in a list 
         start: starting index to sort
@@ -128,6 +134,7 @@ def __merge_sort_helper(lst:list, start:int, end:int, steps:list, key:Callable =
 def quick_sort(lst:list, key:Callable = lambda x:x, visualise:bool = False, animate:bool = False) -> list:
     '''
     Quick sort is in place & not stable
+
     Args: 
         lst: Takes in a list 
         key: custom sorting key
@@ -142,6 +149,7 @@ def quick_sort(lst:list, key:Callable = lambda x:x, visualise:bool = False, anim
 def __quick_sort_helper(lst:list, start:int, end:int, steps:list, key:Callable = lambda x:x):
     '''
     Quick sort recursive helper function
+    
     Args: 
         lst: Takes in a list 
         start: starting index to sort

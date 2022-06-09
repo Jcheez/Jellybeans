@@ -4,7 +4,7 @@ from jellybeans.exceptions.not_one_based_index import _NotOneBasedIndexed
 
 class PriorityQueue:
     '''
-    PriorityQueue is a binary heap
+    PriorityQueue is an implementation of the binary heap data structure
     Default: MaxHeap
     '''
     def __init__(self, arr:list = None, comparator:Callable = lambda x, y: x >=y) -> None:

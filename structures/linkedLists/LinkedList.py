@@ -8,7 +8,8 @@ class LinkedList:
     '''
     def __init__(self, item:Any = None):
         '''
-        Create a LinkedList with 0 items, i item of multiple items \n
+        Create a LinkedList with 0 items, i item of multiple items 
+
         Args:
             item: either None, 1 item, or a list/tuple of items
         '''
@@ -98,7 +99,8 @@ class LinkedList:
 
     def removeAtIndex(self, index) -> LinkedList:
         '''
-        Remove an item from a specified index \n
+        Remove an item from a specified index 
+
         Args:
             index: Index of item to remove
         '''
