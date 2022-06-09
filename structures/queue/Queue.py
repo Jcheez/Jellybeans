@@ -1,5 +1,5 @@
 from typing import Any
-from Jellybeans.structures import TailedLinkedList
+from jellybeans.structures import TailedLinkedList
 
 class Queue:
     '''

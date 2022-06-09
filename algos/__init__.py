@@ -1,2 +1,2 @@
-from Jellybeans.algos.sorts import *
-from Jellybeans.algos.graphs import *
+from jellybeans.algos.sorts import *
+from jellybeans.algos.graphs import *

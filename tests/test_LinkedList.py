@@ -1,5 +1,5 @@
 import unittest
-from Jellybeans.structures import LinkedList
+from jellybeans.structures import LinkedList
 
 class test_LinkedList(unittest.TestCase):
     

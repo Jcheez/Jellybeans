@@ -1,5 +1,5 @@
 from __future__ import annotations
-from Jellybeans.exceptions.GraphProperty import _GraphProperty
+from jellybeans.exceptions.GraphProperty import _GraphProperty
 from .pfuncs import _is_connected_n_acyclic, _topo_sort
 
 class Graph:

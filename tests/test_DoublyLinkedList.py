@@ -1,5 +1,5 @@
 import unittest
-from Jellybeans.structures import DoublyLinkedList, LinkedList
+from jellybeans.structures import DoublyLinkedList, LinkedList
 
 class test_DoublyLinkedList(unittest.TestCase):
     

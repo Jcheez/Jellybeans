@@ -1,6 +1,6 @@
 import unittest
 
-from Jellybeans.algos.sorts.sort import *
+from jellybeans.algos.sorts.sort import *
 
 class test_sort(unittest.TestCase):
     '''

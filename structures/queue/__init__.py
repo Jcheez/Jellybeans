@@ -1,1 +1,1 @@
-from Jellybeans.structures.queue import *
+from jellybeans.structures.queue import *

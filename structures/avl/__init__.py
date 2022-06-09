@@ -1,1 +1,1 @@
-from Jellybeans.structures.avl.AVL import *
+from jellybeans.structures.avl.AVL import *

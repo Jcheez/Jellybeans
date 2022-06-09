@@ -1,7 +1,7 @@
 import unittest
-from Jellybeans.exceptions.Negativecycle import _Negativecycle
+from jellybeans.exceptions.Negativecycle import _Negativecycle
 
-from Jellybeans.algos import (
+from jellybeans.algos import (
     reachability,
     counting_components,
     topological_sort,
@@ -16,7 +16,7 @@ from Jellybeans.algos import (
     sssp_dijkstra,
     floyd_warshall
 )
-from Jellybeans.structures import Graph
+from jellybeans.structures import Graph
 
 
 class test_GraphAlgos(unittest.TestCase):

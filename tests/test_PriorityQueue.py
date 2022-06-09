@@ -1,6 +1,6 @@
 import unittest
-from Jellybeans.structures import PriorityQueue
-from Jellybeans.exceptions.NotOneBasedIndexed import _NotOneBasedIndexed
+from jellybeans.structures import PriorityQueue
+from jellybeans.exceptions.NotOneBasedIndexed import _NotOneBasedIndexed
 
 class test_Queue(unittest.TestCase):
 

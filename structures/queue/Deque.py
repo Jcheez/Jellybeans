@@ -1,5 +1,5 @@
 from typing import Any
-from Jellybeans.structures import Queue
+from jellybeans.structures import Queue
 
 class Deque(Queue):
     '''
