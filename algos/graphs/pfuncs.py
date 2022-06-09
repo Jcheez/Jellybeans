@@ -50,7 +50,7 @@ def _BFS(visited: list, parent: list, mapping: dict, source: int, adj_list: dict
                 q.enqueue(v)
 
 
-def _DFS(visited: list, source: int, adj_list: dict, mapping: dict) -> None:
+def _dfs(visited: list, source: int, adj_list: dict, mapping: dict) -> None:
     '''
     This is a modified version of Depth First Search \n
     Args:
@@ -62,7 +62,7 @@ def _DFS(visited: list, source: int, adj_list: dict, mapping: dict) -> None:
     visited[mapping[source]] = 1
     for neighbor, _ in adj_list[source]:
         if visited[mapping[neighbor]] == 0:
-            _DFS(visited, neighbor, adj_list, mapping)
+            _dfs(visited, neighbor, adj_list, mapping)
 
 
 def _path_construction(parent: list, mapping: dict, source: int, destination: int) -> tuple:
@@ -89,7 +89,7 @@ def _path_construction(parent: list, mapping: dict, source: int, destination: in
     return tuple(path)
 
 
-def _DFS_topo(visited: list, toposort_arr: list, source: int, adj_list: dict, mapping: dict) -> None:
+def _dfs_topo(visited: list, toposort_arr: list, source: int, adj_list: dict, mapping: dict) -> None:
     '''
     This is a helper function used for the DFS implementation of the topological sort \n
     Args:
@@ -102,7 +102,7 @@ def _DFS_topo(visited: list, toposort_arr: list, source: int, adj_list: dict, ma
     visited[mapping[source]] = 1
     for neighbor, _ in adj_list[source]:
         if visited[mapping[neighbor]] == 0:
-            _DFS_topo(visited, toposort_arr, neighbor, adj_list, mapping)
+            _dfs_topo(visited, toposort_arr, neighbor, adj_list, mapping)
     toposort_arr.append(source)
 
 
@@ -165,7 +165,7 @@ def _bfs_sssp_unweighted(vertex: int, parent: list, cost: list, adj_list: list, 
                     raise _Negativecycle("Edge with negative weight detected!")
 
 
-def _floyd_SP(vertices: list, adj_list: list) -> tuple:
+def _floyd_sp(vertices: list, adj_list: list) -> tuple:
     '''
     Floyd Warshall algorithm to find the shortest path estimate for every pair of vertices
     Args:
@@ -213,7 +213,7 @@ def _floyd_reachability(vertices: list, adj_list: list) -> tuple:
 
 def _floyd_detect_cycle(vertices: list, adj_list: list) -> tuple:
     '''
-    Floyd Warshall algorithm to find the shortest path estimate for every pair of vertices
+    Floyd Warshall algorithm to detect cycles for every pair of vertices
     Args:
         vertices: List of vertices
         adj_list: Adjacency list for every matrix

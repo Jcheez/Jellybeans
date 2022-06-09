@@ -138,7 +138,7 @@ class Graph:
     def is_positive(self) -> bool:
         return self.__positive_weighted
 
-    def is_DAG(self) -> bool:
+    def is_dag(self) -> bool:
 
         toposort = _topo_sort(self.list_vertices(), self.to_adjList(), self.to_edgeList())
         

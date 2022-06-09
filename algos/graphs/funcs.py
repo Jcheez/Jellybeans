@@ -3,12 +3,13 @@ from jellybeans.structures import Graph, Queue, PriorityQueue, UFDS
 from .pfuncs import (
     _BFS,
     _path_construction,
-    _DFS_topo,
-    _DFS, _initializer,
+    _dfs_topo,
+    _dfs, 
+    _initializer,
     _dfs_sssp_tree,
     _bfs_sssp_unweighted,
     _relax,
-    _floyd_SP,
+    _floyd_sp,
     _floyd_reachability,
     _floyd_detect_cycle
 )
@@ -88,7 +89,7 @@ def topological_sort(graph: Graph) -> list:
     return toposort
 
 
-def DFS_toposort(graph: Graph) -> list:
+def dfs_toposort(graph: Graph) -> list:
     '''
     Performs a topological sort on the directed graph. This is a DFS implementation \n
     Args:
@@ -101,7 +102,7 @@ def DFS_toposort(graph: Graph) -> list:
     visited, _, mapping = _initializer(True, False, True, graph)
     for v in vertices:
         if visited[mapping[v]] == 0:
-            _DFS_topo(visited, toposort, v, graph.to_adjList(), mapping)
+            _dfs_topo(visited, toposort, v, graph.to_adjList(), mapping)
     toposort.reverse()
     return toposort
 
@@ -114,14 +115,14 @@ def count_strong_connected_components(graph: Graph) -> int:
     Returns:
         Number of SCCs
     '''
-    toposort = DFS_toposort(graph)
+    toposort = dfs_toposort(graph)
     SCC = 0
     visited, _, mapping = _initializer(True, False, True, graph)
     for idx in range(len(toposort)):
         ele = toposort[idx]
         if visited[mapping[ele]] == 0:
             SCC += 1
-            _DFS(visited, ele, graph.transpose().to_adjList(), mapping)
+            _dfs(visited, ele, graph.transpose().to_adjList(), mapping)
     return SCC
 
 
@@ -225,7 +226,7 @@ def sssp_unweighted(graph: Graph, source: int) -> dict:
     return {vertices[idx]: cost for idx, cost in enumerate(cost)}
 
 
-def sssp_DAG(graph: Graph, source: int) -> dict:
+def sssp_dag(graph: Graph, source: int) -> dict:
     '''
     Finds the single source shortest path of a Directed Acyclic Graph (DAG).
     Args:
@@ -234,7 +235,7 @@ def sssp_DAG(graph: Graph, source: int) -> dict:
     Returns:
         A dictionary of vertex -> cost
     '''
-    if not graph.is_DAG():
+    if not graph.is_dag():
         raise TypeError("This graph is not a DAG")
     vertices = graph.list_vertices()
     cost = [1000000000 for _ in vertices]
@@ -310,8 +311,16 @@ def sssp_dijkstra(graph: Graph, source: int) -> dict:
 
 
 def floyd_warshall(graph: Graph, type: int) -> tuple:
+    '''
+    Find the all pairs shortest path by using Floud Warshall algorithm
+    Args:
+        graph: Graph Object
+        source: Source vertex Number
+    Returns:
+        A tuple containing 2 elements. (mapping, dictionary of vertex -> cost)
+    '''
     if type == 1:
-        return _floyd_SP(graph.list_vertices(), graph.to_adjList())
+        return _floyd_sp(graph.list_vertices(), graph.to_adjList())
     elif type == 2:
         return _floyd_reachability(graph.list_vertices(), graph.to_adjList())
     elif type == 3:
