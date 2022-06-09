@@ -1,6 +1,6 @@
 import unittest
 from jellybeans.structures import Graph
-from jellybeans.exceptions.GraphProperty import _GraphProperty
+from jellybeans.exceptions.graph_property import _GraphProperty
 
 class test_Graph(unittest.TestCase):
     

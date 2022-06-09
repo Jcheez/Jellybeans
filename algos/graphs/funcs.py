@@ -13,7 +13,7 @@ from .private_funcs import (
     _floyd_reachability,
     _floyd_detect_cycle
 )
-from jellybeans.exceptions.Negativecycle import _Negativecycle
+from jellybeans.exceptions.negative_cycle import _Negativecycle
 
 
 def reachability(graph: Graph, source: int, destination: int) -> tuple:

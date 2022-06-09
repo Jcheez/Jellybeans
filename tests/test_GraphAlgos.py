@@ -1,5 +1,5 @@
 import unittest
-from jellybeans.exceptions.Negativecycle import _Negativecycle
+from jellybeans.exceptions.negative_cycle import _Negativecycle
 
 from jellybeans.algos import (
     reachability,

@@ -1,6 +1,6 @@
 from math import floor
 from typing import Any, Callable
-from jellybeans.exceptions.NotOneBasedIndexed import _NotOneBasedIndexed
+from jellybeans.exceptions.not_one_based_index import _NotOneBasedIndexed
 
 class PriorityQueue:
     '''
