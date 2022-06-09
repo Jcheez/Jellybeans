@@ -10,6 +10,8 @@ class Avl:
 
     def __init__(self, comparator: Callable = lambda x, y: x >= y) -> None:
         '''
+        Args:
+            comparator: Function which is used to decide the relative ordering of elements
         Comparators should be defined in the following format: \n
         (x, y) => x>=y
         '''
@@ -18,7 +20,12 @@ class Avl:
 
     def __helper_search(self, curr_node: _BinaryNode, item) -> _BinaryNode:
         '''
-        INTERNAL FUNCTION: Helper function to find a particular item in the tree
+        INTERNAL FUNCTION: Helper function to find a particular item in the tree \n
+        Args:
+            curr_node: The current Node to perform the search on
+            item: The item that is to be found
+        Returns:
+            None or The Node which contains the item
         '''
         if curr_node is None:
             return None
@@ -31,7 +38,11 @@ class Avl:
 
     def __balance_factor(self, curr_node: _BinaryNode) -> int:
         '''
-        INTERNAL FUNCTION: Function to find the balance factor of a particular node
+        INTERNAL FUNCTION: Function to find the balance factor of a particular node \n
+        Args:
+            curr_node: The node to get the balance factor
+        Returns:
+            The balance factor
         '''
         left = -1 if curr_node.get_left() is None else curr_node.get_left().get_height()
         right = -1 if curr_node.get_right() is None else curr_node.get_right().get_height()
@@ -39,7 +50,11 @@ class Avl:
 
     def __rotate_left(self, curr_node: _BinaryNode) -> _BinaryNode:
         '''
-        INTERNAL FUNCTION: Perform a left rotation about the current node
+        INTERNAL FUNCTION: Perform a left rotation about the current node \n
+        Args:
+            curr_node: The node to perform a left rotation
+        Returns:
+            The new pivot node
         '''
         rc = curr_node.get_right()
         if rc is None:
@@ -60,7 +75,11 @@ class Avl:
 
     def __rotate_right(self, curr_node: _BinaryNode) -> _BinaryNode:
         '''
-        INTERNAL FUNCTION: Perform a right rotation about the current node
+        INTERNAL FUNCTION: Perform a right rotation about the current node \n
+        Args:
+            curr_node: The node to perform a right rotation
+        Returns:
+            The new pivot node
         '''
         lc = curr_node.get_left()
         if lc is None:
@@ -81,8 +100,11 @@ class Avl:
 
     def __balance(self, curr_node: _BinaryNode) -> _BinaryNode:
         '''
-        INTERNAL FUNCTION: Checks for inbalance at a node and performs
-        the necessary rotations 
+        INTERNAL FUNCTION: Checks for inbalance at a node and performs the necessary rotations \n
+        Args:
+            curr_node: The node to balance
+        Returns:
+            The new pivot
         '''
         factor = self.__balance_factor(curr_node)
         if factor == 2:
@@ -102,14 +124,20 @@ class Avl:
 
     def search(self, item: Any) -> Any:
         '''
-        Search for an item in the tree
+        Search for an item in the tree \n
+        Args:
+            item: The item to search for
+        Returns:
+            None or item
         '''
         res = self.__helper_search(self.__root, item)
         return None if res is None else res.get_item()
 
     def insert(self, item: Any) -> None:
         '''
-        Insert an element into the tree
+        Insert an element into the tree \n
+        Args:
+            item: The item to be inserted into the tree
         '''
         def helper(curr_node: _BinaryNode, item: Any) -> _BinaryNode:
             if curr_node is None:
@@ -132,7 +160,9 @@ class Avl:
 
     def delete(self, item: Any) -> None:
         '''
-        Delete an element from the tree
+        Delete an element from the tree \n
+        Args:
+            item: The item to be deleted from the tree
         '''
         def helper_delete(curr_node: _BinaryNode, item: Any) -> _BinaryNode:
             if curr_node is None:
@@ -167,7 +197,9 @@ class Avl:
 
     def min(self) -> Any:
         '''
-        Find the smallest element in the tree
+        Find the smallest element in the tree \n
+        Returns:
+            The item which is the minimum
         '''
         curr_node = self.__root
         while curr_node.get_left() is not None:
@@ -176,7 +208,9 @@ class Avl:
 
     def max(self) -> Any:
         '''
-        Find the largest element in the tree
+        Find the largest element in the tree \n
+        Returns:
+            The item which is the maximum
         '''
         curr_node = self.__root
         while curr_node.get_right() is not None:
@@ -185,7 +219,11 @@ class Avl:
 
     def successor(self, item: Any) -> Any:
         '''
-        Finds the next biggest element after "item"
+        Finds the next biggest element after "item" \n
+        Args:
+            item: To find the successor of this item
+        Returns:
+            The successor of the item
         '''
         def successor_helper(curr_node: _BinaryNode) -> _BinaryNode:
             if curr_node.get_right() is not None:
@@ -207,7 +245,11 @@ class Avl:
 
     def predecessor(self, item: Any) -> Any:
         '''
-        Finds the next smallest element after "item"
+        Finds the next smallest element after "item" \n
+        Args:
+            item: To find the predecessor of this item
+        Returns:
+            The predecessor of the item
         '''
         def predecessor_helper(curr_node: _BinaryNode) -> _BinaryNode:
             if curr_node.get_left() is not None:
@@ -229,7 +271,11 @@ class Avl:
 
     def rank(self, item: Any) -> int:
         '''
-        Finds the rank of a particular item
+        Finds the rank of a particular item \n
+        Args:
+            item: To find the rank of this item
+        Returns:
+            The item's rank
         '''
         def rank_helper(curr_node: _BinaryNode, item: Any) -> int:
             if curr_node == None:
@@ -248,7 +294,11 @@ class Avl:
 
     def select(self, rank: int) -> Any:
         '''
-        Given the rank, find the associated item
+        Given the rank, find the associated item \n
+        Args:
+            rank: The rank of the item
+        Returns:
+            The item
         '''
         def select_helper(curr_node: _BinaryNode, rank: int) -> _BinaryNode:
             if curr_node is None:
@@ -267,7 +317,9 @@ class Avl:
 
     def in_order(self) -> list:
         '''
-        Conduct an in order traversal of the tree and output the result in a list
+        Conduct an in order traversal of the tree and output the result in a list \n
+        Returns:
+            list of in order sequence
         '''
         def in_order_helper(curr_node: _BinaryNode) -> list:
             if curr_node == None:
@@ -278,7 +330,9 @@ class Avl:
 
     def pre_order(self) -> list:
         '''
-        Conduct a pre order traversal of the tree and output the result in a list
+        Conduct a pre order traversal of the tree and output the result in a list \n
+        Returns:
+            list of pre order sequence
         '''
         def pre_order_helper(curr_node: _BinaryNode) -> list:
             if curr_node == None:
@@ -289,7 +343,9 @@ class Avl:
 
     def post_order(self) -> list:
         '''
-        Conduct a post order traversal of the tree and output the result in a list
+        Conduct a post order traversal of the tree and output the result in a list \n
+        Returns:
+            list of post order sequence
         '''
         def post_order_helper(curr_node: _BinaryNode) -> list:
             if curr_node == None:
@@ -304,6 +360,9 @@ class Avl:
         In order Traversal (type = 1) \n
         Pre order Traversal (type = 2) \n
         Post order Traversal (type = 3) \n
+
+        Args:
+            type: see above
         '''
         if type == 1:
             print(self.in_order())
