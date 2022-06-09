@@ -6,5 +6,5 @@ from jellybeans.structures.queue.Queue import *
 from jellybeans.structures.queue.Deque import *
 from jellybeans.structures.heaps.PriorityQueue import *
 from jellybeans.structures.ufds.UFDS import *
-from jellybeans.structures.avl.AVL import *
+from jellybeans.structures.avl.avl import *
 from jellybeans.structures.graph.Graph import *

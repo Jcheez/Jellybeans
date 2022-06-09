@@ -1,5 +1,5 @@
 import unittest
-from jellybeans.structures import AVL
+from jellybeans.structures import Avl as AVL
 
 
 class test_AVL(unittest.TestCase):
