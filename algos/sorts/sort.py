@@ -8,7 +8,7 @@ List of sorting algorithms implemented:
     6. Radix Sort
 '''
 from typing import Callable, Generator
-from .pfuncs import swap, merge, partition
+from .private_funcs import swap, merge, partition
 
 def bubble_sort(lst:list, key:Callable = lambda x:x, visualise:bool = False, animate:bool = False) -> Generator:
     '''

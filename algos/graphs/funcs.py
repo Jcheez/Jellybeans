@@ -1,6 +1,6 @@
 from __future__ import annotations
 from jellybeans.structures import Graph, Queue, PriorityQueue, UFDS
-from .pfuncs import (
+from .private_funcs import (
     _BFS,
     _path_construction,
     _dfs_topo,
