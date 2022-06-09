@@ -1,1 +1,1 @@
-from Jellybeans.Structures.Stack import *
+from Jellybeans.structures.stack import *

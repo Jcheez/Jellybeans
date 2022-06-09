@@ -1,1 +1,1 @@
-from Jellybeans.Algos.sorts.Sort import *
+from Jellybeans.algos.sorts.Sort import *

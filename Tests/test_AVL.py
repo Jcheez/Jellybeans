@@ -1,5 +1,5 @@
 import unittest
-from Jellybeans.Structures import AVL
+from Jellybeans.structures import AVL
 
 
 class test_AVL(unittest.TestCase):

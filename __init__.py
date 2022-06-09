@@ -1,4 +1,4 @@
-import Jellybeans.Structures
-import Jellybeans.Algos
-import Jellybeans.Visualiser
-import Jellybeans.Tests
+import Jellybeans.structures
+import Jellybeans.algos
+import Jellybeans.visualiser
+import Jellybeans.tests

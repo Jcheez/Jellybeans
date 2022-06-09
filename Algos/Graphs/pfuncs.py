@@ -1,6 +1,6 @@
 from __future__ import annotations
-from Jellybeans.Structures import Queue, Graph
-from Jellybeans.Exceptions.Negativecycle import _Negativecycle
+from Jellybeans.structures import Queue, Graph
+from Jellybeans.exceptions.Negativecycle import _Negativecycle
 
 
 def _initializer(visited: bool, parent: bool, mapping: bool, graph: Graph) -> tuple:

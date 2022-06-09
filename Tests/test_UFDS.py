@@ -1,5 +1,5 @@
 import unittest
-from Jellybeans.Structures import UFDS
+from Jellybeans.structures import UFDS
 
 class test_UFDS(unittest.TestCase):
 

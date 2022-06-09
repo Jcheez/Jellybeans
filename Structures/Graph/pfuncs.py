@@ -1,5 +1,5 @@
 from __future__ import annotations
-from Jellybeans.Structures import Queue
+from Jellybeans.structures import Queue
 
 def _DFS_tree(visited: list, source: int, adj_list:dict, mapping:dict, parent:int) -> bool:
     '''

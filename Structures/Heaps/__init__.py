@@ -1,1 +1,1 @@
-from Jellybeans.Structures.Heaps import *
+from Jellybeans.structures.heaps import *

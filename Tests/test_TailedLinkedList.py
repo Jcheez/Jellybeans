@@ -1,5 +1,5 @@
 import unittest
-from Jellybeans.Structures import TailedLinkedList
+from Jellybeans.structures import TailedLinkedList
 
 class test_TailedLinkedList(unittest.TestCase):
     

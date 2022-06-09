@@ -1,5 +1,5 @@
 import unittest
-from Jellybeans.Structures import Deque
+from Jellybeans.structures import Deque
 
 class test_Queue(unittest.TestCase):
 

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from Jellybeans.Structures import Graph, Queue, PriorityQueue, UFDS
+from Jellybeans.structures import Graph, Queue, PriorityQueue, UFDS
 from .pfuncs import (
     _BFS,
     _path_construction,
@@ -12,7 +12,7 @@ from .pfuncs import (
     _floyd_reachability,
     _floyd_detect_cycle
 )
-from Jellybeans.Exceptions.Negativecycle import _Negativecycle
+from Jellybeans.exceptions.Negativecycle import _Negativecycle
 
 
 def reachability(graph: Graph, source: int, destination: int) -> tuple:

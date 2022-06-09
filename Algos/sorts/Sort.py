@@ -7,7 +7,7 @@ List of sorting algorithms implemented:
     5. Quick Sort
     6. Radix Sort
 '''
-from .privateFuncs import swap, merge, partition
+from .pfuncs import swap, merge, partition
 
 def bubbleSort(lst, key=lambda x:x, visualise=False, animate=False):
     '''
@@ -105,6 +105,7 @@ def mergeSort(lst, key=lambda x:x, visualise=False, animate=False):
     gen = __mergeSort_helper(lst, 0, len(lst)-1, [lst.copy()], key)
     if visualise or animate:
         return gen
+    return []
 
 def __mergeSort_helper(lst, start, end, steps, key=lambda x:x):
     '''
@@ -134,6 +135,7 @@ def quickSort(lst, key=lambda x:x, visualise=False, animate=False):
     gen = __quickSort_helper(lst, 0, len(lst)-1, [lst.copy()], key)
     if visualise or animate:
         return gen
+    return []
 
 def __quickSort_helper(lst, start, end, steps, key=lambda x:x):
     '''

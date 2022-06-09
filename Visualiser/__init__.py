@@ -1,1 +1,1 @@
-from Jellybeans.Visualiser.Animate import *
+from Jellybeans.visualiser.Animate import *

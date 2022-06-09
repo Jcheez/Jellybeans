@@ -1,1 +1,1 @@
-from Jellybeans.Structures.UFDS import *
+from Jellybeans.structures.ufds import *

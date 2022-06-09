@@ -1,3 +1,3 @@
-from Jellybeans.Structures.LinkedLists.LinkedList import *
-from Jellybeans.Structures.LinkedLists.TailedLinkedList import *
-from Jellybeans.Structures.LinkedLists.DoublyLinkedList import *
+from Jellybeans.structures.linkedLists.LinkedList import *
+from Jellybeans.structures.linkedLists.TailedLinkedList import *
+from Jellybeans.structures.linkedLists.DoublyLinkedList import *

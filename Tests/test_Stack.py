@@ -1,5 +1,5 @@
 import unittest
-from Jellybeans.Structures import Stack
+from Jellybeans.structures import Stack
 
 class test_Stack(unittest.TestCase):
 

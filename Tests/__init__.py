@@ -1,1 +1,1 @@
-from Jellybeans.Tests import *
+from Jellybeans.tests import *
