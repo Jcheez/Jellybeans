@@ -82,7 +82,7 @@ def topological_sort(graph: Graph) -> list:
         if in_degree[idx] == 0:
             q.enqueue(inv_map[idx])
 
-    while not q.isEmpty():
+    while not q.is_empty():
         tex = q.dequeue()
         toposort.append(tex)
         for v, _ in adj_list[tex]:

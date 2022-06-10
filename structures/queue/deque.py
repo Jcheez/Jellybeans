@@ -11,6 +11,9 @@ class Deque(Queue):
     def enqueue_front(self, item:Any) -> None:
         '''
         Add an item to the front of the queue
+        
+        Args:
+            item: item to be added
         '''
         self._Queue__size += 1
         self._Queue__queue.add_front(item)

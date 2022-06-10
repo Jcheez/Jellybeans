@@ -43,7 +43,7 @@ def _BFS(visited: list, parent: list, mapping: dict, source: int, adj_list: dict
     q = Queue()
     q.enqueue(source)
     visited[mapping[source]] = 1
-    while not q.isEmpty():
+    while not q.is_empty():
         tex = q.dequeue()
         for v, _ in adj_list[tex]:
             if visited[mapping[v]] == 0:
@@ -158,7 +158,7 @@ def _bfs_sssp_unweighted(vertex: int, parent: list, cost: list, adj_list: list, 
     q = Queue()
     q.enqueue(vertex)
 
-    while not q.isEmpty():
+    while not q.is_empty():
         curr = q.dequeue()
         for neighbor, weight in adj_list[curr]:
             if cost[mapping[neighbor]] == 1000000000:
