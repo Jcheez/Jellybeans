@@ -186,7 +186,7 @@ def spanning_tree_kruskal(graph: Graph, minimum: bool) -> Graph:
         mapping[v] = counter
         counter += 1
     for vFrom, vTo, weight in edge_list_sorted:
-        if not ufds.isSameSet(mapping[vFrom], mapping[vTo]):
+        if not ufds.is_same_set(mapping[vFrom], mapping[vTo]):
             ufds.union(mapping[vFrom], mapping[vTo])
             mst.add_bidirected_edge(vFrom, vTo, (weight, weight))
     return mst
