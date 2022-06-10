@@ -1,9 +1,10 @@
 from __future__ import annotations
-from Jellybeans.structures import Queue
+from jellybeans.structures import Queue
 
-def _DFS_tree(visited: list, source: int, adj_list:dict, mapping:dict, parent:int) -> bool:
+def _dfs_tree(visited: list, source: int, adj_list:dict, mapping:dict, parent:int) -> bool:
     '''
-    This is a modified version of Depth First Search used to check if a graph is a tree \n
+    This is a modified version of Depth First Search used to check if a graph is a tree 
+
     Args:
         visited: List to show if a vertex has been visited
         source: Source Vertex
@@ -14,16 +15,26 @@ def _DFS_tree(visited: list, source: int, adj_list:dict, mapping:dict, parent:in
     visited[mapping[source]] = 1
     for neighbor, _ in adj_list[source]:
         if visited[mapping[neighbor]] == 0:
-            if not _DFS_tree(visited, neighbor, adj_list, mapping, source):
+            if not _dfs_tree(visited, neighbor, adj_list, mapping, source):
                 return False
         elif neighbor != parent:
             return False
     return True
 
 def _is_connected_n_acyclic(vertices:list, adj_list:list, source:int):
+    '''
+    This function checks if a graph is a connected and acyclic graph.
+    
+    Args:
+        vertices: a list of vertices
+        adj_list: Adjacency list
+        source: source vertex to begin search
+    Returns:
+        True if the graph is connected and acyclic
+    '''
     visited = [0 for v in vertices]
     mapping = {vertices[idx]:idx for idx in range(len(vertices))}
-    if not _DFS_tree(visited, source, adj_list, mapping, source):
+    if not _dfs_tree(visited, source, adj_list, mapping, source):
         return False
     for v in visited:
         if v != 1:
@@ -32,7 +43,8 @@ def _is_connected_n_acyclic(vertices:list, adj_list:list, source:int):
 
 def _topo_sort(vertices:list, adj_list:list, edge_list:list) -> list:
     '''
-    Performs a topological sort on the graph. Based on Kahn's Algorithm \n
+    Performs a topological sort on the graph. Based on Kahn's Algorithm 
+
     Args:
         graph: Graph object
     Returns:
@@ -56,7 +68,7 @@ def _topo_sort(vertices:list, adj_list:list, edge_list:list) -> list:
         if in_degree[idx] == 0:
             q.enqueue(inv_map[idx])
 
-    while not q.isEmpty():
+    while not q.is_empty():
         tex = q.dequeue()
         toposort.append(tex)
         for v,_ in adj_list[tex]:

@@ -1,157 +1,157 @@
 import unittest
-from Jellybeans.structures import TailedLinkedList
+from jellybeans.structures import TailedLinkedList
 
 class test_TailedLinkedList(unittest.TestCase):
     
-    def test_addFront_1(self):
-        # Tests if addFront works with a empty LL
+    def test_add_front_1(self):
+        # Tests if add_front works with a empty LL
         LL = TailedLinkedList()
-        LL.addFront(12)
+        LL.add_front(12)
         self.assertEqual(len(LL), 1)
         self.assertEqual(LL.to_list(), [12])
         self.assertEqual(LL.get(0), 12)
 
-    def test_addFront_2(self):
-        # Tests if addFront works with a non-empty LL
+    def test_add_front_2(self):
+        # Tests if add_front works with a non-empty LL
         LL = TailedLinkedList([9,7,4,3])
-        LL.addFront(12)
+        LL.add_front(12)
         self.assertEqual(len(LL), 5)
         self.assertEqual(LL.to_list(), [12, 9, 7, 4, 3])
         self.assertEqual(LL.get(0), 12)
         self.assertEqual(LL.get(len(LL) - 1), 3)
 
-    def test_addBack_1(self):
-        # Tests if addBack works with a empty LL
+    def test_add_back_1(self):
+        # Tests if add_back works with a empty LL
         LL = TailedLinkedList()
-        LL.addBack(12)
+        LL.add_back(12)
         self.assertEqual(len(LL), 1)
         self.assertEqual(LL.to_list(), [12])
         self.assertEqual(LL.get(0), 12)
         self.assertEqual(LL.get(len(LL) - 1), 12)
 
-    def test_addBack_2(self):
-        # Tests if addBack works with a non-empty LL
+    def test_add_back_2(self):
+        # Tests if add_back works with a non-empty LL
         LL = TailedLinkedList([9,7,4,3])
-        LL.addBack(12)
+        LL.add_back(12)
         self.assertEqual(len(LL), 5)
         self.assertEqual(LL.to_list(), [9, 7, 4, 3, 12])
         self.assertEqual(LL.get(0), 9)
         self.assertEqual(LL.get(len(LL) - 1), 12)
 
-    def test_addAtIndex_1(self):
-        # Tests if addAtIndex works with an empty LL
+    def test_add_at_index_1(self):
+        # Tests if add_at_index works with an empty LL
         LL = TailedLinkedList()
-        LL.addAtIndex(12, 0)
+        LL.add_at_index(12, 0)
         self.assertEqual(len(LL), 1)
         self.assertEqual(LL.to_list(), [12])
         self.assertEqual(LL.get(0), 12)
         self.assertEqual(LL.get(len(LL) - 1), 12)
 
-    def test_addAtIndex_2(self):
-        # Tests if addAtIndex works with a LL with 1 element
+    def test_add_at_index_2(self):
+        # Tests if add_at_index works with a LL with 1 element
         LL = TailedLinkedList(12)
-        LL.addAtIndex(24, 1)
+        LL.add_at_index(24, 1)
         self.assertEqual(len(LL), 2)
         self.assertEqual(LL.to_list(), [12, 24])
         self.assertEqual(LL.get(0), 12)
         self.assertEqual(LL.get(len(LL) - 1), 24)
 
-    def test_addAtIndex_3(self):
-        # Tests if addAtIndex works with a non-empty LL
+    def test_add_at_index_3(self):
+        # Tests if add_at_index works with a non-empty LL
         LL = TailedLinkedList([9,7,4,3])
-        LL.addAtIndex(12, 3)
+        LL.add_at_index(12, 3)
         self.assertEqual(len(LL), 5)
         self.assertEqual(LL.to_list(), [9, 7, 4, 12, 3])
         self.assertEqual(LL.get(0), 9)
         self.assertEqual(LL.get(len(LL) - 1), 3)
 
-    def test_addAtIndex_4(self):
+    def test_add_at_index_4(self):
         # Tests if errors arise when index are erroneous
         LL = TailedLinkedList([9,7,4,3])
         with self.assertRaises(IndexError):
-            LL.addAtIndex(12, 5)
+            LL.add_at_index(12, 5)
         with self.assertRaises(IndexError):
-            LL.addAtIndex(12, -5)
+            LL.add_at_index(12, -5)
 
 
-    def test_removeFront_1(self):
-        # Tests if removeFront works with LL size 1
+    def test_remove_front_1(self):
+        # Tests if remove_front works with LL size 1
         LL = TailedLinkedList(13)
-        LL.removeFront()
+        LL.remove_front()
         self.assertEqual(len(LL), 0)
         self.assertEqual(LL.to_list(), [])
         self.assertEqual(LL.get(0), None)
         self.assertEqual(LL.get(len(LL) - 1), None)
         self.assertEqual(LL.get(0), None)
 
-    def test_removeFront_2(self):
-        # Tests if removeFront works with a non-empty LL
+    def test_remove_front_2(self):
+        # Tests if remove_front works with a non-empty LL
         LL = TailedLinkedList([9,7,4,3])
-        LL.removeFront()
+        LL.remove_front()
         self.assertEqual(len(LL), 3)
         self.assertEqual(LL.to_list(), [7, 4, 3])
         self.assertEqual(LL.get(0), 7)
         self.assertEqual(LL.get(len(LL) - 1), 3)
 
-    def test_removeFront_3(self):
-        # Tests if removeFront works with LL size 0
+    def test_remove_front_3(self):
+        # Tests if remove_front works with LL size 0
         LL = TailedLinkedList()
-        LL.removeFront()
+        LL.remove_front()
         self.assertEqual(len(LL), 0)
         self.assertEqual(LL.to_list(), [])
         self.assertEqual(LL.get(0), None)
 
-    def test_removeBack_1(self):
-        # Tests if removeBack works with LL size 0
+    def test_remove_back_1(self):
+        # Tests if remove_back works with LL size 0
         LL = TailedLinkedList()
-        LL.removeBack()
+        LL.remove_back()
         self.assertEqual(len(LL), 0)
         self.assertEqual(LL.to_list(), [])
         self.assertEqual(LL.get(0), None)
 
-    def test_removeBack_2(self):
-        # Tests if removeBack works with a LL size 1
+    def test_remove_back_2(self):
+        # Tests if remove_back works with a LL size 1
         LL = TailedLinkedList(9)
-        LL.removeBack()
+        LL.remove_back()
         self.assertEqual(len(LL), 0)
         self.assertEqual(LL.to_list(), [])
         self.assertEqual(LL.get(0), None)
 
-    def test_removeBack_3(self):
-        # Tests if removeBack works with a non-empty LL
+    def test_remove_back_3(self):
+        # Tests if remove_back works with a non-empty LL
         LL = TailedLinkedList([9,7,4,3])
-        LL.addBack(12)
+        LL.add_back(12)
         self.assertEqual(len(LL), 5)
         self.assertEqual(LL.to_list(), [9, 7, 4, 3, 12])
         self.assertEqual(LL.get(0), 9)
         self.assertEqual(LL.get(len(LL) - 1), 12)
 
         
-    def test_removeAtIndex_1(self):
-        # Tests if removeAtIndex works with a LL with 1 element
+    def test_remove_at_index_1(self):
+        # Tests if remove_at_index works with a LL with 1 element
         LL = TailedLinkedList(12)
-        LL.removeAtIndex(0)
+        LL.remove_at_index(0)
         self.assertEqual(len(LL), 0)
         self.assertEqual(LL.to_list(), [])
         self.assertEqual(LL.get(0), None)
         self.assertEqual(LL.get(len(LL) - 1), None)
 
-    def test_removeAtIndex_2(self):
-        # Tests if removeAtIndex works with a non-empty LL
+    def test_remove_at_index_2(self):
+        # Tests if remove_at_index works with a non-empty LL
         LL = TailedLinkedList([9,7,4,3])
-        LL.removeAtIndex(2)
+        LL.remove_at_index(2)
         self.assertEqual(len(LL), 3)
         self.assertEqual(LL.to_list(), [9, 7, 3])
         self.assertEqual(LL.get(0), 9)
         self.assertEqual(LL.get(len(LL) - 1), 3)
 
-    def test_removeAtIndex_3(self):
+    def test_remove_at_index_3(self):
         # Tests if errors arise when index are erroneous
         LL = TailedLinkedList([9,7,4,3])
         with self.assertRaises(IndexError):
-            LL.removeAtIndex(4)
+            LL.remove_at_index(4)
         with self.assertRaises(IndexError):
-            LL.removeAtIndex(-1)
+            LL.remove_at_index(-1)
 
     def test_update_1(self):
         # Tests if errors arise when index are erroneous
@@ -201,8 +201,8 @@ class test_TailedLinkedList(unittest.TestCase):
     def test_randomOps_1(self):
         # Tests if filter works correctly
         LL = TailedLinkedList([9,7,4,3])
-        LL.removeAtIndex(1).removeFront().removeBack().addAtIndex(123, 1)
+        LL.remove_at_index(1).remove_front().remove_back().add_at_index(123, 1)
         self.assertEqual(LL.to_list(), [4, 123])
-        LL.addBack(234)
+        LL.add_back(234)
         self.assertEqual(LL.get(2), 234)
         self.assertEqual(LL.get(len(LL) - 1), 234)

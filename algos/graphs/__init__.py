@@ -1,1 +1,1 @@
-from Jellybeans.algos.graphs.funcs import *
+from jellybeans.algos.graphs.funcs import *

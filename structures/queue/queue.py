@@ -1,5 +1,5 @@
 from typing import Any
-from Jellybeans.structures import TailedLinkedList
+from jellybeans.structures import TailedLinkedList
 
 class Queue:
     '''
@@ -9,37 +9,47 @@ class Queue:
         self.__size = 0
         self.__queue = TailedLinkedList()
 
-    def isEmpty(self) -> bool:
+    def is_empty(self) -> bool:
         '''
         Returns whether a queue is empty
+
+        Returns:
+            True if queue is empty
         '''
         return self.__size == 0
 
     def peek(self) -> Any:
         '''
-        Returns the element at the front of the queue
+        Returns:
+            element at the front of the queue
         '''
-        if self.isEmpty():
+        if self.is_empty():
             return None
         return self.__queue.get(0)
 
     def dequeue(self) -> Any:
         '''
         Returns and remove the element at the front of the queue
+
+        Returns:
+            element at the front of the queue
         '''
         if self.__size == 0:
             raise IndexError("No item available for removal")
         self.__size -= 1
         val = self.__queue.get(0)
-        self.__queue.removeFront()
+        self.__queue.remove_front()
         return val
 
     def enqueue(self, item:Any) -> None:
         '''
         Add an item to the back of the queue
+
+        Args:
+            item: item to be added
         '''
         self.__size += 1
-        self.__queue.addBack(item)
+        self.__queue.add_back(item)
 
     def __len__(self) -> int:
         '''

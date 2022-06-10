@@ -1,6 +1,6 @@
 import unittest
-from Jellybeans.structures import Graph
-from Jellybeans.exceptions.GraphProperty import _GraphProperty
+from jellybeans.structures import Graph
+from jellybeans.exceptions.graph_property import _GraphProperty
 
 class test_Graph(unittest.TestCase):
     
@@ -25,7 +25,7 @@ class test_Graph(unittest.TestCase):
         with self.assertRaises(_GraphProperty):
             g.add_edge(1, 4, weight=3)
         with self.assertRaises(_GraphProperty):
-            g.add_edge(vFrom=5, vTo=6, weight=10)
+            g.add_edge(v_from=5, v_to=6, weight=10)
 
     def test_add_replicated_edge(self):
         g = Graph()
@@ -35,7 +35,7 @@ class test_Graph(unittest.TestCase):
         with self.assertRaises(_GraphProperty):
             g.add_edge(1, 2, weight=3)
         with self.assertRaises(_GraphProperty):
-            g.add_edge(vFrom=1, vTo=2, weight=4)
+            g.add_edge(v_from=1, v_to=2, weight=4)
 
     def test_add_edge_with_replicated_node(self):
         g = Graph()
@@ -139,7 +139,7 @@ class test_Graph(unittest.TestCase):
         g.add_edge(1, 2, 5)
         g.add_edge(3, 2, 6)
         g.add_edge(1, 3, 7)
-        self.assertEqual(g.to_edgeList(), [(1, 2, 5), (1, 3, 7), (3, 2, 6)])
+        self.assertEqual(g.to_edge_list(), [(1, 2, 5), (1, 3, 7), (3, 2, 6)])
 
     def test_edge_list2(self):
         g = Graph()
@@ -150,7 +150,7 @@ class test_Graph(unittest.TestCase):
         g.add_edge(3, 2, 6)
         g.add_edge(1, 3, 7)
         g.delete_vertex(2)
-        self.assertEqual(g.to_edgeList(), [(1, 3, 7)])
+        self.assertEqual(g.to_edge_list(), [(1, 3, 7)])
 
     def test_adj_list1(self):
         g = Graph()
@@ -160,7 +160,7 @@ class test_Graph(unittest.TestCase):
         g.add_edge(1, 2, 5)
         g.add_edge(3, 2, 6)
         g.add_edge(1, 3, 7)
-        self.assertEqual(g.to_adjList(), {1: [(2, 5), (3, 7)], 2: [], 3: [(2, 6)]})
+        self.assertEqual(g.to_adj_list(), {1: [(2, 5), (3, 7)], 2: [], 3: [(2, 6)]})
 
     def test_adj_list2(self):
         g = Graph()
@@ -171,7 +171,7 @@ class test_Graph(unittest.TestCase):
         g.add_edge(3, 2, 6)
         g.add_edge(1, 3, 7)
         g.delete_vertex(2)
-        self.assertEqual(g.to_adjList(), {1: [(3, 7)], 3: []})
+        self.assertEqual(g.to_adj_list(), {1: [(3, 7)], 3: []})
 
     def test_adj_Matrix1(self):
         g = Graph()
@@ -487,7 +487,7 @@ class test_Graph(unittest.TestCase):
         g.add_vertex(1)
         g.add_vertex(2)
         g.add_bidirected_edge(1, 2, (1,1))
-        self.assertFalse(g.is_DAG())
+        self.assertFalse(g.is_dag())
 
     def test_is_dag2(self):
         g = Graph()
@@ -495,12 +495,12 @@ class test_Graph(unittest.TestCase):
         g.add_vertex(2)
         g.add_vertex(3)
         g.add_bidirected_edge(1, 2, (1,1))
-        self.assertFalse(g.is_DAG())
+        self.assertFalse(g.is_dag())
 
     def test_is_dag3(self):
         g = Graph()
         g.add_vertex(1)
-        self.assertTrue(g.is_DAG())
+        self.assertTrue(g.is_dag())
 
     def test_is_dag4(self):
         g = Graph()
@@ -514,7 +514,7 @@ class test_Graph(unittest.TestCase):
         g.add_bidirected_edge(3, 4, (1,1))
         g.add_bidirected_edge(4, 5, (1,1))
         g.add_bidirected_edge(5, 3, (1,1))
-        self.assertFalse(g.is_DAG())
+        self.assertFalse(g.is_dag())
 
     def test_is_dag5(self):
         g = Graph()
@@ -524,7 +524,7 @@ class test_Graph(unittest.TestCase):
         g.add_edge(1, 2)
         g.add_edge(1, 3)
         g.add_edge(2, 3)
-        self.assertTrue(g.is_DAG())
+        self.assertTrue(g.is_dag())
     
     def test_is_dag6(self):
         g = Graph()
@@ -536,7 +536,7 @@ class test_Graph(unittest.TestCase):
         g.add_edge(1, 2)
         g.add_edge(1, 3)
         g.add_edge(2, 3)
-        self.assertTrue(g.is_DAG())
+        self.assertTrue(g.is_dag())
 
     def test_is_dag7(self):
         g = Graph()
@@ -552,7 +552,7 @@ class test_Graph(unittest.TestCase):
         g.add_edge(4, 1)
         g.add_edge(2, 3)
         g.add_edge(3, 1)
-        self.assertTrue(g.is_DAG())
+        self.assertTrue(g.is_dag())
 
     def test_is_dag8(self):
         g = Graph()
@@ -573,7 +573,7 @@ class test_Graph(unittest.TestCase):
         g.add_edge(2, 1)
         g.add_edge(3, 1)
         g.add_edge(1, 0)
-        self.assertTrue(g.is_DAG())
+        self.assertTrue(g.is_dag())
 
     def test_is_dag9(self):
         g = Graph()
@@ -594,7 +594,7 @@ class test_Graph(unittest.TestCase):
         g.add_edge(2, 1)
         g.add_edge(3, 1)
         g.add_edge(1, 0)
-        self.assertFalse(g.is_DAG())
+        self.assertFalse(g.is_dag())
 
     def test_is_dag10(self):
         g = Graph()
@@ -611,4 +611,4 @@ class test_Graph(unittest.TestCase):
         g.add_edge(4, 6)
         g.add_edge(4, 5)
         g.add_edge(5, 6)
-        self.assertTrue(g.is_DAG())
+        self.assertTrue(g.is_dag())

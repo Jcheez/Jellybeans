@@ -1,15 +1,15 @@
 import unittest
-from Jellybeans.structures import Queue
+from jellybeans.structures import Queue
 
 class test_Queue(unittest.TestCase):
 
-    def test_isEmpty(self):
+    def test_is_empty(self):
         s = Queue()
-        self.assertTrue(s.isEmpty())
+        self.assertTrue(s.is_empty())
         s.enqueue(1)
-        self.assertFalse(s.isEmpty())
+        self.assertFalse(s.is_empty())
         s.dequeue()
-        self.assertTrue(s.isEmpty())
+        self.assertTrue(s.is_empty())
 
     def test_peek(self):
         s = Queue()

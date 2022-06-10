@@ -1,6 +1,6 @@
 import unittest
 
-from Jellybeans.algos.sorts.Sort import *
+from jellybeans.algos.sorts.sort import *
 
 class test_sort(unittest.TestCase):
     '''
@@ -17,32 +17,32 @@ class test_sort(unittest.TestCase):
     ############################################
     def test_unsortedList_bubble(self):
         lst = self.lst_random.copy()
-        [i for i in bubbleSort(lst)]
+        [i for i in bubble_sort(lst)]
         self.assertEqual(lst, self.lst_random_actual)
 
     def test_unsortedList_bubbleOptimised(self):
         lst = self.lst_random.copy()
-        [i for i in bubbleSort_optimised(lst)]
+        [i for i in bubble_sort_optimised(lst)]
         self.assertEqual(lst, self.lst_random_actual)
 
     def test_unsortedList_selection(self):
         lst = self.lst_random.copy()
-        [i for i in selectionSort(lst)]
+        [i for i in selection_sort(lst)]
         self.assertEqual(lst, self.lst_random_actual)
 
     def test_unsortedList_insertion(self):
         lst = self.lst_random.copy()
-        [i for i in insertionSort(lst)]
+        [i for i in insertion_sort(lst)]
         self.assertEqual(lst, self.lst_random_actual)
 
     def test_unsortedList_merge(self):
         lst = self.lst_random.copy()
-        mergeSort(lst)
+        merge_sort(lst)
         self.assertEqual(lst, self.lst_random_actual)
 
     def test_unsortedList_quick(self):
         lst = self.lst_random_str.copy()
-        quickSort(lst)
+        quick_sort(lst)
         self.assertEqual(lst, self.lst_random_str_actual)
 
     ###########################################
@@ -50,30 +50,30 @@ class test_sort(unittest.TestCase):
     ###########################################
     def test_unsortedList_str_bubble(self):
         lst = self.lst_random_str.copy()
-        [i for i in bubbleSort(lst)]
+        [i for i in bubble_sort(lst)]
         self.assertEqual(lst, self.lst_random_str_actual)
 
     def test_unsortedList_str_bubbleOptimised(self):
         lst = self.lst_random_str.copy()
-        [i for i in bubbleSort_optimised(lst)]
+        [i for i in bubble_sort_optimised(lst)]
         self.assertEqual(lst, self.lst_random_str_actual)
 
     def test_unsortedList_str_selection(self):
         lst = self.lst_random_str.copy()
-        [i for i in selectionSort(lst)]
+        [i for i in selection_sort(lst)]
         self.assertEqual(lst, self.lst_random_str_actual)
 
     def test_unsortedList_str_insertion(self):
         lst = self.lst_random_str.copy()
-        [i for i in insertionSort(lst)]
+        [i for i in insertion_sort(lst)]
         self.assertEqual(lst, self.lst_random_str_actual)
 
     def test_unsortedList_str_merge(self):
         lst = self.lst_random_str.copy()
-        mergeSort(lst)
+        merge_sort(lst)
         self.assertEqual(lst, self.lst_random_str_actual)
 
     def test_unsortedList_str_quick(self):
         lst = self.lst_random_str.copy()
-        quickSort(lst)
+        quick_sort(lst)
         self.assertEqual(lst, self.lst_random_str_actual)

@@ -8,25 +8,32 @@ class Stack:
         self.__size = 0
         self.__stack = []
 
-    def isEmpty(self) -> bool:
+    def is_empty(self) -> bool:
         '''
         Checks if there are elements in the stack
+
+        Returns:
+            True if stack has 0 elements
         '''
         return self.__size == 0
 
     def peek(self) -> Any:
         '''
-        Returns the element at the top of the stack
+        Returns:
+            element at the top of the stack
         '''
-        if self.isEmpty():
+        if self.is_empty():
             return None
         return self.__stack[self.__size - 1]
 
     def pop(self) -> Any:
         '''
         Returns and remove the element at the top of the stack
+
+        Returns:
+            element at the top of the stack
         '''
-        if self.isEmpty():
+        if self.is_empty():
             raise IndexError("Popping an empty stack")
         self.__size -= 1
         return self.__stack.pop()
@@ -34,6 +41,9 @@ class Stack:
     def push(self, item:Any) -> None:
         '''
         Insert an item into the top of the stack
+
+        Args:
+            item: Item to be inserted
         '''
         self.__stack.append(item)
         self.__size += 1

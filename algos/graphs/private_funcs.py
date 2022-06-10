@@ -1,11 +1,12 @@
 from __future__ import annotations
-from Jellybeans.structures import Queue, Graph
-from Jellybeans.exceptions.Negativecycle import _Negativecycle
+from jellybeans.structures import Queue, Graph
+from jellybeans.exceptions.negative_cycle import _Negativecycle
 
 
 def _initializer(visited: bool, parent: bool, mapping: bool, graph: Graph) -> tuple:
     '''
-    Initializer function which helps in producing lists used in graph traversals \n
+    Initializer function which helps in producing lists used in graph traversals 
+
     Args:
         visited: init the visited list?
         visited: init the parent list?
@@ -30,7 +31,8 @@ def _initializer(visited: bool, parent: bool, mapping: bool, graph: Graph) -> tu
 
 def _BFS(visited: list, parent: list, mapping: dict, source: int, adj_list: dict) -> None:
     '''
-    This is a modified version of Breath First Search \n
+    This is a modified version of Breath First Search 
+
     Args:
         visited: List to show if a vertex has been visited
         parent: List to show the parent of the current vertex
@@ -41,7 +43,7 @@ def _BFS(visited: list, parent: list, mapping: dict, source: int, adj_list: dict
     q = Queue()
     q.enqueue(source)
     visited[mapping[source]] = 1
-    while not q.isEmpty():
+    while not q.is_empty():
         tex = q.dequeue()
         for v, _ in adj_list[tex]:
             if visited[mapping[v]] == 0:
@@ -50,9 +52,10 @@ def _BFS(visited: list, parent: list, mapping: dict, source: int, adj_list: dict
                 q.enqueue(v)
 
 
-def _DFS(visited: list, source: int, adj_list: dict, mapping: dict) -> None:
+def _dfs(visited: list, source: int, adj_list: dict, mapping: dict) -> None:
     '''
-    This is a modified version of Depth First Search \n
+    This is a modified version of Depth First Search 
+
     Args:
         visited: List to show if a vertex has been visited
         source: Source Vertex
@@ -62,12 +65,13 @@ def _DFS(visited: list, source: int, adj_list: dict, mapping: dict) -> None:
     visited[mapping[source]] = 1
     for neighbor, _ in adj_list[source]:
         if visited[mapping[neighbor]] == 0:
-            _DFS(visited, neighbor, adj_list, mapping)
+            _dfs(visited, neighbor, adj_list, mapping)
 
 
 def _path_construction(parent: list, mapping: dict, source: int, destination: int) -> tuple:
     '''
-    Finds a valid path from the source vertex to the destination vertex \n
+    Finds a valid path from the source vertex to the destination vertex 
+
     Args:
         parent: A list of the vertex's predescessor
         mapping: Mapping of vertice number to index nu
@@ -89,9 +93,10 @@ def _path_construction(parent: list, mapping: dict, source: int, destination: in
     return tuple(path)
 
 
-def _DFS_topo(visited: list, toposort_arr: list, source: int, adj_list: dict, mapping: dict) -> None:
+def _dfs_topo(visited: list, toposort_arr: list, source: int, adj_list: dict, mapping: dict) -> None:
     '''
-    This is a helper function used for the DFS implementation of the topological sort \n
+    This is a helper function used for the DFS implementation of the topological sort 
+
     Args:
         visited: List to show if a vertex has been visited
         toposort_arr: List that contains the toposort ordering
@@ -102,7 +107,7 @@ def _DFS_topo(visited: list, toposort_arr: list, source: int, adj_list: dict, ma
     visited[mapping[source]] = 1
     for neighbor, _ in adj_list[source]:
         if visited[mapping[neighbor]] == 0:
-            _DFS_topo(visited, toposort_arr, neighbor, adj_list, mapping)
+            _dfs_topo(visited, toposort_arr, neighbor, adj_list, mapping)
     toposort_arr.append(source)
 
 
@@ -153,7 +158,7 @@ def _bfs_sssp_unweighted(vertex: int, parent: list, cost: list, adj_list: list, 
     q = Queue()
     q.enqueue(vertex)
 
-    while not q.isEmpty():
+    while not q.is_empty():
         curr = q.dequeue()
         for neighbor, weight in adj_list[curr]:
             if cost[mapping[neighbor]] == 1000000000:
@@ -165,7 +170,7 @@ def _bfs_sssp_unweighted(vertex: int, parent: list, cost: list, adj_list: list, 
                     raise _Negativecycle("Edge with negative weight detected!")
 
 
-def _floyd_SP(vertices: list, adj_list: list) -> tuple:
+def _floyd_sp(vertices: list, adj_list: list) -> tuple:
     '''
     Floyd Warshall algorithm to find the shortest path estimate for every pair of vertices
     Args:
@@ -213,7 +218,7 @@ def _floyd_reachability(vertices: list, adj_list: list) -> tuple:
 
 def _floyd_detect_cycle(vertices: list, adj_list: list) -> tuple:
     '''
-    Floyd Warshall algorithm to find the shortest path estimate for every pair of vertices
+    Floyd Warshall algorithm to detect cycles for every pair of vertices
     Args:
         vertices: List of vertices
         adj_list: Adjacency list for every matrix
