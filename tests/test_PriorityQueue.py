@@ -6,11 +6,11 @@ class test_Queue(unittest.TestCase):
 
     def test_isEmpty(self):
         pq = PriorityQueue()
-        self.assertTrue(pq.isEmpty())
+        self.assertTrue(pq.is_empty())
         pq.insert(1)
-        self.assertFalse(pq.isEmpty())
+        self.assertFalse(pq.is_empty())
         pq.extract()
-        self.assertTrue(pq.isEmpty())
+        self.assertTrue(pq.is_empty())
 
     def test_OneBased(self):
         with self.assertRaises(_NotOneBasedIndexed):

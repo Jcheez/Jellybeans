@@ -153,7 +153,7 @@ def spanning_tree_prim(graph: Graph, source: int, minimum: bool) -> Graph:
     for vTo, weight in adj_list[source]:
         pq.insert((source, vTo, weight))
     visited[source] = 1
-    while not pq.isEmpty():
+    while not pq.is_empty():
         vFrom, vTo, weight = pq.extract()
         if visited[mapping[vTo]] == 0:
             mst.add_bidirected_edge(vFrom, vTo, (weight, weight))
@@ -311,7 +311,7 @@ def sssp_dijkstra(graph: Graph, source: int) -> dict:
         else:
             costs[v] = 1000000000
             pq.insert((1000000000, v))
-    while not pq.isEmpty():
+    while not pq.is_empty():
         curr_weight, curr_vertex = pq.extract()
 
         for neighbor, weight in graph.to_adj_list()[curr_vertex]:
