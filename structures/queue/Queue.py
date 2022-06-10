@@ -31,7 +31,7 @@ class Queue:
             raise IndexError("No item available for removal")
         self.__size -= 1
         val = self.__queue.get(0)
-        self.__queue.removeFront()
+        self.__queue.remove_front()
         return val
 
     def enqueue(self, item:Any) -> None:
@@ -39,7 +39,7 @@ class Queue:
         Add an item to the back of the queue
         '''
         self.__size += 1
-        self.__queue.addBack(item)
+        self.__queue.add_back(item)
 
     def __len__(self) -> int:
         '''

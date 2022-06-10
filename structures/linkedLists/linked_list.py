@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import Any, Callable, NewType, Union
-from .Node import _Node
+from .node import _Node
 
 class LinkedList:
     '''
@@ -8,8 +8,6 @@ class LinkedList:
     '''
     def __init__(self, item:Any = None):
         '''
-        Create a LinkedList with 0 items, i item of multiple items 
-
         Args:
             item: either None, 1 item, or a list/tuple of items
         '''
@@ -20,59 +18,77 @@ class LinkedList:
         
         if (type(item) == list or type(item) == tuple):
             for i in item:
-                self.addBack(i)
+                self.add_back(i)
         else:
-            self.addBack(item)
+            self.add_back(item)
 
-    def addFront(self, item:Any) -> LinkedList:
+    def add_front(self, item:Any) -> LinkedList:
         '''
         Adds the item to the front of the linkedList
+
+        Args:
+            item: Item to be added at the front of the linked list
+        Returns:
+            The updated LinkedList
         '''
-        newNode = _Node(item, self.__head)
-        self.__head = newNode
+        new_node = _Node(item, self.__head)
+        self.__head = new_node
         self.__size += 1
         return self
         
-    def addBack(self, item:Any) -> LinkedList:
+    def add_back(self, item:Any) -> LinkedList:
         '''
         Adds the item to the back of the linkedlist
+
+        Args:
+            item: Item to be added at the back of the linked list
+        Returns:
+            The updated LinkedList
         '''
-        newNode = _Node(item)
+        new_node = _Node(item)
 
         if self.__head == None:
-            self.__head = newNode
+            self.__head = new_node
         else:
-            currNode = self.__head
-            while currNode.next() != None:
-                currNode = currNode.next()
-            currNode.setNext(newNode)
+            curr_node = self.__head
+            while curr_node.next() != None:
+                curr_node = curr_node.next()
+            curr_node.set_next(new_node)
         self.__size += 1
         return self
     
-    def addAtIndex(self, item:Any, index:int) -> LinkedList:
+    def add_at_index(self, item:Any, index:int) -> LinkedList:
         '''
         Adds the item at a specified index of the linkedlist
+        Args:
+            item: Item to be added
+            index: position to add the item
+        Returns:
+            The updated LinkedList
         '''
         if index < 0:
             raise IndexError("Linkedlist does not support negative indexing")
         elif index > self.__size:
             raise IndexError("Invalid Index: Proposed index larger than size of linkedList")
         elif index == 0:
-            self.addFront(item)
+            self.add_front(item)
         elif index == self.__size:
-            self.addBack(item)
+            self.add_back(item)
         else:
-            currNode = self.__head
-            for i in range(index-1):
-                currNode = currNode.next()
-            newNode = _Node(item, currNode.next())
-            currNode.setNext(newNode)
+            curr_node = self.__head
+            for _ in range(index-1):
+                curr_node = curr_node.next()
+            new_node = _Node(item, curr_node.next())
+            curr_node.set_next(new_node)
             self.__size += 1
         return self
 
-    def removeFront(self) -> LinkedList:
+    def remove_front(self) -> LinkedList:
         '''
         Remove the item at the front of the linked list
+
+        Returns:
+            The updated LinkedList
         '''
         if self.__size == 0:
             return self
@@ -80,9 +96,12 @@ class LinkedList:
         self.__size -= 1
         return self
 
-    def removeBack(self) -> LinkedList:
+    def remove_back(self) -> LinkedList:
         '''
         Remove the item at the back of the linked list
+
+        Returns:
+            The updated LinkedList
         '''
         if self.__size == 0:
             return self
@@ -90,45 +109,50 @@ class LinkedList:
             self.__head = None
             self.__size -= 1
         else:
-            currNode = self.__head
-            for iter in range(self.__size - 2):
-                currNode = currNode.next()
-            currNode.setNext(None)
+            curr_node = self.__head
+            for _ in range(self.__size - 2):
+                curr_node = curr_node.next()
+            curr_node.set_next(None)
             self.__size -= 1
         return self
 
-    def removeAtIndex(self, index) -> LinkedList:
+    def remove_at_index(self, index:int) -> LinkedList:
         '''
         Remove an item from a specified index 
 
         Args:
             index: Index of item to remove
+        Returns:
+            The updated LinkedList
         '''
         if index == 0:
-            return self.removeFront()
+            return self.remove_front()
         elif index == self.__size - 1:
-            return self.removeBack()
+            return self.remove_back()
         elif index >= self.__size:
             raise IndexError("Invalid Index: Proposed index larger than size of linkedList")
         elif index < 0:
             raise IndexError("Linkedlist does not support negative indexing")
         else:
-            currNode = self.__head
-            for i in range(index - 1):
-                currNode = currNode.next()
-            currNode.setNext(currNode.next().next())
+            curr_node = self.__head
+            for _ in range(index - 1):
+                curr_node = curr_node.next()
+            curr_node.set_next(curr_node.next().next())
             self.__size -= 1
             return self
 
-    def update(self, index: int, newItem:Any) -> LinkedList:
+    def update(self, index: int, new_item:Any) -> LinkedList:
         '''
         Update the value of an item at a specified index
+
         Args:
             index: index to be updated
             newItem: Item to be inserted into the linkedlist
+        Returns:
+            The updated LinkedList
         '''
-        currNode = self.__head
-        if currNode == None:
+        curr_node = self.__head
+        if curr_node == None:
             return self
         elif index < 0:
             raise IndexError("Linkedlist does not support negative indexing")
@@ -136,17 +160,23 @@ class LinkedList:
             raise IndexError("Invalid Index: Proposed index larger than size of linkedList")
         
         while index > 0:
-            currNode = currNode.next()
+            curr_node = curr_node.next()
             index -= 1
-        currNode.setItem(newItem)
+        curr_node.set_item(new_item)
         return self
 
     def get(self, index: int) -> Union[None, int]:
         '''
         Returns the item at a specified index
+
+        Args:
+            index: index of the item
+        
+        Returns:
+            None if the LinkedList is empty else the item
         '''
-        currNode = self.__head
-        if currNode == None:
+        curr_node = self.__head
+        if curr_node == None:
             return None
         elif index < 0:
             raise IndexError("Linkedlist does not support negative indexing")
@@ -154,45 +184,58 @@ class LinkedList:
             raise IndexError("Invalid Index: Proposed index larger than size of linkedList")
         
         while index > 0:
-            currNode = currNode.next()
+            curr_node = curr_node.next()
             index -= 1
-        return currNode.getItem()
+        return curr_node.get_item()
 
     def map(self, func: Callable[[Any], Any]) -> LinkedList:
         '''
         Maps the current LinkedList to a function. Returns a new LinkedList
+
+        Args:
+            func: A function to map the values by
+        Returns:
+            A new LinkedList containing the mapped values
         '''
-        newLL = LinkedList()
-        currNode = self.__head
+        new_ll = LinkedList()
+        curr_node = self.__head
 
-        while currNode != None:
-            newLL.addBack(func(currNode.getItem()))
-            currNode = currNode.next()
+        while curr_node != None:
+            new_ll.add_back(func(curr_node.get_item()))
+            curr_node = curr_node.next()
 
-        return newLL
+        return new_ll
 
     def filter(self, func: Callable[[Any], Any]) -> LinkedList:
         '''
         Filter the Linkedlist based on a function. Returns a new Linkedlist
-        '''
-        newLL = LinkedList()
-        currNode = self.__head
-        while currNode != None:
-            if func(currNode.getItem()):
-                newLL.addBack(currNode.getItem())
-            currNode = currNode.next()
 
-        return newLL
+        Args:
+            func: A function to filter the values by
+        Returns:
+            A new LinkedList containing the filtered values
+        '''
+        new_ll = LinkedList()
+        curr_node = self.__head
+        while curr_node != None:
+            if func(curr_node.get_item()):
+                new_ll.add_back(curr_node.get_item())
+            curr_node = curr_node.next()
+
+        return new_ll
 
     def to_list(self) -> list:
         '''
         Converts the LinkedList to a list
+
+        Returns:
+            A list containing the values in the LinkedList
         '''
-        currNode = self.__head
+        curr_node = self.__head
         result = []
-        while currNode != None:
-            result.append(currNode.getItem())
-            currNode = currNode.next()
+        while curr_node != None:
+            result.append(curr_node.get_item())
+            curr_node = curr_node.next()
         return result
 
     def __len__(self) -> int:
@@ -212,11 +255,11 @@ class LinkedList:
             return "[]"
         
         while currNode != None:
-            items.append(str(currNode.getItem()))
+            items.append(str(currNode.get_item()))
             currNode = currNode.next()
         return " => ".join(items)
 
-    def __eq__(self, other:int) -> bool:
+    def __eq__(self, other:LinkedList) -> bool:
         '''
         Tells whether two LinkedLists are equal
         '''
@@ -229,7 +272,7 @@ class LinkedList:
         curr2 = other.__head
 
         while curr1 != None and curr2 != None:
-            if curr1.getItem() != curr2.getItem():
+            if curr1.get_item() != curr2.get_item():
                 return False
             curr1 = curr1.next()
             curr2 = curr2.next()

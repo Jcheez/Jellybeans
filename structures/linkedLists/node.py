@@ -8,20 +8,20 @@ class _Node:
         item: item to store in the node
         nextNode: Reference pointer to the next node
     '''
-    def __init__(self, item:Any, nextNode:_Node=None):
+    def __init__(self, item:Any, next_node:_Node=None):
         self.__item = item
-        self.__nextNode = nextNode
+        self.__next_node = next_node
 
-    def getItem(self) -> Any:
+    def get_item(self) -> Any:
         return self.__item
 
     def next(self) -> _Node:
-        return self.__nextNode
+        return self.__next_node
 
-    def setItem(self, newItem: Any) -> _Node:
-        self.__item = newItem
+    def set_item(self, new_item: Any) -> _Node:
+        self.__item = new_item
         return self
 
-    def setNext(self, newNode:_Node) -> _Node:
-        self.__nextNode = newNode
+    def set_next(self, new_node:_Node) -> _Node:
+        self.__next_node = new_node
         return self
