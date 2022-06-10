@@ -3,13 +3,13 @@ from jellybeans.structures import Stack
 
 class test_Stack(unittest.TestCase):
 
-    def test_isEmpty(self):
+    def test_is_empty(self):
         s = Stack()
-        self.assertTrue(s.isEmpty())
+        self.assertTrue(s.is_empty())
         s.push(1)
-        self.assertFalse(s.isEmpty())
+        self.assertFalse(s.is_empty())
         s.pop()
-        self.assertTrue(s.isEmpty())
+        self.assertTrue(s.is_empty())
 
     def test_peek(self):
         s = Stack()
