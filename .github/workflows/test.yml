@@ -24,5 +24,4 @@ jobs:
           pip install matplotlib
       - name: Run unit tests
         run: |
-          cd ..
           python -m unittest discover -s tests -p 'test_*.py'
