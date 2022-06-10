@@ -1,1 +1,7 @@
 \__pycache__
+
+# dist files
+setup.py
+setup.cfg
+/jellybeans.egg-info
+/dist
