@@ -2,7 +2,7 @@
 
 # About
 
-Jellybeans aims to provide an easier development process when working with various data structures in python. Visualisations are also provided for sorting algortihms.
+Jellybeans aims to provide an easier development process when working with various data structures in python. Visualisations are provided for sorting algortihms.
 
 # Documentation
 [How to use this library?]()
@@ -10,11 +10,11 @@ Jellybeans aims to provide an easier development process when working with vario
 # Installation
 
 1. Ensure that you have python 3.7 and above
-2. Run the following command: pip install Jellybeans
+2. Run the following command: pip install jellybeans
 
 # Implementations
 
-Below are the data structures and sorting algorithms that are covered in this library.
+Below are the data structures and algorithms that are covered in this library.
 
 ## Data Structures
 
@@ -25,6 +25,7 @@ Below are the data structures and sorting algorithms that are covered in this li
 - Tailed Linked List
 - Doubly Linked List
 - Queue
+- Deque
 - Stack
 - Union Find Disjoint Sets (UFDS)
 
@@ -36,7 +37,7 @@ Below are the data structures and sorting algorithms that are covered in this li
 - Merge Sort
 - Quick Sort
 
-## Graphing Algorithms (TBC)
+## Graphing Algorithms
 
 - Reachability
 - Number of components
