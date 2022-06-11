@@ -3,5 +3,5 @@
 # dist files
 setup.py
 setup.cfg
-/jellybeans.egg-info
 /dist
+/jellybeans.egg-info
