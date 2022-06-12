@@ -46,9 +46,7 @@ class TailedLinkedList(LinkedList):
             self._LinkedList__head = new_node
             self.__tail = new_node
         else:
-            curr_node = self._LinkedList__head
-            while curr_node.next() != None:
-                curr_node = curr_node.next()
+            curr_node = self.__tail
             curr_node.set_next(new_node)
             self.__tail = new_node
         self._LinkedList__size += 1
