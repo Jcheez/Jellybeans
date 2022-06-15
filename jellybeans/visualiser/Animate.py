@@ -1,8 +1,9 @@
+from typing import Callable
 from matplotlib.artist import Artist
 import matplotlib.pyplot as plt
 import matplotlib.animation as anim
 
-def Show(lst, callable, speed = 0.5, sortKey = lambda x:x):
+def Show(lst:list, callable:Callable, speed:float = 0.5, sortKey:Callable = lambda x:x) -> None:
     '''
     A function to visualise sorting animations
     Args: 
@@ -37,7 +38,7 @@ def Show(lst, callable, speed = 0.5, sortKey = lambda x:x):
     _ = anim.FuncAnimation(fig, func=update_plot, fargs=(bar_rec, epochs, frames), frames=frames, interval=speed*1000, repeat=False)
     plt.show()
 
-def Print(lst, callable, sortKey = lambda x:x):
+def Print(lst:list, callable:Callable, sortKey:Callable = lambda x:x) -> None:
     '''
     A function to print the current state of list after every iteration
     Args: 
