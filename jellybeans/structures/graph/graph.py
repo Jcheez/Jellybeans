@@ -127,21 +127,21 @@ class Graph:
         self.__adj_list[v_from] = new_adj_list
         self.__reachable_by[v_to].remove(v_from)
 
-    def update_edge_weight(self, edge:list, newWeight:int) -> None:
+    def update_edge_weight(self, edge:list, new_weight:int) -> None:
         '''
-        Update the weight of an edge 
+        Update the weight of a directed edge 
 
         Args:
             edge: A list in the form of --> [source vertice, destination vertice]
-            newWeight: new weight of the edge
+            new_weight: new weight of the edge
         '''
         vFrom, vTo = edge
         self.delete_edge(edge)
-        self.add_edge(vFrom, vTo, newWeight)
+        self.add_edge(vFrom, vTo, new_weight)
 
     def neighbours_of(self, vertex:int) -> list:
         '''
-        FInd the neighbours of a vertice 
+        Find the neighbours of a vertice 
 
         Args:
             vertex: Source vertex
@@ -152,7 +152,7 @@ class Graph:
 
     def num_neighbours(self, vertex:int) -> int:
         '''
-        FInd the total number of neighbours of a vertice 
+        Find the total number of neighbours of a vertice 
 
         Args:
             vertex: Source vertex
@@ -163,7 +163,7 @@ class Graph:
 
     def edges_of(self, vertex:int) -> list:
         '''
-        FInd the outgoing edges of a vertex 
+        Find the outgoing edges of a vertex 
 
         Args:
             vertex: Source vertex
@@ -174,7 +174,7 @@ class Graph:
 
     def can_reach(self, vertex:int) -> list:
         '''
-        FInd the outgoing edges of a vertex 
+        Find the incoming edges of a vertex 
 
         Args:
             vertex: Source vertex
@@ -221,7 +221,7 @@ class Graph:
         '''
         return self.__adj_list.copy()
 
-    def to_adjMatrix(self):
+    def to_adj_matrix(self) -> tuple:
         '''
         Generate an adjacency matrix from the graph 
         

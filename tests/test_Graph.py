@@ -181,7 +181,7 @@ class test_Graph(unittest.TestCase):
         g.add_edge(1, 2, 5)
         g.add_edge(3, 2, 6)
         g.add_edge(1, 3, 7)
-        self.assertEqual(g.to_adjMatrix()[1], [[0, 5, 7], [0, 0, 0], [0, 6, 0]])
+        self.assertEqual(g.to_adj_matrix()[1], [[0, 5, 7], [0, 0, 0], [0, 6, 0]])
 
     def test_adj_Matrix2(self):
         g = Graph()
@@ -192,7 +192,7 @@ class test_Graph(unittest.TestCase):
         g.add_edge(3, 2, 6)
         g.add_edge(1, 3, 7)
         g.delete_vertex(2)
-        self.assertEqual(g.to_adjMatrix()[1], [[0, 7], [0, 0]])
+        self.assertEqual(g.to_adj_matrix()[1], [[0, 7], [0, 0]])
 
     def test_update_weight(self):
         g = Graph()
@@ -203,7 +203,7 @@ class test_Graph(unittest.TestCase):
         g.add_edge(3, 2, 6)
         g.add_edge(1, 3, 7)
         g.update_edge_weight([1, 3], 123)
-        self.assertEqual(g.to_adjMatrix()[1], [[0, 5, 123], [0, 0, 0], [0, 6, 0]])
+        self.assertEqual(g.to_adj_matrix()[1], [[0, 5, 123], [0, 0, 0], [0, 6, 0]])
 
     def test_is_tree1(self):
         g = Graph()

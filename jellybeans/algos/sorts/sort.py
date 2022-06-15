@@ -8,7 +8,7 @@ List of sorting algorithms implemented:
     6. Radix Sort
 '''
 from typing import Callable, Generator
-from .private_funcs import swap, merge, partition
+from .private_funcs import merge, partition
 
 def bubble_sort(lst:list, key:Callable = lambda x:x, visualise:bool = False, animate:bool = False) -> Generator:
     '''
@@ -21,10 +21,10 @@ def bubble_sort(lst:list, key:Callable = lambda x:x, visualise:bool = False, ani
         animate: used for visualising the animation
     '''
     yield lst.copy()
-    for i in range(len(lst) - 1):
+    for _ in range(len(lst) - 1):
         for j in range(len(lst) - 1):
             if key(lst[j]) > key(lst[j+1]):
-                swap(lst, j, j+1)
+                lst[j], lst[j+1] = lst[j+1], lst[j]
                 if animate:
                     yield lst.copy()
 
@@ -42,11 +42,11 @@ def bubble_sort_optimised(lst:list, key:Callable = lambda x:x, visualise:bool = 
         animate: used for visualising the animation
     '''
     yield lst.copy()
-    for i in range(len(lst) - 1):
+    for _ in range(len(lst) - 1):
         no_swaps = True
         for j in range(len(lst) - 1):
             if key(lst[j]) > key(lst[j+1]):
-                swap(lst, j, j+1)
+                lst[j], lst[j+1] = lst[j+1], lst[j]
                 no_swaps = False
                 if animate:
                     yield lst.copy()
@@ -73,7 +73,7 @@ def selection_sort(lst:list, key:Callable = lambda x:x, visualise:bool = False, 
         for j in range(i):
             if key(lst[j]) > key(lst[largest]):
                 largest = j
-        swap(lst, i, largest)
+        lst[i], lst[largest] = lst[largest], lst[i]
         if animate or visualise:
             yield lst.copy()
 

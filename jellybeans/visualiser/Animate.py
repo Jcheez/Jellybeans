@@ -1,3 +1,4 @@
+from matplotlib.artist import Artist
 import matplotlib.pyplot as plt
 import matplotlib.animation as anim
 
@@ -13,13 +14,19 @@ def Show(lst, callable, speed = 0.5, sortKey = lambda x:x):
     epochs = [-2]
     frames = list(callable(lst, animate=True, key=sortKey))
     fig, ax = plt.subplots()
+    texts = []
 
     def add_labels(lst):
         for i in range(len(lst)):
-            plt.text(i, lst[i], lst[i], ha = 'center')
+            texts.append(plt.text(i, lst[i], lst[i], ha = 'center'))
+
+    def remove_labels(lst):
+        for frame in lst:
+            Artist.remove(frame)
+        lst.clear()
 
     def update_plot(x, rec, epochs, frames):
-        ax.texts = []
+        remove_labels(texts)
         epochs[0] += 1
         for rec, val in zip(rec, x):
             rec.set_height(val)

@@ -328,7 +328,7 @@ def floyd_warshall(graph: Graph, type: int) -> tuple:
 
     Args:
         graph: Graph Object
-        source: Source vertex Number
+        type: The type of floyd variant
     Returns:
         A tuple containing 2 elements. (mapping, dictionary of vertex -> cost)
     '''

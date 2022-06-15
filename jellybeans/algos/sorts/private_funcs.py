@@ -3,19 +3,6 @@ TO DEVELOPERS: DO NOT USE THESE FUNCTION WITHOUT UNDERSTANDING ITS FULL FUNCTION
 '''
 from typing import Any, Callable
 
-def swap(lst:list, idx1:int, idx2:int) -> None:
-    '''
-    Description:
-        Private method which swaps two elements in a list
-    Args:
-        lst: list of elements
-        idx1: index of first element to be swapped
-        idx2: index of second element to be swapped
-    '''
-    temp = lst[idx1]
-    lst[idx1] = lst[idx2]
-    lst[idx2] = temp
-
 def merge(lst:list, start:int, mid:int, end:int, key:Callable) -> None:
     '''
     Description:
@@ -65,6 +52,8 @@ def partition(lst:list, start:int, end:int, key:callable) -> int:
     for idx in range(start+1, end+1):
         if key(lst[idx]) < key(pivot):
             margin += 1
-            swap(lst, idx, margin)
-    swap(lst, start, margin)
+            lst[idx], lst[margin] = lst[margin], lst[idx]
+            # swap(lst, idx, margin)
+    lst[start], lst[margin] = lst[margin], lst[start]
+    #swap(lst, start, margin)
     return margin

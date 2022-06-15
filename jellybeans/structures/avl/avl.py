@@ -115,7 +115,7 @@ class Avl:
         factor = self.__balance_factor(curr_node)
         if factor == 2:
             if self.__balance_factor(curr_node.get_left()) == -1:
-                curr_node.setLeft(self.__rotate_left(curr_node.get_left()))
+                curr_node.set_left(self.__rotate_left(curr_node.get_left()))
                 curr_node = self.__rotate_right(curr_node)
             else:
                 curr_node = self.__rotate_right(curr_node)
@@ -238,6 +238,8 @@ class Avl:
             The successor of the item
         '''
         def successor_helper(curr_node: _BinaryNode) -> _BinaryNode:
+            if curr_node is None:
+                raise ValueError("Item not found in heap")
             if curr_node.get_right() is not None:
                 temp_node = curr_node.get_right()
                 while temp_node.get_left() is not None:
