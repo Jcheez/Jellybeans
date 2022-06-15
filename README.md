@@ -1,11 +1,12 @@
 [![Test Suite Actions status](https://github.com/Jcheez/Jellybeans/workflows/Test%20Suite/badge.svg)](https://github.com/Jcheez/Jellybeans/actions)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/998cdf89-9121-4d61-a4e8-7db6cfddfa89/deploy-status)](https://app.netlify.com/sites/jellybeans/deploys)
 
 # About
 
 Jellybeans aims to provide an easier development process when working with various data structures in python. Visualisations are provided for sorting algortihms.
 
 # Documentation
-[How to use this library?]()
+[How to use this library?](https://jellybeans.netlify.app)
 
 # Installation
 
@@ -32,6 +33,7 @@ Below are the data structures and algorithms that are covered in this library.
 ## Sorting Algorithms
 
 - Bubble Sort
+- Bubble Sort Optimised
 - Selection Sort
 - Insertion Sort
 - Merge Sort
